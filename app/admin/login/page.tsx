@@ -31,9 +31,11 @@ function LoginForm() {
       if (res?.error) {
         setError(res.error);
         setLoading(false);
+      } else if (res?.success) {
+        window.location.href = res.redirectUrl || callbackUrl || "/admin";
       }
     } catch {
-      // Handled by Next.js redirect
+      window.location.href = callbackUrl || "/admin";
     }
   }
 

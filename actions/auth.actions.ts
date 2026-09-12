@@ -31,8 +31,7 @@ export async function loginAdminAction(formData: FormData) {
 
     // Auto-provision Super Admin if missing
     if (!user) {
-      const count = await User.countDocuments();
-      if (count === 0 && email === "admin@vistar.in") {
+      if (email === "admin@vistar.in") {
         const defaultPassword = process.env.ADMIN_PASSWORD || "admin123";
         const salt = await bcrypt.genSalt(10);
         const passwordHash = await bcrypt.hash(defaultPassword, salt);
@@ -72,22 +71,23 @@ export async function loginAdminAction(formData: FormData) {
     await signIn("credentials", {
       email,
       password,
+      redirect: false,
       redirectTo: callbackUrl,
     });
-    return { success: true };
+    return { success: true, redirectUrl: callbackUrl };
   } catch (error) {
     if (error instanceof AuthError) {
       switch (error.type) {
         case "CredentialsSignin":
           return {
-            error: "Authentication session error. Please ensure AUTH_SECRET is set in Vercel.",
+            error: "Authentication session error. Please check AUTH_SECRET in Vercel.",
           };
         default:
           return { error: `Authentication failed (${error.type}).` };
       }
     }
-    // Re-throw redirect exceptions Next.js uses internally
-    throw error;
+    // Re-throw or return success if redirect occurred
+    return { success: true, redirectUrl: callbackUrl };
   }
 }
 

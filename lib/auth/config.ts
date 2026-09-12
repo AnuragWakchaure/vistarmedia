@@ -7,8 +7,8 @@ import { z } from "zod";
 import { edgeAuthConfig } from "./edge-config";
 
 const loginSchema = z.object({
-  email: z.string().email(),
-  password: z.string().min(6),
+  email: z.string().min(1),
+  password: z.string().min(1),
 });
 
 export const authConfig: NextAuthConfig = {
@@ -34,26 +34,25 @@ export const authConfig: NextAuthConfig = {
           const targetEmail = parsed.data.email.toLowerCase().trim();
           let user = await User.findOne({ email: targetEmail });
 
-          // Self-healing: if no user exists at all in the DB, auto-provision default Super Admin
-          if (!user) {
-            const count = await User.countDocuments();
-            if (count === 0 && targetEmail === "admin@vistar.in") {
-              const defaultPassword = process.env.ADMIN_PASSWORD || "admin123";
-              const salt = await bcrypt.genSalt(10);
-              const passwordHash = await bcrypt.hash(defaultPassword, salt);
+          // Self-healing: if admin@vistar.in does not exist in the connected DB, auto-provision
+          if (!user && targetEmail === "admin@vistar.in") {
+            const defaultPassword = process.env.ADMIN_PASSWORD || "admin123";
+            const salt = await bcrypt.genSalt(10);
+            const passwordHash = await bcrypt.hash(defaultPassword, salt);
 
-              user = await User.create({
-                name: "VISTAR Super Admin",
-                email: "admin@vistar.in",
-                passwordHash,
-                role: "SUPER_ADMIN",
-                isActive: true,
-              });
-              console.log("[Auth] Auto-provisioned initial Super Admin account.");
-            } else {
-              console.warn(`[Auth Warning] No user found with email: ${targetEmail}`);
-              return null;
-            }
+            user = await User.create({
+              name: "VISTAR Super Admin",
+              email: "admin@vistar.in",
+              passwordHash,
+              role: "SUPER_ADMIN",
+              isActive: true,
+            });
+            console.log("[Auth] Auto-provisioned Super Admin account for admin@vistar.in.");
+          }
+
+          if (!user) {
+            console.warn(`[Auth Warning] No user found with email: ${targetEmail}`);
+            return null;
           }
 
           if (!user.isActive) {
