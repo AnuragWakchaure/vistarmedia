@@ -1,6 +1,7 @@
 import type { NextAuthConfig } from "next-auth";
 
 export const edgeAuthConfig: NextAuthConfig = {
+  trustHost: true,
   pages: {
     signIn: "/admin/login",
   },
@@ -21,5 +22,8 @@ export const edgeAuthConfig: NextAuthConfig = {
     },
   },
   providers: [],
-  secret: process.env.AUTH_SECRET,
+  secret:
+    process.env.AUTH_SECRET ||
+    process.env.NEXTAUTH_SECRET ||
+    "vistar_super_secret_session_key_2026_production_min32chars",
 };

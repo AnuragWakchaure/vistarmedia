@@ -354,7 +354,27 @@ async function seed() {
     console.log(`[✓] Seeded Location: ${loc.name} (${loc.countDisplay})`);
   }
 
-  console.log(`\nSuccessfully seeded creators, brands and locations into MongoDB!`);
+  // Seed Super Admin
+  const adminEmail = "admin@vistar.in";
+  const defaultPassword = process.env.ADMIN_PASSWORD || "admin123";
+  const salt = await bcrypt.genSalt(10);
+  const passwordHash = await bcrypt.hash(defaultPassword, salt);
+
+  await User.findOneAndUpdate(
+    { email: adminEmail },
+    {
+      name: "VISTAR Super Admin",
+      email: adminEmail,
+      passwordHash,
+      role: "SUPER_ADMIN",
+      isActive: true,
+      updatedAt: new Date(),
+    },
+    { upsert: true, returnDocument: "after" }
+  );
+  console.log(`[✓] Seeded Super Admin: ${adminEmail} (password: ${defaultPassword})`);
+
+  console.log(`\nSuccessfully seeded creators, brands, locations, and admin into MongoDB!`);
   await mongoose.disconnect();
   process.exit(0);
 }

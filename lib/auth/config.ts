@@ -13,6 +13,7 @@ const loginSchema = z.object({
 
 export const authConfig: NextAuthConfig = {
   ...edgeAuthConfig,
+  trustHost: true,
   providers: [
     Credentials({
       name: "Credentials",
@@ -22,31 +23,67 @@ export const authConfig: NextAuthConfig = {
       },
       async authorize(credentials) {
         const parsed = loginSchema.safeParse(credentials);
-        if (!parsed.success) return null;
+        if (!parsed.success) {
+          console.error("[Auth Error] Invalid login format:", parsed.error.format());
+          return null;
+        }
 
-        await connectDB();
+        try {
+          await connectDB();
 
-        const user = await User.findOne({
-          email: parsed.data.email.toLowerCase().trim(),
-        });
+          const targetEmail = parsed.data.email.toLowerCase().trim();
+          let user = await User.findOne({ email: targetEmail });
 
-        if (!user || !user.isActive) return null;
+          // Self-healing: if no user exists at all in the DB, auto-provision default Super Admin
+          if (!user) {
+            const count = await User.countDocuments();
+            if (count === 0 && targetEmail === "admin@vistar.in") {
+              const defaultPassword = process.env.ADMIN_PASSWORD || "admin123";
+              const salt = await bcrypt.genSalt(10);
+              const passwordHash = await bcrypt.hash(defaultPassword, salt);
 
-        const isValid = await bcrypt.compare(
-          parsed.data.password,
-          user.passwordHash
-        );
-        if (!isValid) return null;
+              user = await User.create({
+                name: "VISTAR Super Admin",
+                email: "admin@vistar.in",
+                passwordHash,
+                role: "SUPER_ADMIN",
+                isActive: true,
+              });
+              console.log("[Auth] Auto-provisioned initial Super Admin account.");
+            } else {
+              console.warn(`[Auth Warning] No user found with email: ${targetEmail}`);
+              return null;
+            }
+          }
 
-        user.lastLoginAt = new Date();
-        await user.save();
+          if (!user.isActive) {
+            console.warn(`[Auth Warning] User account is deactivated: ${targetEmail}`);
+            return null;
+          }
 
-        return {
-          id: user._id.toString(),
-          name: user.name,
-          email: user.email,
-          role: user.role,
-        };
+          const isValid = await bcrypt.compare(
+            parsed.data.password,
+            user.passwordHash
+          );
+
+          if (!isValid) {
+            console.warn(`[Auth Warning] Password mismatch for: ${targetEmail}`);
+            return null;
+          }
+
+          user.lastLoginAt = new Date();
+          await user.save();
+
+          return {
+            id: user._id.toString(),
+            name: user.name,
+            email: user.email,
+            role: user.role,
+          };
+        } catch (dbError) {
+          console.error("[Auth Error] Database connection or query error during authorization:", dbError);
+          return null;
+        }
       },
     }),
   ],
