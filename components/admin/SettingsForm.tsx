@@ -2,7 +2,21 @@
 
 import { useState } from "react";
 import { updateSettingsAction } from "@/actions/settings.actions";
-import { Save, CheckCircle2, MessageSquare, Phone, Mail, Globe, MapPin } from "lucide-react";
+import {
+  Save,
+  CheckCircle2,
+  AlertCircle,
+  MessageSquare,
+  Phone,
+  Mail,
+  Globe,
+  MapPin,
+  Sparkles,
+  Loader2,
+  Share2,
+  Video,
+} from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function SettingsForm({ initialData }: { initialData: any }) {
   const [loading, setLoading] = useState(false);
@@ -32,7 +46,7 @@ export default function SettingsForm({ initialData }: { initialData: any }) {
     try {
       await updateSettingsAction(payload);
       setSuccess(true);
-      setTimeout(() => setSuccess(false), 3000);
+      setTimeout(() => setSuccess(false), 4000);
     } catch (err: any) {
       setError(err.message || "Failed to save settings.");
     } finally {
@@ -41,161 +55,253 @@ export default function SettingsForm({ initialData }: { initialData: any }) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-6">
-      {success && (
-        <div className="p-3 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 rounded-lg text-xs flex items-center gap-2">
-          <CheckCircle2 className="w-4 h-4" /> Global settings updated successfully.
-        </div>
-      )}
+    <form onSubmit={handleSubmit} className="space-y-8 max-w-4xl">
+      <AnimatePresence>
+        {success && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            className="p-4 bg-emerald-50 border-2 border-emerald-200 text-emerald-800 rounded-2xl text-xs sm:text-sm font-bold flex items-center gap-3 shadow-sm"
+          >
+            <div className="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center shrink-0 text-emerald-700">
+              <CheckCircle2 className="w-5 h-5" />
+            </div>
+            <div>
+              <div className="font-bold">Settings Successfully Published</div>
+              <div className="text-xs text-emerald-700 font-medium">All live contact endpoints, WhatsApp routing, and footer links are now synchronized.</div>
+            </div>
+          </motion.div>
+        )}
 
-      {error && (
-        <div className="p-3 bg-rose-500/10 border border-rose-500/20 text-rose-400 rounded-lg text-xs">
-          {error}
-        </div>
-      )}
+        {error && (
+          <motion.div
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            className="p-4 bg-rose-50 border-2 border-rose-200 text-rose-800 rounded-2xl text-xs font-bold flex items-center gap-3 shadow-sm"
+          >
+            <AlertCircle className="w-5 h-5 shrink-0 text-rose-600" />
+            <span>{error}</span>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
-      {/* WhatsApp & Live Messaging */}
-      <div className="bg-[#0F172A] p-6 rounded-xl border border-white/5 space-y-4">
-        <div className="flex items-center gap-2 text-white font-semibold text-sm">
-          <MessageSquare className="w-4 h-4 text-emerald-400" />
-          WhatsApp Persistent CTA Configuration
+      {/* 1. WhatsApp Live Chat Routing */}
+      <div className="bg-white p-6 sm:p-10 rounded-3xl border-2 border-stone-200/90 shadow-nickpat space-y-6">
+        <div className="flex items-center justify-between border-b-2 border-stone-100 pb-4">
+          <div className="space-y-1">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-emerald-50 text-emerald-800 text-[11px] font-bold uppercase tracking-wider border border-emerald-200">
+              <MessageSquare className="w-3.5 h-3.5 text-emerald-600" />
+              <span>Floating Live CTA</span>
+            </div>
+            <h2 className="font-anton text-2xl sm:text-3xl text-[#111111] uppercase tracking-tight">
+              WhatsApp Chat Integration
+            </h2>
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label className="block text-xs text-slate-400 mb-1">WhatsApp Number (with country code) *</label>
-            <input
-              required
-              name="whatsappNumber"
-              defaultValue={initialData?.whatsappNumber || "+919876543210"}
-              placeholder="+919876543210"
-              className="w-full bg-[#080C14] border border-white/10 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-[#0066FF] font-mono"
-            />
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <div className="space-y-2">
+            <label className="block text-xs font-bold text-stone-700 uppercase tracking-wider">
+              WhatsApp Number (with country code) *
+            </label>
+            <div className="relative">
+              <input
+                required
+                name="whatsappNumber"
+                defaultValue={initialData?.whatsappNumber || "+919876543210"}
+                placeholder="+919876543210"
+                className="w-full bg-[#FCECDF]/30 border-2 border-stone-200 focus:border-[#B80F0A] focus:bg-white rounded-2xl px-4 py-3 text-xs sm:text-sm text-[#111111] font-mono font-bold focus:outline-none transition shadow-inner-sm"
+              />
+            </div>
+            <p className="text-[11px] text-stone-500 font-medium">Used in the persistent floating badge and direct chat buttons.</p>
           </div>
 
-          <div>
-            <label className="block text-xs text-slate-400 mb-1">Agency Display Name</label>
+          <div className="space-y-2">
+            <label className="block text-xs font-bold text-stone-700 uppercase tracking-wider">
+              Agency Display Name *
+            </label>
             <input
               required
               name="companyName"
               defaultValue={initialData?.companyName || "VISTAR"}
-              className="w-full bg-[#080C14] border border-white/10 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-[#0066FF]"
+              placeholder="VISTAR"
+              className="w-full bg-[#FCECDF]/30 border-2 border-stone-200 focus:border-[#B80F0A] focus:bg-white rounded-2xl px-4 py-3 text-xs sm:text-sm text-[#111111] font-bold focus:outline-none transition shadow-inner-sm"
             />
+            <p className="text-[11px] text-stone-500 font-medium">Shown on header watermark, chat cards, and copyright tags.</p>
           </div>
         </div>
 
-        <div>
-          <label className="block text-xs text-slate-400 mb-1">Pre-filled Chat Message *</label>
+        <div className="space-y-2">
+          <label className="block text-xs font-bold text-stone-700 uppercase tracking-wider">
+            Pre-Filled Customer Greeting Message *
+          </label>
           <textarea
             required
             name="whatsappDefaultMessage"
-            rows={2}
+            rows={3}
             defaultValue={
               initialData?.whatsappDefaultMessage ||
               "Hi VISTAR, I'm interested in an influencer marketing campaign for my brand. I would like to discuss my campaign requirements."
             }
-            className="w-full bg-[#080C14] border border-white/10 rounded-lg p-3 text-xs text-white focus:outline-none focus:border-[#0066FF]"
+            className="w-full bg-[#FCECDF]/30 border-2 border-stone-200 focus:border-[#B80F0A] focus:bg-white rounded-2xl p-4 text-xs sm:text-sm text-[#111111] placeholder-stone-400 focus:outline-none transition resize-none font-medium shadow-inner-sm leading-relaxed"
           />
+          <p className="text-[11px] text-stone-500 font-medium">Automatically pre-fills the message box when a brand taps the WhatsApp button.</p>
         </div>
       </div>
 
-      {/* Direct Contact Points */}
-      <div className="bg-[#0F172A] p-6 rounded-xl border border-white/5 space-y-4">
-        <div className="flex items-center gap-2 text-white font-semibold text-sm">
-          <Phone className="w-4 h-4 text-[#0066FF]" /> Direct Contact Information
-        </div>
-
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label className="block text-xs text-slate-400 mb-1">Primary Agency Phone *</label>
-            <input
-              required
-              name="phone"
-              defaultValue={initialData?.phone || "+91 98765 43210"}
-              className="w-full bg-[#080C14] border border-white/10 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-[#0066FF] font-mono"
-            />
-          </div>
-
-          <div>
-            <label className="block text-xs text-slate-400 mb-1">Inquiry / Contact Email *</label>
-            <input
-              required
-              type="email"
-              name="email"
-              defaultValue={initialData?.email || "connect@vistar.in"}
-              className="w-full bg-[#080C14] border border-white/10 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-[#0066FF]"
-            />
+      {/* 2. Direct Agency Contact Details */}
+      <div className="bg-white p-6 sm:p-10 rounded-3xl border-2 border-stone-200/90 shadow-nickpat space-y-6">
+        <div className="flex items-center justify-between border-b-2 border-stone-100 pb-4">
+          <div className="space-y-1">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#FCECDF] text-[#B80F0A] text-[11px] font-bold uppercase tracking-wider border border-[#B80F0A]/20">
+              <Phone className="w-3.5 h-3.5 text-[#B80F0A]" />
+              <span>Direct Channels</span>
+            </div>
+            <h2 className="font-anton text-2xl sm:text-3xl text-[#111111] uppercase tracking-tight">
+              Official Agency Contact Data
+            </h2>
           </div>
         </div>
 
-        <div>
-          <label className="block text-xs text-slate-400 mb-1">Office / Operating Location *</label>
-          <input
-            required
-            name="address"
-            defaultValue={initialData?.address || "Pune & Mumbai, Maharashtra, India"}
-            className="w-full bg-[#080C14] border border-white/10 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-[#0066FF]"
-          />
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <div className="space-y-2">
+            <label className="block text-xs font-bold text-stone-700 uppercase tracking-wider">
+              Primary Phone Support *
+            </label>
+            <div className="relative">
+              <Phone className="w-4 h-4 text-stone-400 absolute left-4 top-3.5" />
+              <input
+                required
+                name="phone"
+                defaultValue={initialData?.phone || "+91 98765 43210"}
+                placeholder="+91 98765 43210"
+                className="w-full bg-[#FCECDF]/30 border-2 border-stone-200 focus:border-[#B80F0A] focus:bg-white rounded-2xl pl-11 pr-4 py-3 text-xs sm:text-sm text-[#111111] font-mono font-bold focus:outline-none transition shadow-inner-sm"
+              />
+            </div>
+          </div>
+
+          <div className="space-y-2">
+            <label className="block text-xs font-bold text-stone-700 uppercase tracking-wider">
+              Official Inquiry Email *
+            </label>
+            <div className="relative">
+              <Mail className="w-4 h-4 text-stone-400 absolute left-4 top-3.5" />
+              <input
+                required
+                type="email"
+                name="email"
+                defaultValue={initialData?.email || "connect@vistar.in"}
+                placeholder="connect@vistar.in"
+                className="w-full bg-[#FCECDF]/30 border-2 border-stone-200 focus:border-[#B80F0A] focus:bg-white rounded-2xl pl-11 pr-4 py-3 text-xs sm:text-sm text-[#111111] font-bold focus:outline-none transition shadow-inner-sm"
+              />
+            </div>
+          </div>
+        </div>
+
+        <div className="space-y-2">
+          <label className="block text-xs font-bold text-stone-700 uppercase tracking-wider">
+            Office & Regional Operations Address *
+          </label>
+          <div className="relative">
+            <MapPin className="w-4 h-4 text-stone-400 absolute left-4 top-3.5" />
+            <input
+              required
+              name="address"
+              defaultValue={initialData?.address || "Pune & Mumbai, Maharashtra, India"}
+              placeholder="Pune & Mumbai, Maharashtra, India"
+              className="w-full bg-[#FCECDF]/30 border-2 border-stone-200 focus:border-[#B80F0A] focus:bg-white rounded-2xl pl-11 pr-4 py-3 text-xs sm:text-sm text-[#111111] font-medium focus:outline-none transition shadow-inner-sm"
+            />
+          </div>
         </div>
       </div>
 
-      {/* Social URLs */}
-      <div className="bg-[#0F172A] p-6 rounded-xl border border-white/5 space-y-4">
-        <div className="flex items-center gap-2 text-white font-semibold text-sm">
-          <Globe className="w-4 h-4 text-purple-400" /> Official Channels & Social Handles
+      {/* 3. Social Media Channels */}
+      <div className="bg-white p-6 sm:p-10 rounded-3xl border-2 border-stone-200/90 shadow-nickpat space-y-6">
+        <div className="flex items-center justify-between border-b-2 border-stone-100 pb-4">
+          <div className="space-y-1">
+            <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-amber-50 text-amber-800 text-[11px] font-bold uppercase tracking-wider border border-amber-200">
+              <Globe className="w-3.5 h-3.5 text-amber-600" />
+              <span>Online Presence</span>
+            </div>
+            <h2 className="font-anton text-2xl sm:text-3xl text-[#111111] uppercase tracking-tight">
+              Official Social Profiles
+            </h2>
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-          <div>
-            <label className="block text-xs text-slate-400 mb-1">Instagram URL</label>
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-5">
+          <div className="space-y-2">
+            <label className="block text-xs font-bold text-stone-700 uppercase tracking-wider flex items-center gap-1.5">
+              <Share2 className="w-3.5 h-3.5 text-[#EE6A43]" /> Instagram Profile Link
+            </label>
             <input
               name="instagramUrl"
               defaultValue={initialData?.instagramUrl || ""}
               placeholder="https://instagram.com/vistar_agency"
-              className="w-full bg-[#080C14] border border-white/10 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-[#0066FF]"
+              className="w-full bg-[#FCECDF]/30 border-2 border-stone-200 focus:border-[#B80F0A] focus:bg-white rounded-2xl px-4 py-3 text-xs sm:text-sm text-[#111111] focus:outline-none transition font-medium shadow-inner-sm"
             />
           </div>
 
-          <div>
-            <label className="block text-xs text-slate-400 mb-1">LinkedIn URL</label>
+          <div className="space-y-2">
+            <label className="block text-xs font-bold text-stone-700 uppercase tracking-wider flex items-center gap-1.5">
+              <Globe className="w-3.5 h-3.5 text-blue-600" /> LinkedIn Company URL
+            </label>
             <input
               name="linkedinUrl"
               defaultValue={initialData?.linkedinUrl || ""}
               placeholder="https://linkedin.com/company/vistar"
-              className="w-full bg-[#080C14] border border-white/10 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-[#0066FF]"
+              className="w-full bg-[#FCECDF]/30 border-2 border-stone-200 focus:border-[#B80F0A] focus:bg-white rounded-2xl px-4 py-3 text-xs sm:text-sm text-[#111111] focus:outline-none transition font-medium shadow-inner-sm"
             />
           </div>
 
-          <div>
-            <label className="block text-xs text-slate-400 mb-1">YouTube Channel URL</label>
+          <div className="space-y-2">
+            <label className="block text-xs font-bold text-stone-700 uppercase tracking-wider flex items-center gap-1.5">
+              <Video className="w-3.5 h-3.5 text-red-600" /> YouTube Channel Link
+            </label>
             <input
               name="youtubeUrl"
               defaultValue={initialData?.youtubeUrl || ""}
               placeholder="https://youtube.com/@vistar"
-              className="w-full bg-[#080C14] border border-white/10 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-[#0066FF]"
+              className="w-full bg-[#FCECDF]/30 border-2 border-stone-200 focus:border-[#B80F0A] focus:bg-white rounded-2xl px-4 py-3 text-xs sm:text-sm text-[#111111] focus:outline-none transition font-medium shadow-inner-sm"
             />
           </div>
 
-          <div>
-            <label className="block text-xs text-slate-400 mb-1">Facebook URL</label>
+          <div className="space-y-2">
+            <label className="block text-xs font-bold text-stone-700 uppercase tracking-wider flex items-center gap-1.5">
+              <Share2 className="w-3.5 h-3.5 text-blue-800" /> Facebook Page Link
+            </label>
             <input
               name="facebookUrl"
               defaultValue={initialData?.facebookUrl || ""}
               placeholder="https://facebook.com/vistar"
-              className="w-full bg-[#080C14] border border-white/10 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-[#0066FF]"
+              className="w-full bg-[#FCECDF]/30 border-2 border-stone-200 focus:border-[#B80F0A] focus:bg-white rounded-2xl px-4 py-3 text-xs sm:text-sm text-[#111111] focus:outline-none transition font-medium shadow-inner-sm"
             />
           </div>
         </div>
       </div>
 
-      <button
-        type="submit"
-        disabled={loading}
-        className="w-full sm:w-auto px-6 py-2.5 bg-[#0066FF] hover:bg-[#0052CC] disabled:opacity-50 text-white font-semibold text-xs rounded-lg transition inline-flex items-center justify-center gap-2"
-      >
-        <Save className="w-4 h-4" />
-        {loading ? "Saving Settings..." : "Save Global Settings"}
-      </button>
+      {/* Save Button */}
+      <div className="pt-2">
+        <button
+          type="submit"
+          disabled={loading}
+          className="w-full sm:w-auto px-10 py-4 bg-[#B80F0A] hover:bg-[#960C08] disabled:opacity-50 text-white font-anton text-sm uppercase tracking-wider rounded-full transition-all shadow-nickpat hover:scale-[1.01] inline-flex items-center justify-center gap-2.5 cursor-pointer disabled:cursor-not-allowed"
+        >
+          {loading ? (
+            <>
+              <Loader2 className="w-4 h-4 animate-spin" />
+              <span>Publishing Settings...</span>
+            </>
+          ) : (
+            <>
+              <Save className="w-4 h-4" />
+              <span>Save & Publish Agency Settings</span>
+            </>
+          )}
+        </button>
+      </div>
     </form>
   );
 }

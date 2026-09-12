@@ -3,7 +3,7 @@ import { Lead } from "@/models/Lead";
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import { updateLeadStatusAction, addLeadNoteAction } from "@/actions/lead.actions";
-import { ArrowLeft, Mail, Phone, MapPin, Briefcase, DollarSign, Calendar, Globe } from "lucide-react";
+import { ArrowLeft, Mail, Phone, Globe, MessageSquare, CheckCircle2 } from "lucide-react";
 
 export const dynamic = "force-dynamic";
 
@@ -37,111 +37,125 @@ export default async function LeadDetailPage({
       <div className="flex items-center justify-between">
         <Link
           href="/admin/leads"
-          className="inline-flex items-center gap-2 text-xs text-slate-400 hover:text-white transition"
+          className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#B80F0A] hover:underline transition"
         >
           <ArrowLeft className="w-4 h-4" /> Back to Inquiries
         </Link>
-        <div className="text-xs text-slate-500 font-mono">ID: {lead._id.toString()}</div>
+        <div className="text-xs text-stone-500 font-mono font-semibold">ID: {lead._id.toString()}</div>
       </div>
 
       {/* Main Grid */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Left Column - Core Lead Details */}
         <div className="md:col-span-2 space-y-6">
-          <div className="bg-[#0F172A] p-6 rounded-xl border border-white/5 space-y-4">
+          <div className="bg-white p-6 sm:p-8 rounded-3xl border-2 border-stone-200/90 shadow-nickpat space-y-5">
             <div className="flex items-start justify-between">
               <div>
-                <h1 className="text-xl font-bold text-white">{lead.brand}</h1>
-                <p className="text-xs text-slate-400 mt-0.5">Contact: {lead.name}</p>
+                <h1 className="font-anton text-2xl sm:text-3xl text-[#111111] uppercase tracking-tight">
+                  {lead.brand}
+                </h1>
+                <p className="text-xs text-stone-600 font-bold mt-0.5">Contact Person: {lead.name}</p>
               </div>
-              <span className="px-2.5 py-1 rounded text-xs font-semibold uppercase bg-blue-500/10 text-blue-400 border border-blue-500/20">
+              <span className="px-3 py-1 rounded-full text-xs font-bold uppercase bg-[#FCECDF] text-[#B80F0A] border-2 border-dashed border-[#B80F0A]">
                 {lead.status.replace("_", " ")}
               </span>
             </div>
 
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-xs">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-2 text-xs font-medium">
               <a
                 href={`tel:${lead.phone}`}
-                className="p-2.5 rounded-lg bg-[#080C14] border border-white/5 flex items-center gap-2 text-slate-300 hover:text-white"
+                className="p-3 rounded-2xl bg-[#FCECDF]/30 border-2 border-stone-200 hover:border-[#B80F0A] flex items-center gap-2.5 text-stone-800 transition"
               >
-                <Phone className="w-4 h-4 text-[#0066FF]" />
-                {lead.phone}
+                <div className="w-8 h-8 rounded-xl bg-[#B80F0A]/10 text-[#B80F0A] flex items-center justify-center">
+                  <Phone className="w-4 h-4" />
+                </div>
+                <div>
+                  <div className="text-[10px] text-stone-500 font-bold uppercase">Phone</div>
+                  <div className="font-bold text-[#111111]">{lead.phone}</div>
+                </div>
               </a>
               <a
                 href={`mailto:${lead.email}`}
-                className="p-2.5 rounded-lg bg-[#080C14] border border-white/5 flex items-center gap-2 text-slate-300 hover:text-white"
+                className="p-3 rounded-2xl bg-[#FCECDF]/30 border-2 border-stone-200 hover:border-[#B80F0A] flex items-center gap-2.5 text-stone-800 transition"
               >
-                <Mail className="w-4 h-4 text-[#0066FF]" />
-                {lead.email}
+                <div className="w-8 h-8 rounded-xl bg-[#B80F0A]/10 text-[#B80F0A] flex items-center justify-center">
+                  <Mail className="w-4 h-4" />
+                </div>
+                <div>
+                  <div className="text-[10px] text-stone-500 font-bold uppercase">Email</div>
+                  <div className="font-bold text-[#111111] truncate max-w-[140px]">{lead.email}</div>
+                </div>
               </a>
             </div>
 
             {lead.websiteOrInstagram && (
-              <div className="p-2.5 rounded-lg bg-[#080C14] border border-white/5 flex items-center gap-2 text-xs text-slate-300">
-                <Globe className="w-4 h-4 text-[#0066FF]" />
-                <span>Website / Social:</span>
+              <div className="p-3 rounded-2xl bg-[#FCECDF]/30 border-2 border-stone-200 flex items-center gap-2 text-xs text-stone-800 font-medium">
+                <Globe className="w-4 h-4 text-[#B80F0A]" />
+                <span className="font-bold">Website / Social:</span>
                 <a
                   href={lead.websiteOrInstagram}
                   target="_blank"
                   rel="noreferrer"
-                  className="text-blue-400 hover:underline"
+                  className="text-[#B80F0A] font-bold hover:underline truncate"
                 >
                   {lead.websiteOrInstagram}
                 </a>
               </div>
             )}
 
-            <div className="pt-4 border-t border-white/5 grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs">
+            <div className="pt-4 border-t-2 border-stone-100 grid grid-cols-2 sm:grid-cols-3 gap-4 text-xs">
               <div>
-                <span className="text-slate-500 block text-[10px] uppercase">Industry</span>
-                <span className="text-white font-medium">{lead.industry}</span>
+                <span className="text-stone-400 block text-[10px] font-bold uppercase">Industry</span>
+                <span className="text-[#111111] font-bold">{lead.industry}</span>
               </div>
               <div>
-                <span className="text-slate-500 block text-[10px] uppercase">Type</span>
-                <span className="text-white font-medium">{lead.campaignType}</span>
+                <span className="text-stone-400 block text-[10px] font-bold uppercase">Campaign Type</span>
+                <span className="text-[#111111] font-bold">{lead.campaignType}</span>
               </div>
               <div>
-                <span className="text-slate-500 block text-[10px] uppercase">Location</span>
-                <span className="text-white font-medium">{lead.targetLocation}</span>
+                <span className="text-stone-400 block text-[10px] font-bold uppercase">Target Location</span>
+                <span className="text-[#111111] font-bold">{lead.targetLocation}</span>
               </div>
               <div>
-                <span className="text-slate-500 block text-[10px] uppercase">Budget</span>
-                <span className="text-white font-mono font-medium">{lead.budget}</span>
+                <span className="text-stone-400 block text-[10px] font-bold uppercase">Target Budget</span>
+                <span className="text-[#B80F0A] font-mono font-bold">{lead.budget}</span>
               </div>
               <div>
-                <span className="text-slate-500 block text-[10px] uppercase">Submitted</span>
-                <span className="text-slate-300">
+                <span className="text-stone-400 block text-[10px] font-bold uppercase">Submission Date</span>
+                <span className="text-stone-700 font-medium">
                   {new Date(lead.createdAt).toLocaleDateString()}
                 </span>
               </div>
             </div>
 
-            <div className="pt-4 border-t border-white/5">
-              <span className="text-slate-500 block text-[10px] uppercase mb-1">
-                Campaign Brief & Requirements
+            <div className="pt-4 border-t-2 border-stone-100">
+              <span className="text-stone-500 block text-[10px] font-bold uppercase mb-2">
+                Campaign Brief & Client Requirements
               </span>
-              <p className="text-xs text-slate-300 leading-relaxed whitespace-pre-line bg-[#080C14] p-3 rounded-lg border border-white/5">
+              <p className="text-xs text-stone-700 leading-relaxed whitespace-pre-line bg-[#FCECDF]/30 p-4 rounded-2xl border border-stone-200 font-medium">
                 {lead.requirements}
               </p>
             </div>
           </div>
 
           {/* Internal CRM Notes Section */}
-          <div className="bg-[#0F172A] p-6 rounded-xl border border-white/5 space-y-4">
-            <h2 className="text-sm font-semibold text-white">Internal Discussion Notes</h2>
+          <div className="bg-white p-6 sm:p-8 rounded-3xl border-2 border-stone-200/90 shadow-nickpat space-y-4">
+            <h2 className="font-anton text-xl text-[#111111] uppercase tracking-tight flex items-center gap-2">
+              <MessageSquare className="w-4 h-4 text-[#B80F0A]" /> Internal Agency Discussion Notes
+            </h2>
 
-            <form action={handleAddNote} className="space-y-2">
+            <form action={handleAddNote} className="space-y-3">
               <textarea
                 name="note"
                 required
                 rows={2}
-                placeholder="Log a client interaction, call notes, or follow-up status..."
-                className="w-full bg-[#080C14] border border-white/10 rounded-lg p-2.5 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-[#0066FF]"
+                placeholder="Log a call, meeting notes, creator shortlist discussion, or pricing proposal..."
+                className="w-full bg-[#FCECDF]/30 border-2 border-stone-200 focus:border-[#B80F0A] focus:bg-white rounded-2xl p-3 text-xs text-[#111111] placeholder-stone-400 focus:outline-none transition font-medium"
               />
               <div className="flex justify-end">
                 <button
                   type="submit"
-                  className="px-3 py-1.5 bg-[#0066FF] hover:bg-[#0052CC] text-white text-xs font-semibold rounded-lg transition"
+                  className="px-5 py-2 bg-[#B80F0A] hover:bg-[#960C08] text-white text-xs font-bold uppercase tracking-wider rounded-full transition shadow-sm cursor-pointer hover:scale-[1.02]"
                 >
                   Add Note
                 </button>
@@ -150,7 +164,9 @@ export default async function LeadDetailPage({
 
             <div className="space-y-2 pt-2">
               {!lead.notes || lead.notes.length === 0 ? (
-                <div className="text-xs text-slate-500 italic">No notes recorded yet.</div>
+                <div className="text-xs text-stone-400 italic p-3 rounded-xl bg-stone-50 text-center font-medium">
+                  No internal notes recorded yet.
+                </div>
               ) : (
                 lead.notes
                   .slice()
@@ -158,13 +174,13 @@ export default async function LeadDetailPage({
                   .map((note: any, idx: number) => (
                     <div
                       key={idx}
-                      className="p-3 bg-[#080C14] border border-white/5 rounded-lg text-xs space-y-1"
+                      className="p-3.5 bg-[#FCECDF]/20 border border-stone-200 rounded-2xl text-xs space-y-1 font-medium"
                     >
-                      <div className="flex items-center justify-between text-[10px] text-slate-500">
-                        <span className="font-semibold text-slate-400">{note.author}</span>
-                        <span>{new Date(note.createdAt).toLocaleString()}</span>
+                      <div className="flex items-center justify-between text-[10px] text-stone-500">
+                        <span className="font-bold text-[#B80F0A] uppercase tracking-wider">{note.author}</span>
+                        <span className="font-mono">{new Date(note.createdAt).toLocaleString()}</span>
                       </div>
-                      <p className="text-slate-300">{note.body}</p>
+                      <p className="text-stone-800">{note.body}</p>
                     </div>
                   ))
               )}
@@ -174,15 +190,15 @@ export default async function LeadDetailPage({
 
         {/* Right Column - Status Control */}
         <div className="space-y-4">
-          <div className="bg-[#0F172A] p-5 rounded-xl border border-white/5 space-y-3">
-            <h2 className="text-xs font-semibold text-white uppercase tracking-wider">
-              Update Status
+          <div className="bg-white p-6 rounded-3xl border-2 border-stone-200/90 shadow-nickpat space-y-4">
+            <h2 className="font-anton text-lg text-[#111111] uppercase tracking-tight">
+              Update Deal Stage
             </h2>
             <form action={handleStatusChange} className="space-y-3">
               <select
                 name="status"
                 defaultValue={lead.status}
-                className="w-full bg-[#080C14] border border-white/10 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-[#0066FF]"
+                className="w-full bg-[#FCECDF]/30 border-2 border-stone-200 focus:border-[#B80F0A] focus:bg-white rounded-xl px-3 py-2.5 text-xs text-[#111111] focus:outline-none transition font-bold uppercase"
               >
                 <option value="NEW">New</option>
                 <option value="CONTACTED">Contacted</option>
@@ -193,7 +209,7 @@ export default async function LeadDetailPage({
               </select>
               <button
                 type="submit"
-                className="w-full py-2 bg-white/5 hover:bg-white/10 text-xs font-semibold text-white rounded-lg transition"
+                className="w-full py-2.5 bg-[#B80F0A] hover:bg-[#960C08] text-white text-xs font-bold uppercase tracking-wider rounded-full transition shadow-sm cursor-pointer hover:scale-[1.02]"
               >
                 Update Stage
               </button>

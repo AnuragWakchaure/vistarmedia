@@ -55,28 +55,29 @@ export default function HomepageEditorForm({ initialData }: { initialData: any }
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
       {success && (
-        <div className="p-4 bg-emerald-500/10 border border-emerald-500/20 text-emerald-400 rounded-xl text-xs flex items-center gap-2">
-          <CheckCircle2 className="w-4 h-4 shrink-0" />
-          <span>Homepage copy updated and published to the live site.</span>
+        <div className="p-4 bg-emerald-50 border-2 border-emerald-200 text-emerald-800 rounded-2xl text-xs font-bold flex items-center gap-2">
+          <CheckCircle2 className="w-4 h-4 shrink-0 text-emerald-600" />
+          <span>Homepage copy updated and successfully published to live website.</span>
         </div>
       )}
 
       {error && (
-        <div className="p-4 bg-rose-500/10 border border-rose-500/20 text-rose-400 rounded-xl text-xs flex items-center gap-2">
-          <AlertCircle className="w-4 h-4 shrink-0" />
+        <div className="p-4 bg-rose-50 border-2 border-rose-200 text-rose-800 rounded-2xl text-xs font-bold flex items-center gap-2">
+          <AlertCircle className="w-4 h-4 shrink-0 text-rose-600" />
           <span>{error}</span>
         </div>
       )}
 
       {/* Hero Section */}
-      <div className="bg-[#0F172A] p-6 rounded-2xl border border-white/5 space-y-4">
-        <div className="flex items-center gap-2 text-white font-bold text-sm">
-          <Home className="w-4 h-4 text-[#0066FF]" /> Hero Banner Content
+      <div className="bg-white p-6 sm:p-8 rounded-3xl border-2 border-stone-200/90 shadow-nickpat space-y-5">
+        <div className="flex items-center gap-2 text-[#111111]">
+          <Home className="w-4 h-4 text-[#B80F0A]" />
+          <h2 className="font-anton text-xl uppercase tracking-tight">Hero Banner Copy</h2>
         </div>
 
         <div>
-          <label className="block text-xs font-medium text-slate-400 mb-1.5">
-            Highlight Badge (Top Pill) *
+          <label className="block text-[11px] font-bold text-stone-700 uppercase tracking-wider mb-1.5">
+            Highlight Badge (Top Sticker Pill) *
           </label>
           <input
             name="heroHighlight"
@@ -84,12 +85,12 @@ export default function HomepageEditorForm({ initialData }: { initialData: any }
             value={formData.heroHighlight}
             onChange={handleChange}
             placeholder="e.g. 200+ Creators Connected Across Maharashtra"
-            className="w-full bg-[#080C14] border border-white/10 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-[#0066FF] transition"
+            className="w-full bg-[#FCECDF]/30 border-2 border-stone-200 focus:border-[#B80F0A] focus:bg-white rounded-xl px-3.5 py-2.5 text-xs text-[#111111] placeholder-stone-400 focus:outline-none transition font-medium"
           />
         </div>
 
         <div>
-          <label className="block text-xs font-medium text-slate-400 mb-1.5">
+          <label className="block text-[11px] font-bold text-stone-700 uppercase tracking-wider mb-1.5">
             Primary H1 Heading *
           </label>
           <input
@@ -98,12 +99,12 @@ export default function HomepageEditorForm({ initialData }: { initialData: any }
             value={formData.heroHeading}
             onChange={handleChange}
             placeholder="Influencer Marketing That Makes Brands Stand Out."
-            className="w-full bg-[#080C14] border border-white/10 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-[#0066FF] transition"
+            className="w-full bg-[#FCECDF]/30 border-2 border-stone-200 focus:border-[#B80F0A] focus:bg-white rounded-xl px-3.5 py-2.5 text-xs text-[#111111] placeholder-stone-400 focus:outline-none transition font-medium"
           />
         </div>
 
         <div>
-          <label className="block text-xs font-medium text-slate-400 mb-1.5">
+          <label className="block text-[11px] font-bold text-stone-700 uppercase tracking-wider mb-1.5">
             Subheading Paragraph *
           </label>
           <textarea
@@ -113,75 +114,76 @@ export default function HomepageEditorForm({ initialData }: { initialData: any }
             value={formData.heroSubheading}
             onChange={handleChange}
             placeholder="Connect your brand with verified regional creators..."
-            className="w-full bg-[#080C14] border border-white/10 rounded-lg p-3 text-xs text-white focus:outline-none focus:border-[#0066FF] transition"
+            className="w-full bg-[#FCECDF]/30 border-2 border-stone-200 focus:border-[#B80F0A] focus:bg-white rounded-xl p-3 text-xs text-[#111111] placeholder-stone-400 focus:outline-none transition font-medium"
           />
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
-            <label className="block text-xs font-medium text-slate-400 mb-1.5">
+            <label className="block text-[11px] font-bold text-stone-700 uppercase tracking-wider mb-1.5">
               Primary CTA Button Text
             </label>
             <input
               name="primaryCtaText"
               value={formData.primaryCtaText}
               onChange={handleChange}
-              className="w-full bg-[#080C14] border border-white/10 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-[#0066FF] transition"
+              className="w-full bg-[#FCECDF]/30 border-2 border-stone-200 focus:border-[#B80F0A] focus:bg-white rounded-xl px-3.5 py-2.5 text-xs text-[#111111] font-bold uppercase focus:outline-none transition"
             />
           </div>
           <div>
-            <label className="block text-xs font-medium text-slate-400 mb-1.5">
+            <label className="block text-[11px] font-bold text-stone-700 uppercase tracking-wider mb-1.5">
               Secondary CTA Button Text
             </label>
             <input
               name="secondaryCtaText"
               value={formData.secondaryCtaText}
               onChange={handleChange}
-              className="w-full bg-[#080C14] border border-white/10 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-[#0066FF] transition"
+              className="w-full bg-[#FCECDF]/30 border-2 border-stone-200 focus:border-[#B80F0A] focus:bg-white rounded-xl px-3.5 py-2.5 text-xs text-[#111111] font-bold uppercase focus:outline-none transition"
             />
           </div>
         </div>
       </div>
 
       {/* Section Headings */}
-      <div className="bg-[#0F172A] p-6 rounded-2xl border border-white/5 space-y-4">
-        <div className="flex items-center gap-2 text-white font-bold text-sm">
-          <Sparkles className="w-4 h-4 text-[#0066FF]" /> Section Headings & Copy
+      <div className="bg-white p-6 sm:p-8 rounded-3xl border-2 border-stone-200/90 shadow-nickpat space-y-5">
+        <div className="flex items-center gap-2 text-[#111111]">
+          <Sparkles className="w-4 h-4 text-[#B80F0A]" />
+          <h2 className="font-anton text-xl uppercase tracking-tight">Section Headings & Copy</h2>
         </div>
 
         <div>
-          <label className="block text-xs font-medium text-slate-400 mb-1.5">
+          <label className="block text-[11px] font-bold text-stone-700 uppercase tracking-wider mb-1.5">
             Why Choose VISTAR Heading
           </label>
           <input
             name="whyUsHeading"
             value={formData.whyUsHeading}
             onChange={handleChange}
-            className="w-full bg-[#080C14] border border-white/10 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-[#0066FF] transition"
+            className="w-full bg-[#FCECDF]/30 border-2 border-stone-200 focus:border-[#B80F0A] focus:bg-white rounded-xl px-3.5 py-2.5 text-xs text-[#111111] focus:outline-none transition font-medium"
           />
         </div>
 
         <div>
-          <label className="block text-xs font-medium text-slate-400 mb-1.5">
+          <label className="block text-[11px] font-bold text-stone-700 uppercase tracking-wider mb-1.5">
             Creators Section Heading
           </label>
           <input
             name="creatorsHeading"
             value={formData.creatorsHeading}
             onChange={handleChange}
-            className="w-full bg-[#080C14] border border-white/10 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-[#0066FF] transition"
+            className="w-full bg-[#FCECDF]/30 border-2 border-stone-200 focus:border-[#B80F0A] focus:bg-white rounded-xl px-3.5 py-2.5 text-xs text-[#111111] focus:outline-none transition font-medium"
           />
         </div>
 
         <div>
-          <label className="block text-xs font-medium text-slate-400 mb-1.5">
+          <label className="block text-[11px] font-bold text-stone-700 uppercase tracking-wider mb-1.5">
             Maharashtra Regional Heading
           </label>
           <input
             name="maharashtraHeading"
             value={formData.maharashtraHeading}
             onChange={handleChange}
-            className="w-full bg-[#080C14] border border-white/10 rounded-lg px-3.5 py-2.5 text-xs text-white focus:outline-none focus:border-[#0066FF] transition"
+            className="w-full bg-[#FCECDF]/30 border-2 border-stone-200 focus:border-[#B80F0A] focus:bg-white rounded-xl px-3.5 py-2.5 text-xs text-[#111111] focus:outline-none transition font-medium"
           />
         </div>
       </div>
@@ -189,10 +191,10 @@ export default function HomepageEditorForm({ initialData }: { initialData: any }
       <button
         type="submit"
         disabled={loading}
-        className="px-6 py-3 bg-[#0066FF] hover:bg-[#0052CC] disabled:opacity-50 text-white font-semibold text-xs rounded-xl transition inline-flex items-center gap-2 uppercase tracking-wider shadow-lg shadow-[#0066FF]/20"
+        className="px-8 py-3.5 bg-[#B80F0A] hover:bg-[#960C08] disabled:opacity-50 text-white font-bold text-xs uppercase tracking-wider rounded-full transition shadow-sm hover:scale-[1.02] inline-flex items-center gap-2 cursor-pointer"
       >
         <Save className="w-4 h-4" />
-        {loading ? "Saving Changes..." : "Save & Publish Changes"}
+        <span>{loading ? "Saving Changes..." : "Publish Content Updates"}</span>
       </button>
     </form>
   );

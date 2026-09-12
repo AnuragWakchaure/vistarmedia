@@ -16,77 +16,148 @@ import {
   Inbox,
   Settings as SettingsIcon,
   LogOut,
+  ExternalLink,
+  X,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useAdminNav } from "./AdminNavContext";
+import { motion, AnimatePresence } from "framer-motion";
 
 const NAV_ITEMS = [
   { label: "Dashboard", href: "/admin", icon: LayoutDashboard },
-  { label: "Leads / Enquiries", href: "/admin/leads", icon: Inbox },
-  { label: "Creators", href: "/admin/creators", icon: Users },
+  { label: "Leads & Enquiries", href: "/admin/leads", icon: Inbox },
+  { label: "Creators Network", href: "/admin/creators", icon: Users },
   { label: "Campaigns", href: "/admin/campaigns", icon: Film },
-  { label: "Brands", href: "/admin/brands", icon: Award },
-  { label: "Services", href: "/admin/services", icon: Layers },
+  { label: "Brand Partners", href: "/admin/brands", icon: Award },
+  { label: "Agency Services", href: "/admin/services", icon: Layers },
   { label: "Testimonials", href: "/admin/testimonials", icon: Sparkles },
-  { label: "Statistics", href: "/admin/statistics", icon: BarChart3 },
+  { label: "Live Statistics", href: "/admin/statistics", icon: BarChart3 },
   { label: "Homepage Editor", href: "/admin/homepage", icon: Home },
   { label: "Media Library", href: "/admin/media", icon: ImageIcon },
   { label: "Global Settings", href: "/admin/settings", icon: SettingsIcon },
 ];
 
-export default function AdminSidebar() {
+function NavContent({ onClose }: { onClose?: () => void }) {
   const pathname = usePathname();
 
   return (
-    <aside className="w-64 bg-[#0B111E] border-r border-white/5 flex flex-col shrink-0 h-screen sticky top-0">
+    <div className="flex flex-col h-full">
       {/* Brand Header */}
-      <div className="h-16 px-6 flex items-center gap-3 border-b border-white/5">
-        <div className="w-8 h-8 rounded-lg bg-[#0066FF] flex items-center justify-center font-black text-white text-base">
-          V
-        </div>
-        <div>
-          <div className="text-sm font-bold tracking-wide text-white">VISTAR</div>
-          <div className="text-[10px] text-slate-500 font-mono tracking-widest uppercase">Admin Panel</div>
-        </div>
+      <div className="h-20 px-6 flex items-center justify-between border-b-2 border-stone-800 shrink-0">
+        <Link href="/admin" onClick={onClose} className="flex items-center gap-3 group">
+          <div className="w-9 h-9 rounded-xl bg-[#B80F0A] flex items-center justify-center font-anton text-white text-lg tracking-wider shadow-sm group-hover:scale-105 transition-transform">
+            V
+          </div>
+          <div>
+            <div className="font-anton text-base tracking-wider text-white">VISTAR</div>
+            <div className="text-[10px] text-[#FBCB77] font-mono font-bold tracking-wider uppercase">CMS Engine</div>
+          </div>
+        </Link>
+
+        {onClose && (
+          <button
+            onClick={onClose}
+            className="lg:hidden p-2 rounded-xl bg-stone-800 text-stone-300 hover:text-white hover:bg-stone-700 transition"
+            aria-label="Close menu"
+          >
+            <X className="w-4 h-4" />
+          </button>
+        )}
       </div>
 
       {/* Nav List */}
-      <nav className="flex-1 overflow-y-auto px-3 py-4 space-y-1">
+      <nav className="flex-1 overflow-y-auto px-3 py-4 space-y-1.5 custom-scrollbar">
         {NAV_ITEMS.map((item) => {
           const Icon = item.icon;
-          const isActive = item.href === "/admin" 
-            ? pathname === "/admin" 
-            : pathname.startsWith(item.href);
+          const isActive =
+            item.href === "/admin"
+              ? pathname === "/admin"
+              : pathname.startsWith(item.href);
 
           return (
             <Link
               key={item.href}
               href={item.href}
+              onClick={onClose}
               className={cn(
-                "flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-medium transition-colors",
+                "flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-xs font-bold transition-all uppercase tracking-wider",
                 isActive
-                  ? "bg-[#0066FF] text-white font-semibold shadow-lg shadow-[#0066FF]/20"
-                  : "text-slate-400 hover:text-white hover:bg-white/5"
+                  ? "bg-[#B80F0A] text-white shadow-sm border border-[#960C08]"
+                  : "text-stone-400 hover:text-white hover:bg-white/10"
               )}
             >
-              <Icon className="w-4 h-4 shrink-0" />
+              <Icon className={cn("w-4 h-4 shrink-0", isActive ? "text-[#FBCB77]" : "text-stone-400")} />
               <span>{item.label}</span>
             </Link>
           );
         })}
       </nav>
 
-      {/* Logout */}
-      <div className="p-3 border-t border-white/5">
+      {/* Footer Controls */}
+      <div className="p-4 border-t-2 border-stone-800 space-y-2 shrink-0">
+        <Link
+          href="/"
+          target="_blank"
+          className="w-full flex items-center justify-between px-3.5 py-2 rounded-xl text-xs font-bold text-stone-400 hover:text-white hover:bg-white/10 transition uppercase tracking-wider"
+        >
+          <span className="flex items-center gap-2">
+            <ExternalLink className="w-3.5 h-3.5 text-[#FBCB77]" />
+            Live Website
+          </span>
+          <span className="text-[10px] font-mono text-stone-500">&rarr;</span>
+        </Link>
+
         <form action={logoutAdminAction}>
           <button
             type="submit"
-            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-xs font-medium text-red-400 hover:bg-red-500/10 transition-colors"
+            className="w-full flex items-center gap-2.5 px-3.5 py-2 rounded-xl text-xs font-bold text-rose-400 hover:bg-rose-500/10 hover:text-rose-300 transition uppercase tracking-wider cursor-pointer"
           >
-            <LogOut className="w-4 h-4 shrink-0" />
+            <LogOut className="w-3.5 h-3.5 shrink-0" />
             <span>Sign Out</span>
           </button>
         </form>
       </div>
-    </aside>
+    </div>
+  );
+}
+
+export default function AdminSidebar() {
+  const { isMobileOpen, closeMobileNav } = useAdminNav();
+
+  return (
+    <>
+      {/* Desktop Fixed Sidebar */}
+      <aside className="hidden lg:flex w-64 bg-[#111111] border-r-2 border-stone-800 flex-col shrink-0 h-screen sticky top-0 z-40 text-stone-300">
+        <NavContent />
+      </aside>
+
+      {/* Mobile Slide-Over Drawer with Backdrop */}
+      <AnimatePresence>
+        {isMobileOpen && (
+          <div className="fixed inset-0 z-50 lg:hidden flex">
+            {/* Backdrop Blur Overlay */}
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              onClick={closeMobileNav}
+              className="fixed inset-0 bg-black/70 backdrop-blur-sm"
+              aria-hidden="true"
+            />
+
+            {/* Slide-in Drawer Container */}
+            <motion.div
+              initial={{ x: "-100%" }}
+              animate={{ x: 0 }}
+              exit={{ x: "-100%" }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              className="relative w-72 max-w-[85vw] bg-[#111111] border-r-2 border-stone-800 flex flex-col h-full shadow-2xl z-10"
+            >
+              <NavContent onClose={closeMobileNav} />
+            </motion.div>
+          </div>
+        )}
+      </AnimatePresence>
+    </>
   );
 }

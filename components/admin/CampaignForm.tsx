@@ -112,41 +112,43 @@ export default function CampaignForm({
       <div className="flex items-center justify-between">
         <Link
           href="/admin/campaigns"
-          className="inline-flex items-center gap-2 text-xs text-slate-400 hover:text-white transition"
+          className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#B80F0A] hover:underline transition"
         >
-          <ArrowLeft className="w-4 h-4" /> Back to Campaigns
+          <ArrowLeft className="w-4 h-4" /> Back to Case Studies
         </Link>
         <button
           type="submit"
           disabled={loading}
-          className="inline-flex items-center gap-2 px-4 py-2 bg-[#0066FF] hover:bg-[#0052CC] disabled:opacity-50 text-white text-xs font-semibold rounded-lg transition"
+          className="inline-flex items-center gap-2 px-6 py-2.5 bg-[#B80F0A] hover:bg-[#960C08] disabled:opacity-50 text-white text-xs font-bold uppercase tracking-wider rounded-full transition shadow-sm hover:scale-[1.02] cursor-pointer"
         >
           <Save className="w-4 h-4" />
-          {loading ? "Saving..." : initialData ? "Update Campaign" : "Publish / Save Campaign"}
+          {loading ? "Saving..." : initialData ? "Update Case Study" : "Publish Case Study"}
         </button>
       </div>
 
       {error && (
-        <div className="p-3 bg-red-500/10 border border-red-500/20 text-red-400 rounded-lg text-xs">
+        <div className="p-3.5 bg-rose-50 border-2 border-rose-200 text-rose-700 rounded-2xl text-xs font-bold">
           {error}
         </div>
       )}
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Core Info */}
-        <div className="md:col-span-2 space-y-5 bg-[#0F172A] p-6 rounded-xl border border-white/5">
-          <h2 className="text-sm font-semibold text-white">Campaign Details</h2>
+        <div className="md:col-span-2 space-y-5 bg-white p-6 sm:p-8 rounded-3xl border-2 border-stone-200/90 shadow-nickpat">
+          <h2 className="font-anton text-xl text-[#111111] uppercase tracking-tight">Case Study Details</h2>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs text-slate-400 mb-1">Associated Brand *</label>
+              <label className="block text-[11px] font-bold text-stone-700 uppercase tracking-wider mb-1.5">
+                Associated Brand *
+              </label>
               <select
                 name="brandId"
                 required
                 defaultValue={
                   initialData?.brandId?._id || initialData?.brandId || (brands[0]?._id ?? "")
                 }
-                className="w-full bg-[#080C14] border border-white/10 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-[#0066FF]"
+                className="w-full bg-[#FCECDF]/30 border-2 border-stone-200 focus:border-[#B80F0A] focus:bg-white rounded-xl px-3.5 py-2.5 text-xs text-[#111111] focus:outline-none transition font-bold uppercase"
               >
                 {brands.map((b) => (
                   <option key={b._id} value={b._id}>
@@ -157,12 +159,14 @@ export default function CampaignForm({
             </div>
 
             <div>
-              <label className="block text-xs text-slate-400 mb-1">Industry *</label>
+              <label className="block text-[11px] font-bold text-stone-700 uppercase tracking-wider mb-1.5">
+                Industry Vertical *
+              </label>
               <select
                 name="industry"
                 required
                 defaultValue={initialData?.industry || "Automobile"}
-                className="w-full bg-[#080C14] border border-white/10 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-[#0066FF]"
+                className="w-full bg-[#FCECDF]/30 border-2 border-stone-200 focus:border-[#B80F0A] focus:bg-white rounded-xl px-3.5 py-2.5 text-xs text-[#111111] focus:outline-none transition font-bold"
               >
                 {INDUSTRIES.map((ind) => (
                   <option key={ind} value={ind}>
@@ -175,35 +179,41 @@ export default function CampaignForm({
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs text-slate-400 mb-1">Campaign Title *</label>
+              <label className="block text-[11px] font-bold text-stone-700 uppercase tracking-wider mb-1.5">
+                Campaign Title *
+              </label>
               <input
                 required
                 value={title}
                 onChange={(e) => handleTitleChange(e.target.value)}
                 placeholder="e.g. Mahindra Tractors Kharif Season Launch"
-                className="w-full bg-[#080C14] border border-white/10 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-[#0066FF]"
+                className="w-full bg-[#FCECDF]/30 border-2 border-stone-200 focus:border-[#B80F0A] focus:bg-white rounded-xl px-3.5 py-2.5 text-xs text-[#111111] placeholder-stone-400 focus:outline-none transition font-medium"
               />
             </div>
 
             <div>
-              <label className="block text-xs text-slate-400 mb-1">Slug (URL identifier) *</label>
+              <label className="block text-[11px] font-bold text-stone-700 uppercase tracking-wider mb-1.5">
+                Slug (URL Identifier) *
+              </label>
               <input
                 required
                 value={slug}
                 onChange={(e) => setSlug(slugify(e.target.value))}
-                className="w-full bg-[#080C14] border border-white/10 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-[#0066FF] font-mono"
+                className="w-full bg-[#FCECDF]/30 border-2 border-stone-200 focus:border-[#B80F0A] focus:bg-white rounded-xl px-3.5 py-2.5 text-xs text-[#111111] font-mono focus:outline-none transition font-medium"
               />
             </div>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-xs text-slate-400 mb-1">Campaign Type *</label>
+              <label className="block text-[11px] font-bold text-stone-700 uppercase tracking-wider mb-1.5">
+                Campaign Deliverable Type *
+              </label>
               <select
                 name="campaignType"
                 required
                 defaultValue={initialData?.campaignType || "Influencer Reels"}
-                className="w-full bg-[#080C14] border border-white/10 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-[#0066FF]"
+                className="w-full bg-[#FCECDF]/30 border-2 border-stone-200 focus:border-[#B80F0A] focus:bg-white rounded-xl px-3.5 py-2.5 text-xs text-[#111111] focus:outline-none transition font-bold"
               >
                 {CAMPAIGN_TYPES.map((type) => (
                   <option key={type} value={type}>
@@ -214,60 +224,68 @@ export default function CampaignForm({
             </div>
 
             <div>
-              <label className="block text-xs text-slate-400 mb-1">Location Scope</label>
+              <label className="block text-[11px] font-bold text-stone-700 uppercase tracking-wider mb-1.5">
+                Geographic Scope
+              </label>
               <input
                 name="location"
                 defaultValue={initialData?.location || "Maharashtra"}
-                className="w-full bg-[#080C14] border border-white/10 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-[#0066FF]"
+                className="w-full bg-[#FCECDF]/30 border-2 border-stone-200 focus:border-[#B80F0A] focus:bg-white rounded-xl px-3.5 py-2.5 text-xs text-[#111111] placeholder-stone-400 focus:outline-none transition font-medium"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-xs text-slate-400 mb-1">Cover Image URL *</label>
+            <label className="block text-[11px] font-bold text-stone-700 uppercase tracking-wider mb-1.5">
+              Cover Image URL *
+            </label>
             <input
               required
               name="coverImage"
               defaultValue={initialData?.coverImage || ""}
               placeholder="https://images.unsplash.com/... or media URL"
-              className="w-full bg-[#080C14] border border-white/10 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-[#0066FF]"
+              className="w-full bg-[#FCECDF]/30 border-2 border-stone-200 focus:border-[#B80F0A] focus:bg-white rounded-xl px-3.5 py-2.5 text-xs text-[#111111] placeholder-stone-400 focus:outline-none transition font-medium"
             />
           </div>
 
           <div>
-            <label className="block text-xs text-slate-400 mb-1">Campaign Objective *</label>
+            <label className="block text-[11px] font-bold text-stone-700 uppercase tracking-wider mb-1.5">
+              Campaign Objective *
+            </label>
             <textarea
               required
               name="objective"
               rows={2}
               defaultValue={initialData?.objective || ""}
               placeholder="Primary goals, audience targeting, and brand message..."
-              className="w-full bg-[#080C14] border border-white/10 rounded-lg p-3 text-xs text-white focus:outline-none focus:border-[#0066FF]"
+              className="w-full bg-[#FCECDF]/30 border-2 border-stone-200 focus:border-[#B80F0A] focus:bg-white rounded-xl p-3 text-xs text-[#111111] placeholder-stone-400 focus:outline-none transition font-medium"
             />
           </div>
 
           <div>
-            <label className="block text-xs text-slate-400 mb-1">Detailed Description *</label>
+            <label className="block text-[11px] font-bold text-stone-700 uppercase tracking-wider mb-1.5">
+              Detailed Execution Strategy *
+            </label>
             <textarea
               required
               name="description"
               rows={4}
               defaultValue={initialData?.description || ""}
               placeholder="Execution strategy, regional influencer collaboration, and event activations..."
-              className="w-full bg-[#080C14] border border-white/10 rounded-lg p-3 text-xs text-white focus:outline-none focus:border-[#0066FF]"
+              className="w-full bg-[#FCECDF]/30 border-2 border-stone-200 focus:border-[#B80F0A] focus:bg-white rounded-xl p-3 text-xs text-[#111111] placeholder-stone-400 focus:outline-none transition font-medium"
             />
           </div>
 
           {/* Results Section */}
-          <div className="pt-4 border-t border-white/5 space-y-3">
+          <div className="pt-4 border-t-2 border-stone-100 space-y-3">
             <div className="flex items-center justify-between">
-              <h3 className="text-xs font-semibold text-white">Campaign Results & Metrics</h3>
+              <h3 className="font-anton text-base text-[#111111] uppercase tracking-tight">Verified Campaign Results</h3>
               <button
                 type="button"
                 onClick={addResult}
-                className="inline-flex items-center gap-1 text-[11px] text-[#0066FF] hover:underline"
+                className="inline-flex items-center gap-1 text-xs text-[#B80F0A] font-bold uppercase tracking-wider hover:underline"
               >
-                <Plus className="w-3 h-3" /> Add Metric
+                <Plus className="w-3.5 h-3.5" /> Add Metric
               </button>
             </div>
 
@@ -277,26 +295,26 @@ export default function CampaignForm({
                   placeholder="Metric (e.g. Views)"
                   value={res.metric}
                   onChange={(e) => updateResult(idx, "metric", e.target.value)}
-                  className="w-1/3 bg-[#080C14] border border-white/10 rounded-lg px-2.5 py-1.5 text-xs text-white"
+                  className="w-1/3 bg-[#FCECDF]/30 border-2 border-stone-200 focus:border-[#B80F0A] focus:bg-white rounded-xl px-3 py-2 text-xs text-[#111111] font-bold"
                 />
                 <input
                   placeholder="Value (e.g. 2.4M)"
                   value={res.value}
                   onChange={(e) => updateResult(idx, "value", e.target.value)}
-                  className="w-1/4 bg-[#080C14] border border-white/10 rounded-lg px-2.5 py-1.5 text-xs text-white font-mono"
+                  className="w-1/4 bg-[#FCECDF]/30 border-2 border-stone-200 focus:border-[#B80F0A] focus:bg-white rounded-xl px-3 py-2 text-xs text-[#B80F0A] font-mono font-bold"
                 />
                 <input
                   placeholder="Label (e.g. Total reach)"
                   value={res.label}
                   onChange={(e) => updateResult(idx, "label", e.target.value)}
-                  className="flex-1 bg-[#080C14] border border-white/10 rounded-lg px-2.5 py-1.5 text-xs text-white"
+                  className="flex-1 bg-[#FCECDF]/30 border-2 border-stone-200 focus:border-[#B80F0A] focus:bg-white rounded-xl px-3 py-2 text-xs text-[#111111]"
                 />
                 <button
                   type="button"
                   onClick={() => removeResult(idx)}
-                  className="p-1.5 text-red-400 hover:bg-red-500/10 rounded"
+                  className="p-2 text-rose-500 hover:bg-rose-50 rounded-xl"
                 >
-                  <Trash2 className="w-3.5 h-3.5" />
+                  <Trash2 className="w-4 h-4" />
                 </button>
               </div>
             ))}
@@ -304,16 +322,18 @@ export default function CampaignForm({
         </div>
 
         {/* Sidebar Controls */}
-        <div className="space-y-5">
-          <div className="bg-[#0F172A] p-5 rounded-xl border border-white/5 space-y-4">
-            <h2 className="text-sm font-semibold text-white">Status & Visibility</h2>
+        <div className="space-y-6">
+          <div className="bg-white p-6 rounded-3xl border-2 border-stone-200/90 shadow-nickpat space-y-4">
+            <h2 className="font-anton text-lg text-[#111111] uppercase tracking-tight">Status & Visibility</h2>
 
             <div>
-              <label className="block text-xs text-slate-400 mb-1">Publishing Status</label>
+              <label className="block text-[11px] font-bold text-stone-700 uppercase tracking-wider mb-1.5">
+                Publishing Status
+              </label>
               <select
                 name="status"
                 defaultValue={initialData?.status || "PUBLISHED"}
-                className="w-full bg-[#080C14] border border-white/10 rounded-lg px-3 py-2 text-xs text-white focus:outline-none focus:border-[#0066FF]"
+                className="w-full bg-[#FCECDF]/30 border-2 border-stone-200 focus:border-[#B80F0A] focus:bg-white rounded-xl px-3.5 py-2.5 text-xs text-[#111111] focus:outline-none transition font-bold uppercase"
               >
                 <option value="DRAFT">Draft</option>
                 <option value="PUBLISHED">Published</option>
@@ -327,21 +347,21 @@ export default function CampaignForm({
                 name="featured"
                 id="featured"
                 defaultChecked={initialData?.featured || false}
-                className="w-4 h-4 accent-[#0066FF] rounded bg-[#080C14] border-white/10"
+                className="w-4 h-4 accent-[#B80F0A] rounded"
               />
-              <label htmlFor="featured" className="text-xs text-slate-300 flex items-center gap-1">
-                <Sparkles className="w-3.5 h-3.5 text-amber-400" /> Featured Case Study
+              <label htmlFor="featured" className="text-xs text-stone-800 font-bold uppercase tracking-wider flex items-center gap-1.5 cursor-pointer">
+                <Sparkles className="w-3.5 h-3.5 text-[#EE6A43]" /> Featured Case Study
               </label>
             </div>
           </div>
 
-          <div className="bg-[#0F172A] p-5 rounded-xl border border-white/5 space-y-3">
-            <h2 className="text-sm font-semibold text-white">Assign Creators</h2>
-            <p className="text-[11px] text-slate-400">Select participating creators from network</p>
+          <div className="bg-white p-6 rounded-3xl border-2 border-stone-200/90 shadow-nickpat space-y-3">
+            <h2 className="font-anton text-lg text-[#111111] uppercase tracking-tight">Assign Creators</h2>
+            <p className="text-[11px] text-stone-500 font-medium">Select creators from your roster participating in this campaign</p>
 
-            <div className="max-h-60 overflow-y-auto space-y-1.5 pr-1">
+            <div className="max-h-64 overflow-y-auto space-y-2 pr-1 custom-scrollbar">
               {creators.length === 0 ? (
-                <div className="text-[11px] text-slate-500">No published creators available.</div>
+                <div className="text-xs text-stone-400 italic">No published creators available.</div>
               ) : (
                 creators.map((c) => {
                   const isChecked = selectedCreators.includes(c._id);
@@ -349,14 +369,14 @@ export default function CampaignForm({
                     <div
                       key={c._id}
                       onClick={() => toggleCreator(c._id)}
-                      className={`p-2 rounded-lg text-xs cursor-pointer border flex items-center justify-between transition ${
+                      className={`p-3 rounded-2xl text-xs cursor-pointer border-2 flex items-center justify-between transition font-medium ${
                         isChecked
-                          ? "bg-[#0066FF]/15 border-[#0066FF] text-white"
-                          : "bg-[#080C14] border-white/5 text-slate-400 hover:text-white"
+                          ? "bg-[#FCECDF] border-[#B80F0A] text-[#B80F0A] font-bold"
+                          : "bg-stone-50 border-stone-200 text-stone-700 hover:border-stone-400"
                       }`}
                     >
                       <span>{c.name}</span>
-                      <span className="text-[10px] text-slate-500 font-mono">{c.location}</span>
+                      <span className="text-[10px] font-mono text-stone-500">{c.location}</span>
                     </div>
                   );
                 })

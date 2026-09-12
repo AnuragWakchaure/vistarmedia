@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { submitCampaignEnquiryAction } from "@/actions/lead.actions";
-import { CheckCircle2, AlertCircle, Send, Loader2 } from "lucide-react";
+import { CheckCircle2, AlertCircle, Send, Loader2, Phone, Mail, User, Building2 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { EASINGS, DURATIONS } from "@/components/animations/MotionTokens";
 
@@ -38,12 +38,13 @@ export default function CampaignEnquiryForm() {
     const formData = new FormData(form);
 
     const payload = {
-      name: formData.get("name") as string,
-      email: formData.get("email") as string,
-      brand: formData.get("company") as string,
+      name: (formData.get("name") as string)?.trim() || "",
+      email: (formData.get("email") as string)?.trim() || "",
+      phone: (formData.get("phone") as string)?.trim() || "",
+      brand: (formData.get("company") as string)?.trim() || "",
       services: selectedServices,
-      requirements: formData.get("message") as string,
-      campaignType: selectedServices.join(", ") || "General Enquiry",
+      requirements: (formData.get("message") as string)?.trim() || "",
+      campaignType: selectedServices.join(", ") || "General Influencer Enquiry",
     };
 
     try {
@@ -67,7 +68,7 @@ export default function CampaignEnquiryForm() {
           animate={{ opacity: 1, scale: 1, y: 0 }}
           exit={{ opacity: 0, scale: 0.95, y: -10 }}
           transition={{ duration: DURATIONS.fast, ease: EASINGS.easeOutQuart }}
-          className="bg-white border-2 border-[#B80F0A]/30 rounded-3xl p-10 text-center space-y-4 shadow-nickpat-lg"
+          className="bg-white border-2 border-[#B80F0A]/30 rounded-3xl p-8 sm:p-12 text-center space-y-4 shadow-nickpat-lg"
         >
           <motion.div
             initial={{ scale: 0 }}
@@ -77,15 +78,17 @@ export default function CampaignEnquiryForm() {
           >
             <CheckCircle2 className="w-7 h-7" />
           </motion.div>
-          <h3 className="font-anton text-3xl text-[#111111] uppercase tracking-tight">Thank You!</h3>
+          <h3 className="font-anton text-3xl sm:text-4xl text-[#111111] uppercase tracking-tight">
+            Enquiry Submitted!
+          </h3>
           <p className="text-xs sm:text-sm text-stone-600 max-w-md mx-auto leading-relaxed font-medium">
-            Your enquiry has been received. Our Maharashtra influencer strategy team will review your requirements and reach out promptly.
+            Thank you! Your campaign brief has been received. Our Maharashtra influencer strategy team will review your requirements and get in touch with you shortly.
           </p>
           <button
             onClick={() => setSuccess(false)}
-            className="text-xs text-[#B80F0A] hover:underline pt-2 inline-block font-bold uppercase tracking-wider transition-colors"
+            className="text-xs text-[#B80F0A] hover:underline pt-2 inline-block font-bold uppercase tracking-wider transition-colors cursor-pointer"
           >
-            Send another message &rarr;
+            Send another inquiry &rarr;
           </button>
         </motion.div>
       ) : (
@@ -99,10 +102,10 @@ export default function CampaignEnquiryForm() {
         >
           <div>
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#FCECDF] border border-[#B80F0A]/30 text-[#B80F0A] text-[11px] font-bold uppercase tracking-wider mb-2">
-              Fast Response Guaranteed
+              Fast Response Guaranteed &bull; 24h Turnaround
             </div>
             <h2 className="font-anton text-3xl sm:text-4xl text-[#111111] uppercase tracking-tight">
-              Get In Touch
+              Start Your Campaign
             </h2>
           </div>
 
@@ -112,7 +115,7 @@ export default function CampaignEnquiryForm() {
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: "auto" }}
                 exit={{ opacity: 0, height: 0 }}
-                className="p-3.5 rounded-xl bg-rose-50 border-2 border-rose-200 text-rose-800 text-xs font-semibold flex items-center gap-2 overflow-hidden"
+                className="p-4 rounded-2xl bg-rose-50 border-2 border-rose-200 text-rose-800 text-xs font-bold flex items-center gap-2.5 overflow-hidden"
               >
                 <AlertCircle className="w-4 h-4 shrink-0 text-rose-600" />
                 <span>{error}</span>
@@ -124,35 +127,68 @@ export default function CampaignEnquiryForm() {
             {/* Name & Email */}
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div className="space-y-1.5">
-                <label className="block text-xs font-bold uppercase tracking-wider text-stone-700">Your Name *</label>
-                <input
-                  required
-                  name="name"
-                  placeholder="e.g. Rahul Patil"
-                  className="w-full bg-[#FCECDF]/30 border-2 border-stone-200 focus:border-[#B80F0A] focus:bg-white rounded-xl px-4 py-3 text-xs text-[#111111] placeholder-stone-400 focus:outline-none transition font-medium"
-                />
+                <label className="block text-xs font-bold uppercase tracking-wider text-stone-700">
+                  Your Name *
+                </label>
+                <div className="relative">
+                  <User className="w-4 h-4 text-stone-400 absolute left-3.5 top-3.5" />
+                  <input
+                    required
+                    name="name"
+                    placeholder="e.g. Rahul Patil"
+                    className="w-full bg-[#FCECDF]/30 border-2 border-stone-200 focus:border-[#B80F0A] focus:bg-white rounded-xl pl-10 pr-4 py-3 text-xs sm:text-sm text-[#111111] placeholder-stone-400 focus:outline-none transition font-medium shadow-inner-sm"
+                  />
+                </div>
               </div>
+
               <div className="space-y-1.5">
-                <label className="block text-xs font-bold uppercase tracking-wider text-stone-700">Email Address *</label>
-                <input
-                  required
-                  type="email"
-                  name="email"
-                  placeholder="rahul@company.com"
-                  className="w-full bg-[#FCECDF]/30 border-2 border-stone-200 focus:border-[#B80F0A] focus:bg-white rounded-xl px-4 py-3 text-xs text-[#111111] placeholder-stone-400 focus:outline-none transition font-medium"
-                />
+                <label className="block text-xs font-bold uppercase tracking-wider text-stone-700">
+                  Email Address *
+                </label>
+                <div className="relative">
+                  <Mail className="w-4 h-4 text-stone-400 absolute left-3.5 top-3.5" />
+                  <input
+                    required
+                    type="email"
+                    name="email"
+                    placeholder="rahul@company.com"
+                    className="w-full bg-[#FCECDF]/30 border-2 border-stone-200 focus:border-[#B80F0A] focus:bg-white rounded-xl pl-10 pr-4 py-3 text-xs sm:text-sm text-[#111111] placeholder-stone-400 focus:outline-none transition font-medium shadow-inner-sm"
+                  />
+                </div>
               </div>
             </div>
 
-            {/* Company Name */}
-            <div className="space-y-1.5">
-              <label className="block text-xs font-bold uppercase tracking-wider text-stone-700">Brand / Company *</label>
-              <input
-                required
-                name="company"
-                placeholder="e.g. Sahyadri AgriTech / Pune Lifestyle Brand"
-                className="w-full bg-[#FCECDF]/30 border-2 border-stone-200 focus:border-[#B80F0A] focus:bg-white rounded-xl px-4 py-3 text-xs text-[#111111] placeholder-stone-400 focus:outline-none transition font-medium"
-              />
+            {/* Brand Name & Phone Number */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="space-y-1.5">
+                <label className="block text-xs font-bold uppercase tracking-wider text-stone-700">
+                  Brand / Company *
+                </label>
+                <div className="relative">
+                  <Building2 className="w-4 h-4 text-stone-400 absolute left-3.5 top-3.5" />
+                  <input
+                    required
+                    name="company"
+                    placeholder="e.g. Sahyadri AgriTech / Tata"
+                    className="w-full bg-[#FCECDF]/30 border-2 border-stone-200 focus:border-[#B80F0A] focus:bg-white rounded-xl pl-10 pr-4 py-3 text-xs sm:text-sm text-[#111111] placeholder-stone-400 focus:outline-none transition font-medium shadow-inner-sm"
+                  />
+                </div>
+              </div>
+
+              <div className="space-y-1.5">
+                <label className="block text-xs font-bold uppercase tracking-wider text-stone-700">
+                  Phone / WhatsApp Number
+                </label>
+                <div className="relative">
+                  <Phone className="w-4 h-4 text-stone-400 absolute left-3.5 top-3.5" />
+                  <input
+                    type="tel"
+                    name="phone"
+                    placeholder="+91 98765 43210"
+                    className="w-full bg-[#FCECDF]/30 border-2 border-stone-200 focus:border-[#B80F0A] focus:bg-white rounded-xl pl-10 pr-4 py-3 text-xs sm:text-sm text-[#111111] placeholder-stone-400 focus:outline-none transition font-medium shadow-inner-sm font-mono"
+                  />
+                </div>
+              </div>
             </div>
 
             {/* Select Services Buttons */}
@@ -171,7 +207,7 @@ export default function CampaignEnquiryForm() {
                       whileTap={{ scale: 0.96 }}
                       transition={EASINGS.spring}
                       onClick={() => toggleService(service)}
-                      className={`px-4 py-2 rounded-full text-xs font-bold transition-colors select-none border-2 ${
+                      className={`px-4 py-2 rounded-full text-xs font-bold transition-colors select-none border-2 cursor-pointer ${
                         isChecked
                           ? "bg-[#B80F0A] text-white border-[#960C08] shadow-sm"
                           : "bg-stone-50 hover:bg-stone-100 text-stone-700 border-stone-200"
@@ -186,13 +222,15 @@ export default function CampaignEnquiryForm() {
 
             {/* Message */}
             <div className="space-y-1.5">
-              <label className="block text-xs font-bold uppercase tracking-wider text-stone-700">Campaign Requirements *</label>
+              <label className="block text-xs font-bold uppercase tracking-wider text-stone-700">
+                Campaign Requirements / Message *
+              </label>
               <textarea
                 required
                 name="message"
                 rows={4}
-                placeholder="Tell us about your brand targets, preferred districts, creator niche, budget range..."
-                className="w-full bg-[#FCECDF]/30 border-2 border-stone-200 focus:border-[#B80F0A] focus:bg-white rounded-xl p-4 text-xs text-[#111111] placeholder-stone-400 focus:outline-none transition resize-none font-medium"
+                placeholder="Tell us about your campaign goals, target districts in Maharashtra, preferred creator categories, budget..."
+                className="w-full bg-[#FCECDF]/30 border-2 border-stone-200 focus:border-[#B80F0A] focus:bg-white rounded-2xl p-4 text-xs sm:text-sm text-[#111111] placeholder-stone-400 focus:outline-none transition resize-none font-medium shadow-inner-sm leading-relaxed"
               />
             </div>
 
@@ -204,17 +242,17 @@ export default function CampaignEnquiryForm() {
                 whileHover={!loading ? { scale: 1.02 } : undefined}
                 whileTap={!loading ? { scale: 0.98 } : undefined}
                 transition={EASINGS.spring}
-                className="w-full sm:w-auto px-10 py-4 bg-[#B80F0A] hover:bg-[#960C08] disabled:opacity-50 text-white font-extrabold text-xs rounded-full transition-colors uppercase tracking-wider shadow-lg border-2 border-[#960C08] flex items-center justify-center gap-2 cursor-pointer disabled:cursor-not-allowed"
+                className="w-full sm:w-auto px-10 py-4 bg-[#B80F0A] hover:bg-[#960C08] disabled:opacity-50 text-white font-anton text-sm rounded-full transition-colors uppercase tracking-wider shadow-lg border-2 border-[#960C08] flex items-center justify-center gap-2 cursor-pointer disabled:cursor-not-allowed"
               >
                 {loading ? (
                   <>
-                    <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                    <span>Submitting...</span>
+                    <Loader2 className="w-4 h-4 animate-spin" />
+                    <span>Submitting Brief...</span>
                   </>
                 ) : (
                   <>
                     <span>Submit Campaign Brief</span>
-                    <Send className="w-3.5 h-3.5" />
+                    <Send className="w-4 h-4" />
                   </>
                 )}
               </motion.button>
@@ -225,4 +263,3 @@ export default function CampaignEnquiryForm() {
     </AnimatePresence>
   );
 }
-
