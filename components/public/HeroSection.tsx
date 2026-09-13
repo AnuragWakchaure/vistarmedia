@@ -32,7 +32,7 @@ export interface ICampaignReelItem {
   engagement: string;
 }
 
-// 100% Guaranteed Public High-Speed Video Streams
+// 100% Guaranteed Public High-Speed Video Streams with Optimized Local WebP Posters
 const DEFAULT_CAMPAIGNS: ICampaignReelItem[] = [
   {
     id: "campaign-01",
@@ -41,7 +41,7 @@ const DEFAULT_CAMPAIGNS: ICampaignReelItem[] = [
     category: "Vernacular Influencer Campaign",
     location: "Maharashtra",
     videoUrl: "/videos/hero-reel.mp4",
-    posterUrl: "https://images.unsplash.com/photo-1598899134739-24c46f58b8c0?w=800&auto=format&fit=crop&q=80",
+    posterUrl: "/images/hero-reel-poster.webp",
     reach: "135K+ Reach",
     reachSubtext: "@vishal_kadlag08 • Maharashtra",
     engagement: "6,591 Likes • 34 Comments",
@@ -53,7 +53,7 @@ const DEFAULT_CAMPAIGNS: ICampaignReelItem[] = [
     category: "Automotive & EV",
     location: "Pune, Mumbai & Nashik",
     videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-    posterUrl: "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800&auto=format&fit=crop&q=80",
+    posterUrl: "/images/hero-reel-poster.webp",
     reach: "3.6M+",
     reachSubtext: "Pune, Mumbai & Nashik Hubs",
     engagement: "3.2x Higher Brand Recall",
@@ -65,7 +65,7 @@ const DEFAULT_CAMPAIGNS: ICampaignReelItem[] = [
     category: "FMCG & Agro-Foods",
     location: "Western Maharashtra",
     videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
-    posterUrl: "https://images.unsplash.com/photo-1516251193007-45ef944ab0c6?w=800&auto=format&fit=crop&q=80",
+    posterUrl: "/images/hero-reel-poster.webp",
     reach: "2.9M+",
     reachSubtext: "Western Maharashtra Belt",
     engagement: "48K Direct App Inquiries",
@@ -77,7 +77,7 @@ const DEFAULT_CAMPAIGNS: ICampaignReelItem[] = [
     category: "Fintech & Vernacular Education",
     location: "35 Districts Across Maharashtra",
     videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4",
-    posterUrl: "https://images.unsplash.com/photo-1533750516457-a7f992034fec?w=800&auto=format&fit=crop&q=80",
+    posterUrl: "/images/hero-reel-poster.webp",
     reach: "5.1M+",
     reachSubtext: "Statewide Vernacular Outreach",
     engagement: "110K Verified Signups",
@@ -115,7 +115,7 @@ export default function HeroSection({
             category: c.industry || c.category || DEFAULT_CAMPAIGNS[(i + 1) % DEFAULT_CAMPAIGNS.length].category,
             location: c.location || "Maharashtra",
             videoUrl: c.videos?.[0]?.url || DEFAULT_CAMPAIGNS[(i + 1) % DEFAULT_CAMPAIGNS.length].videoUrl,
-            posterUrl: c.coverImage || DEFAULT_CAMPAIGNS[(i + 1) % DEFAULT_CAMPAIGNS.length].posterUrl,
+            posterUrl: c.coverImage || "/images/hero-reel-poster.webp",
             reach: c.results?.[0]?.value || DEFAULT_CAMPAIGNS[(i + 1) % DEFAULT_CAMPAIGNS.length].reach,
             reachSubtext: c.location || DEFAULT_CAMPAIGNS[(i + 1) % DEFAULT_CAMPAIGNS.length].reachSubtext,
             engagement: c.results?.[1]?.value || DEFAULT_CAMPAIGNS[(i + 1) % DEFAULT_CAMPAIGNS.length].engagement,
@@ -129,14 +129,26 @@ export default function HeroSection({
   const videoRef = useRef<HTMLVideoElement>(null);
   const playerContainerRef = useRef<HTMLDivElement>(null);
 
+  const [videoLoaded, setVideoLoaded] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(true);
   const [progress, setProgress] = useState(0);
   const [showControls, setShowControls] = useState(false);
   const controlsTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
-  // Auto-play reliably on mount & source switch
+  // Defer video initialization until after initial page load & interactivity to safeguard LCP
   useEffect(() => {
+    // Schedule video attachment during browser idle or short delay
+    const timer = setTimeout(() => {
+      setVideoLoaded(true);
+    }, 400);
+
+    return () => clearTimeout(timer);
+  }, []);
+
+  // Auto-play reliably once video source is ready
+  useEffect(() => {
+    if (!videoLoaded) return;
     const video = videoRef.current;
     if (!video) return;
 
@@ -161,7 +173,7 @@ export default function HeroSection({
     };
 
     playVideo();
-  }, [activeCampaign.videoUrl]);
+  }, [activeCampaign.videoUrl, videoLoaded]);
 
   // Video Progress Update
   const handleTimeUpdate = () => {
@@ -477,23 +489,33 @@ export default function HeroSection({
                   </div>
                 </div>
 
-                {/* HTML5 Native Video Tag */}
-                <video
-                  ref={videoRef}
-                  key={activeCampaign.videoUrl}
-                  src={activeCampaign.videoUrl}
-                  poster={activeCampaign.posterUrl}
-                  autoPlay
-                  muted={isMuted}
-                  loop
-                  playsInline
-                  preload="auto"
-                  crossOrigin="anonymous"
-                  onTimeUpdate={handleTimeUpdate}
-                  onPlay={() => setIsPlaying(true)}
-                  onPause={() => setIsPlaying(false)}
-                  className="w-full h-full object-cover"
-                />
+                {/* HTML5 Native Video Tag with Deferred Loading & Preload None */}
+                {videoLoaded ? (
+                  <video
+                    ref={videoRef}
+                    key={activeCampaign.videoUrl}
+                    src={activeCampaign.videoUrl}
+                    poster={activeCampaign.posterUrl}
+                    autoPlay
+                    muted={isMuted}
+                    loop
+                    playsInline
+                    preload="none"
+                    crossOrigin="anonymous"
+                    onTimeUpdate={handleTimeUpdate}
+                    onPlay={() => setIsPlaying(true)}
+                    onPause={() => setIsPlaying(false)}
+                    className="w-full h-full object-cover"
+                  />
+                ) : (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img
+                    src={activeCampaign.posterUrl}
+                    alt={activeCampaign.title}
+                    className="w-full h-full object-cover select-none"
+                    loading="eager"
+                  />
+                )}
 
                 {/* Subtle Vignette Gradient for Contrast */}
                 <div className="absolute inset-0 bg-gradient-to-t from-[#05080D]/90 via-transparent to-[#05080D]/40 pointer-events-none" />

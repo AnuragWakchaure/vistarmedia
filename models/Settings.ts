@@ -16,12 +16,12 @@ export interface ISettings {
 const SettingsSchema = new Schema<ISettings>(
   {
     companyName: { type: String, default: "VISTAR" },
-    whatsappNumber: { type: String, required: true, default: "+919876543210" },
+    whatsappNumber: { type: String, required: true, default: "+91 83088 68478" },
     whatsappDefaultMessage: {
       type: String,
       default: "Hi VISTAR, I'm interested in an influencer marketing campaign for my brand.",
     },
-    phone: { type: String, required: true, default: "+91 98765 43210" },
+    phone: { type: String, required: true, default: "+91 83088 68478" },
     email: { type: String, required: true, default: "connect@vistar.in" },
     address: { type: String, default: "Maharashtra, India" },
     instagramUrl: { type: String, default: "" },

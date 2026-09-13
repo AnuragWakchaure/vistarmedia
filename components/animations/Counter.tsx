@@ -19,23 +19,21 @@ export function Counter({
   const shouldReduceMotion = useReducedMotion();
 
   const stringVal = String(value).trim();
-  // Extract number and suffix/prefix (e.g. "200+" -> number: 200, suffix: "+")
   const match = stringVal.match(/^([^0-9]*)([0-9]+(?:\.[0-9]+)?)(.*)$/);
 
   const prefix = match ? match[1] : "";
   const numericTarget = match ? parseFloat(match[2]) : null;
   const suffix = match ? match[3] : "";
 
-  const [displayCount, setDisplayCount] = useState<number>(0);
+  const [hasAnimated, setHasAnimated] = useState(false);
+  const [displayCount, setDisplayCount] = useState<number | null>(null);
 
   useEffect(() => {
-    if (!isInView || numericTarget === null || shouldReduceMotion) {
-      if (shouldReduceMotion && numericTarget !== null) {
-        setDisplayCount(numericTarget);
-      }
+    if (!isInView || numericTarget === null || shouldReduceMotion || hasAnimated) {
       return;
     }
 
+    setHasAnimated(true);
     let startTime: number | null = null;
     let animationFrame: number;
 
@@ -58,16 +56,19 @@ export function Counter({
     animationFrame = requestAnimationFrame(update);
 
     return () => cancelAnimationFrame(animationFrame);
-  }, [isInView, numericTarget, duration, shouldReduceMotion]);
+  }, [isInView, numericTarget, duration, shouldReduceMotion, hasAnimated]);
 
   if (numericTarget === null) {
     return <span ref={ref} className={className}>{value}</span>;
   }
 
+  // Display target value immediately on SSR and initial paint to eliminate layout shift and zero flash
+  const countToShow = displayCount !== null ? displayCount : numericTarget;
+
   return (
     <span ref={ref} className={className}>
       {prefix}
-      {isInView || shouldReduceMotion ? displayCount : 0}
+      {countToShow}
       {suffix}
     </span>
   );

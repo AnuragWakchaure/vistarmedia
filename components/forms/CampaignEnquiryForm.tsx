@@ -184,7 +184,7 @@ export default function CampaignEnquiryForm() {
                   <input
                     type="tel"
                     name="phone"
-                    placeholder="+91 98765 43210"
+                    placeholder="+91 83088 68478"
                     className="w-full bg-[#EAF0F3] border border-slate-200 focus:border-[#00C8FF] focus:bg-[#FFFFFF] rounded-xl pl-10 pr-4 py-3 text-xs sm:text-sm text-[#0B1117] placeholder-[#64717C]/70 focus:outline-none transition font-medium font-mono focus:ring-2 focus:ring-[#00C8FF]/20"
                   />
                 </div>

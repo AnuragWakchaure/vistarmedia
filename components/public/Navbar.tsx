@@ -12,7 +12,7 @@ import { EASINGS, DURATIONS } from "@/components/animations/MotionTokens";
 const NAV_LINKS = [
   { label: "Home", href: "/" },
   { label: "Services", href: "/services" },
-  { label: "Our Creators", href: "/creators" },
+  { label: "Categories", href: "/#creators" },
   { label: "Campaigns", href: "/campaigns" },
   { label: "About Us", href: "/about" },
   { label: "Contact", href: "/contact" },

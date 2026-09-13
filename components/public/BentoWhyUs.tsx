@@ -119,10 +119,10 @@ export default function BentoWhyUs() {
               {/* Action CTA Button */}
               <div className="pt-2">
                 <Link
-                  href="/creators"
+                  href="/#creators"
                   className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-gradient-to-r from-[#00C8FF] to-[#009DFF] hover:from-[#33D4FF] hover:to-[#00C8FF] text-[#05080D] font-extrabold text-xs uppercase tracking-wider transition-all shadow-[0_4px_20px_rgba(0,200,255,0.35)] hover:shadow-[0_6px_25px_rgba(0,200,255,0.45)] hover:scale-[1.02]"
                 >
-                  <span>Explore Creators</span>
+                  <span>Explore Categories</span>
                   <ArrowUpRight className="w-4 h-4" />
                 </Link>
               </div>

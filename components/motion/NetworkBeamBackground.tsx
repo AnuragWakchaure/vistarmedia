@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
+import React from "react";
 
 interface NetworkBeamBackgroundProps {
   className?: string;
@@ -9,15 +9,16 @@ interface NetworkBeamBackgroundProps {
 export function NetworkBeamBackground({
   className = "",
 }: NetworkBeamBackgroundProps) {
-  const shouldReduceMotion = useReducedMotion();
-
   return (
     <div
       aria-hidden="true"
       className={`absolute inset-0 overflow-hidden pointer-events-none select-none z-0 ${className}`}
     >
       {/* Background ambient cool wash */}
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-[#00D2FF]/10 rounded-full blur-[130px]" />
+      <div
+        className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-[#00D2FF]/10 rounded-full blur-[100px] pointer-events-none"
+        style={{ willChange: "transform", transform: "translate3d(-50%, -50%, 0)" }}
+      />
 
       {/* SVG Network Beams */}
       <svg
@@ -38,45 +39,21 @@ export function NetworkBeamBackground({
         </defs>
 
         {/* Diagonal Wave 1 */}
-        <motion.path
+        <path
           d="M-100,100 C300,50 600,250 1200,120 S1800,300 2200,180"
           fill="none"
           stroke="url(#beamGradient1)"
           strokeWidth="1.5"
           strokeDasharray="8 12"
-          animate={
-            shouldReduceMotion
-              ? {}
-              : {
-                  strokeDashoffset: [0, -200],
-                }
-          }
-          transition={{
-            duration: 16,
-            repeat: Infinity,
-            ease: "linear",
-          }}
         />
 
         {/* Diagonal Wave 2 */}
-        <motion.path
+        <path
           d="M-50,300 C400,200 700,450 1300,280 S1900,420 2300,320"
           fill="none"
           stroke="url(#beamGradient2)"
           strokeWidth="1.5"
           strokeDasharray="10 16"
-          animate={
-            shouldReduceMotion
-              ? {}
-              : {
-                  strokeDashoffset: [0, 260],
-                }
-          }
-          transition={{
-            duration: 20,
-            repeat: Infinity,
-            ease: "linear",
-          }}
         />
 
         {/* Connection Node Rings */}

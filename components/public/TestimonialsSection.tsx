@@ -20,7 +20,7 @@ const DEFAULT_TESTIMONIALS: TestimonialItem[] = [
     personName: "Anand Deshmukh",
     designation: "Marketing Head",
     company: "MahaAgro Tech Solutions",
-    photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80",
+    photo: "/images/testimonials/testimonial-1.webp",
     testimonial:
       "VISTAR transformed our agri-tech machinery into relatable Marathi reels, delivering a 3.4x surge in direct dealer enquiries across Nashik and Vidarbha.",
     featured: true,
@@ -29,7 +29,7 @@ const DEFAULT_TESTIMONIALS: TestimonialItem[] = [
     personName: "Priyanka Kadam",
     designation: "Brand Lead",
     company: "Sahyadri Natural Foods",
-    photo: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=150&auto=format&fit=crop&q=80",
+    photo: "/images/testimonials/testimonial-2.webp",
     testimonial:
       "Vernacular storytelling brought authentic local trust that generic agencies couldn't replicate. Generated immediate consumer adoption across Western Maharashtra.",
     featured: true,
@@ -38,7 +38,7 @@ const DEFAULT_TESTIMONIALS: TestimonialItem[] = [
     personName: "Naukrivalaa (Rohan Patil)",
     designation: "Creator (670K+ Followers)",
     company: "Educational Vernacular Channel",
-    photo: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
+    photo: "/images/testimonials/testimonial-3.webp",
     testimonial:
       "Seamless creator workflow with clear briefs, transparent pricing, timely payments, and brand partnerships that genuinely respect Marathi audiences.",
     featured: true,
@@ -47,7 +47,7 @@ const DEFAULT_TESTIMONIALS: TestimonialItem[] = [
     personName: "Vikram Gaikwad",
     designation: "Growth VP",
     company: "FinMarathi Digital",
-    photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop&q=80",
+    photo: "/images/testimonials/testimonial-4.webp",
     testimonial:
       "Data-driven regional influencer campaigns with measurable ROI and verified community reach across Tier-2 Maharashtra towns.",
     featured: false,
@@ -56,7 +56,7 @@ const DEFAULT_TESTIMONIALS: TestimonialItem[] = [
     personName: "Snehal Shinde",
     designation: "Head of Digital",
     company: "Deccan Lifestyle Brands",
-    photo: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=150&auto=format&fit=crop&q=80",
+    photo: "/images/testimonials/testimonial-5.webp",
     testimonial:
       "Unlocked top-tier regional creators from Pune to Kolhapur. Our launch campaign hit 2.8M verified impressions in just 10 days.",
     featured: true,
@@ -65,7 +65,7 @@ const DEFAULT_TESTIMONIALS: TestimonialItem[] = [
     personName: "Rajesh Kulkarni",
     designation: "Regional Director",
     company: "Swaraj Tractors & Machinery",
-    photo: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=150&auto=format&fit=crop&q=80",
+    photo: "/images/testimonials/testimonial-6.webp",
     testimonial:
       "Deep cultural respect and vernacular nuance gave our machinery brand undisputed authenticity across Maharashtra's farming heartlands.",
     featured: true,
@@ -98,8 +98,11 @@ function LightTestimonialCard({
             <img
               src={item.photo}
               alt={item.personName}
-              className="w-11 h-11 rounded-full object-cover border-2 border-cyan-100 shadow-xs shrink-0"
+              width={44}
+              height={44}
               loading="lazy"
+              decoding="async"
+              className="w-11 h-11 rounded-full object-cover border-2 border-cyan-100 shadow-xs shrink-0"
             />
           ) : (
             <div className="w-11 h-11 rounded-full bg-cyan-50 text-[#009DFF] font-anton text-sm flex items-center justify-center border border-cyan-200 shrink-0">
@@ -154,9 +157,9 @@ export default function TestimonialsSection({
   const row1Base = displayItems.slice(0, midPoint);
   const row2Base = displayItems.slice(midPoint);
 
-  const repeatCount = 4;
-  const row1 = Array(repeatCount).fill(row1Base).flat();
-  const row2 = Array(repeatCount).fill(row2Base.length > 0 ? row2Base : row1Base).flat();
+  // 2x minimum cloning for seamless 50% CSS marquee loop
+  const row1 = [...row1Base, ...row1Base];
+  const row2 = [...(row2Base.length > 0 ? row2Base : row1Base), ...(row2Base.length > 0 ? row2Base : row1Base)];
 
   return (
     <section id="testimonials" className="relative overflow-hidden bg-[#F3F6F8] scroll-mt-28 py-20 sm:py-24">

@@ -24,6 +24,10 @@ export default async function Footer() {
               <img
                 src="/images/logo.png"
                 alt="VISTAR"
+                width={140}
+                height={36}
+                loading="lazy"
+                decoding="async"
                 className="h-9 w-auto object-contain drop-shadow-[0_0_12px_rgba(0,200,255,0.3)]"
               />
             </Link>
@@ -63,8 +67,8 @@ export default async function Footer() {
             <Link href="/services" className="hover:text-[#00C8FF] transition-colors">
               Services
             </Link>
-            <Link href="/creators" className="hover:text-[#00C8FF] transition-colors">
-              Our Creators
+            <Link href="/#creators" className="hover:text-[#00C8FF] transition-colors">
+              Categories
             </Link>
             <Link href="/campaigns" className="hover:text-[#00C8FF] transition-colors">
               Case Studies

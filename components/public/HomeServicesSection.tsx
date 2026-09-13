@@ -162,8 +162,11 @@ export default function HomeServicesSection() {
                 <img
                   alt="Regional creator recording video vlog"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  src="https://images.unsplash.com/photo-1598899134739-24c46f58b8c0?w=800&auto=format&fit=crop&q=80"
+                  src="/images/capabilities/regional-influencer-marketing.webp"
+                  width={400}
+                  height={176}
                   loading="lazy"
+                  decoding="async"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0B1C30]/90 via-[#0B1C30]/25 to-transparent" />
 
@@ -251,8 +254,11 @@ export default function HomeServicesSection() {
                 <img
                   alt="Vernacular video production set behind the scenes"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800&auto=format&fit=crop&q=80"
+                  src="/images/capabilities/vernacular-content-production.webp"
+                  width={400}
+                  height={176}
                   loading="lazy"
+                  decoding="async"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0B1C30]/90 via-[#0B1C30]/30 to-transparent" />
 
@@ -338,41 +344,31 @@ export default function HomeServicesSection() {
                 </p>
               </div>
 
-              {/* Interactive Algorithm UI Well */}
-              <div className="relative w-full h-44 rounded-2xl bg-[#F1F5F9] p-3 flex flex-col justify-between border border-slate-200/80">
-                <div className="flex items-center justify-between font-mono text-[10px]">
-                  <span className="text-[#64748B] uppercase font-bold">ATTRIBUTION ENGINE</span>
-                  <span className="px-2 py-0.5 rounded bg-[#0088FF] text-white font-bold">
-                    AFFINITY v4
-                  </span>
-                </div>
+              {/* Rich Visual Photo & Attribution Engine Overlay */}
+              <div className="relative w-full h-44 rounded-2xl overflow-hidden bg-slate-100 group">
+                <img
+                  alt="Precision creator talent discovery and matching"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  src="/images/capabilities/precision-creator-matching.webp"
+                  width={400}
+                  height={176}
+                  loading="lazy"
+                  decoding="async"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0B1C30]/90 via-[#0B1C30]/30 to-transparent" />
 
-                {/* Matching Path Visualization */}
-                <div className="flex items-center justify-between gap-1 p-2 rounded-xl bg-white shadow-xs border border-slate-200/60">
-                  <div className="text-center px-2 py-1 rounded bg-slate-100">
-                    <span className="block font-mono text-[9px] text-[#64748B]">INPUT</span>
-                    <span className="font-bold text-[10px] text-[#0B111E] uppercase">Brand Brief</span>
+                {/* Attribution Engine Pill */}
+                <div className="absolute bottom-2.5 left-2.5 right-2.5 p-2 rounded-xl bg-white/95 backdrop-blur-md shadow-sm border border-white/50 flex flex-col gap-1.5">
+                  <div className="flex items-center justify-between font-mono text-[10px]">
+                    <span className="text-[#64748B] uppercase font-bold">ATTRIBUTION ENGINE</span>
+                    <span className="px-1.5 py-0.5 rounded bg-[#0088FF] text-white font-bold">
+                      AFFINITY v4
+                    </span>
                   </div>
-                  <div className="flex flex-col items-center">
-                    <span className="font-mono text-[10px] text-[#0088FF] font-black">98.4%</span>
-                    <div className="w-8 h-0.5 bg-[#00C2FF]" />
-                  </div>
-                  <div className="text-center px-2 py-1 rounded bg-[#D3E4FE]">
-                    <span className="block font-mono text-[9px] text-[#005BAF]">MATCH</span>
-                    <span className="font-bold text-[10px] text-[#005BAF] uppercase">Creator Fit</span>
-                  </div>
-                </div>
-
-                {/* Micro Demographic Bar Chart */}
-                <div className="space-y-1">
-                  <div className="flex justify-between font-mono text-[10px] text-[#64748B]">
-                    <span>REGIONAL AFFINITY (MAHARASHTRA)</span>
-                    <span className="font-bold text-[#0B111E]">91% TIER-2/3</span>
-                  </div>
-                  <div className="w-full h-2 rounded-full bg-slate-200 overflow-hidden flex">
-                    <div className="h-full bg-[#0088FF]" style={{ width: "62%" }} />
-                    <div className="h-full bg-[#00C2FF]" style={{ width: "29%" }} />
-                    <div className="h-full bg-[#005BAF]" style={{ width: "9%" }} />
+                  <div className="flex items-center justify-between gap-1">
+                    <span className="text-[10px] font-bold text-[#0B111E] uppercase">BRAND BRIEF</span>
+                    <span className="font-mono text-[10px] text-[#0088FF] font-black">98.4% MATCH</span>
+                    <span className="text-[10px] font-bold text-[#005BAF] uppercase">CREATOR FIT</span>
                   </div>
                 </div>
               </div>
@@ -434,8 +430,11 @@ export default function HomeServicesSection() {
                 <img
                   alt="Hyperlocal experiential marketing event on ground in Maharashtra"
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                  src="https://images.unsplash.com/photo-1516251193007-45ef944ab0c6?w=800&auto=format&fit=crop&q=80"
+                  src="/images/capabilities/hyperlocal-brand-activations.webp"
+                  width={400}
+                  height={176}
                   loading="lazy"
+                  decoding="async"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-[#0B1C30]/90 via-[#0B1C30]/30 to-transparent" />
 
@@ -528,46 +527,39 @@ export default function HomeServicesSection() {
                 </p>
               </div>
 
-              {/* Interactive Workflow UI Well */}
-              <div className="relative w-full h-44 rounded-2xl bg-[#F1F5F9] p-3 flex flex-col justify-between border border-slate-200/80">
-                <div className="flex items-center justify-between font-mono text-[10px]">
-                  <span className="text-[#64748B] uppercase font-bold">TURNKEY PIPELINE</span>
-                  <span className="px-2 py-0.5 rounded bg-[#0088FF] text-white font-bold">
-                    48H SLA
-                  </span>
-                </div>
+              {/* Rich Visual Photo & 4-Stage Stepper Overlay */}
+              <div className="relative w-full h-44 rounded-2xl overflow-hidden bg-slate-100 group">
+                <img
+                  alt="Turnkey campaign orchestration team"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  src="/images/capabilities/turnkey-campaign-orchestration.webp"
+                  width={400}
+                  height={176}
+                  loading="lazy"
+                  decoding="async"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0B1C30]/90 via-[#0B1C30]/30 to-transparent" />
 
-                {/* 4-Stage Stepper */}
-                <div className="grid grid-cols-4 gap-1.5 py-1">
-                  <div className="flex flex-col items-center text-center p-1.5 rounded-xl bg-white shadow-2xs border border-slate-200/60">
-                    <span className="font-mono text-[10px] text-[#0088FF] font-bold">01</span>
-                    <span className="font-bold text-[9px] text-[#0B111E] uppercase mt-0.5">Brief</span>
-                    <FileText className="w-3.5 h-3.5 text-[#0088FF] mt-1" />
+                {/* 4-Stage Pipeline Stepper Pill */}
+                <div className="absolute bottom-2.5 left-2.5 right-2.5 p-2 rounded-xl bg-white/95 backdrop-blur-md shadow-sm border border-white/50">
+                  <div className="grid grid-cols-4 gap-1">
+                    <div className="flex flex-col items-center text-center p-1 rounded-lg bg-slate-100">
+                      <span className="font-mono text-[9px] text-[#0088FF] font-bold">01</span>
+                      <span className="font-bold text-[8px] text-[#0B111E] uppercase">Brief</span>
+                    </div>
+                    <div className="flex flex-col items-center text-center p-1 rounded-lg bg-slate-100">
+                      <span className="font-mono text-[9px] text-[#0088FF] font-bold">02</span>
+                      <span className="font-bold text-[8px] text-[#0B111E] uppercase">Match</span>
+                    </div>
+                    <div className="flex flex-col items-center text-center p-1 rounded-lg bg-slate-100">
+                      <span className="font-mono text-[9px] text-[#0088FF] font-bold">03</span>
+                      <span className="font-bold text-[8px] text-[#0B111E] uppercase">Approve</span>
+                    </div>
+                    <div className="flex flex-col items-center text-center p-1 rounded-lg bg-gradient-to-tr from-[#0088FF] to-[#00C2FF] text-white">
+                      <span className="font-mono text-[9px] text-white font-bold">04</span>
+                      <span className="font-bold text-[8px] text-white uppercase">Launch</span>
+                    </div>
                   </div>
-                  <div className="flex flex-col items-center text-center p-1.5 rounded-xl bg-white shadow-2xs border border-slate-200/60">
-                    <span className="font-mono text-[10px] text-[#0088FF] font-bold">02</span>
-                    <span className="font-bold text-[9px] text-[#0B111E] uppercase mt-0.5">Match</span>
-                    <Users className="w-3.5 h-3.5 text-[#00C1FD] mt-1" />
-                  </div>
-                  <div className="flex flex-col items-center text-center p-1.5 rounded-xl bg-white shadow-2xs border border-slate-200/60">
-                    <span className="font-mono text-[10px] text-[#0088FF] font-bold">03</span>
-                    <span className="font-bold text-[9px] text-[#0B111E] uppercase mt-0.5">Approve</span>
-                    <CheckCircle2 className="w-3.5 h-3.5 text-[#0088FF] mt-1" />
-                  </div>
-                  <div className="flex flex-col items-center text-center p-1.5 rounded-xl bg-gradient-to-tr from-[#0088FF] to-[#00C2FF] text-white shadow-2xs">
-                    <span className="font-mono text-[10px] text-white font-bold">04</span>
-                    <span className="font-bold text-[9px] text-white uppercase mt-0.5">Launch</span>
-                    <Rocket className="w-3.5 h-3.5 text-white mt-1" />
-                  </div>
-                </div>
-
-                {/* SLA Status Bar */}
-                <div className="flex items-center justify-between px-2.5 py-1 rounded-lg bg-white text-[#0B111E] font-mono text-[10px] border border-slate-200/60">
-                  <span className="flex items-center gap-1.5 text-[#0088FF] font-bold">
-                    <span className="w-1.5 h-1.5 rounded-full bg-[#00C2FF] animate-ping" />
-                    SINGLE POINT OF CONTACT
-                  </span>
-                  <span className="font-bold text-[#0B111E]">ZERO DELAYS</span>
                 </div>
               </div>
 
@@ -623,55 +615,29 @@ export default function HomeServicesSection() {
                 </p>
               </div>
 
-              {/* Reach Velocity Sparkline & Data Visualization */}
-              <div className="relative w-full h-44 rounded-2xl bg-[#F1F5F9] p-3 flex flex-col justify-between border border-slate-200/80">
-                <div className="flex items-center justify-between font-mono text-[10px]">
-                  <span className="text-[#64748B] uppercase font-bold">REACH VELOCITY</span>
-                  <span className="px-2 py-0.5 rounded bg-[#D3E4FE] text-[#005BAF] font-bold">
-                    100% AUDITED
-                  </span>
-                </div>
+              {/* Rich Visual Photo & Telemetry Overlay */}
+              <div className="relative w-full h-44 rounded-2xl overflow-hidden bg-slate-100 group">
+                <img
+                  alt="Verifiable performance and telemetry reporting"
+                  className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  src="/images/capabilities/verifiable-performance-audit.webp"
+                  width={400}
+                  height={176}
+                  loading="lazy"
+                  decoding="async"
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0B1C30]/90 via-[#0B1C30]/30 to-transparent" />
 
-                {/* Sparkline Graph Widget */}
-                <div className="relative w-full h-20 flex items-center justify-center">
-                  <svg
-                    className="w-full h-full text-[#00C2FF]"
-                    fill="none"
-                    preserveAspectRatio="none"
-                    viewBox="0 0 300 80"
-                  >
-                    <defs>
-                      <linearGradient id="metricGrad" x1="0" x2="0" y1="0" y2="1">
-                        <stop offset="0%" stopColor="#00C2FF" stopOpacity="0.35" />
-                        <stop offset="100%" stopColor="#00C2FF" stopOpacity="0" />
-                      </linearGradient>
-                    </defs>
-                    <path
-                      d="M0,65 C40,60 80,45 120,48 C160,52 200,20 240,24 C270,27 285,10 300,8 L300,80 L0,80 Z"
-                      fill="url(#metricGrad)"
-                    />
-                    <path
-                      d="M0,65 C40,60 80,45 120,48 C160,52 200,20 240,24 C270,27 285,10 300,8"
-                      stroke="#0088FF"
-                      strokeLinecap="round"
-                      strokeWidth="3"
-                    />
-                    {/* Data Node Dots */}
-                    <circle className="fill-white stroke-[#0088FF]" cx="120" cy="48" r="3.5" strokeWidth="2" />
-                    <circle className="fill-white stroke-[#0088FF]" cx="240" cy="24" r="3.5" strokeWidth="2" />
-                    <circle className="fill-[#0088FF] stroke-white" cx="300" cy="8" r="4.5" strokeWidth="2" />
-                  </svg>
-
-                  <div className="absolute right-2 top-1 bg-white px-2 py-0.5 rounded-lg shadow-xs border border-slate-200/60">
-                    <span className="font-anton text-sm text-[#0088FF]">48.2M</span>
-                    <span className="block font-mono text-[8px] text-[#64748B] uppercase">Tracked Impr.</span>
+                {/* Telemetry Indicator Pill */}
+                <div className="absolute bottom-2.5 left-2.5 right-2.5 p-2 rounded-xl bg-white/95 backdrop-blur-md shadow-sm border border-white/50 flex items-center justify-between">
+                  <div className="space-y-0.5">
+                    <span className="block font-mono text-[9px] text-[#64748B] uppercase font-bold">REACH AUDIT</span>
+                    <span className="font-mono text-[10px] text-[#0088FF] font-bold">100% VERIFIED</span>
                   </div>
-                </div>
-
-                {/* Bottom UTM Telemetry Tag */}
-                <div className="flex items-center justify-between font-mono text-[9px] text-[#64748B]">
-                  <span className="truncate">UTM: source=vistar_reg&amp;geo=mh</span>
-                  <span className="text-[#0088FF] font-bold">LIFETIME LOGS</span>
+                  <div className="text-right">
+                    <span className="font-anton text-base text-[#0088FF] leading-none">48.2M</span>
+                    <span className="block font-mono text-[8px] text-[#64748B] uppercase">Impressions</span>
+                  </div>
                 </div>
               </div>
 

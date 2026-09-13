@@ -87,8 +87,11 @@ export default function BrandMarquee({ brands }: BrandMarqueeProps) {
                       <img
                         src={brand.logo}
                         alt={`${brand.name} logo`}
-                        className="h-4 sm:h-5 max-h-5 w-auto max-w-[70px] sm:max-w-[80px] object-contain shrink-0"
+                        width={80}
+                        height={20}
                         loading="lazy"
+                        decoding="async"
+                        className="h-4 sm:h-5 max-h-5 w-auto max-w-[70px] sm:max-w-[80px] object-contain shrink-0"
                       />
                     </div>
                   )}
@@ -112,8 +115,11 @@ export default function BrandMarquee({ brands }: BrandMarqueeProps) {
                       <img
                         src={brand.logo}
                         alt={`${brand.name} logo`}
-                        className="h-4 sm:h-5 max-h-5 w-auto max-w-[70px] sm:max-w-[80px] object-contain shrink-0"
+                        width={80}
+                        height={20}
                         loading="lazy"
+                        decoding="async"
+                        className="h-4 sm:h-5 max-h-5 w-auto max-w-[70px] sm:max-w-[80px] object-contain shrink-0"
                       />
                     </div>
                   )}

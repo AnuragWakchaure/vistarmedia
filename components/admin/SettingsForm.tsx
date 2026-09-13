@@ -110,8 +110,8 @@ export default function SettingsForm({ initialData }: { initialData: any }) {
               <input
                 required
                 name="whatsappNumber"
-                defaultValue={initialData?.whatsappNumber || "+919876543210"}
-                placeholder="+919876543210"
+                defaultValue={initialData?.whatsappNumber || "+91 83088 68478"}
+                placeholder="+91 83088 68478"
                 className="w-full bg-[#07090E]/80 border border-white/10 focus:border-[#00D2FF] focus:bg-[#07090E] rounded-2xl px-4 py-3 text-xs sm:text-sm text-white font-mono font-bold focus:outline-none transition focus:ring-1 focus:ring-[#00D2FF]/50"
               />
             </div>
@@ -175,8 +175,8 @@ export default function SettingsForm({ initialData }: { initialData: any }) {
               <input
                 required
                 name="phone"
-                defaultValue={initialData?.phone || "+91 98765 43210"}
-                placeholder="+91 98765 43210"
+                defaultValue={initialData?.phone || "+91 83088 68478"}
+                placeholder="+91 83088 68478"
                 className="w-full bg-[#07090E]/80 border border-white/10 focus:border-[#00D2FF] focus:bg-[#07090E] rounded-2xl pl-11 pr-4 py-3 text-xs sm:text-sm text-white font-mono font-bold focus:outline-none transition focus:ring-1 focus:ring-[#00D2FF]/50"
               />
             </div>

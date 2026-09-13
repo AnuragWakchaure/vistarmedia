@@ -21,10 +21,10 @@ const SettingsUpdateSchema = z.object({
 
 const DEFAULT_SETTINGS = {
   companyName: "VISTAR",
-  whatsappNumber: "+919876543210",
+  whatsappNumber: "+91 83088 68478",
   whatsappDefaultMessage:
     "Hi VISTAR, I'm interested in an influencer marketing campaign for my brand. I would like to discuss my campaign requirements.",
-  phone: "+91 98765 43210",
+  phone: "+91 83088 68478",
   email: "connect@vistar.in",
   address: "Pune & Mumbai, Maharashtra, India",
   instagramUrl: "https://instagram.com",
@@ -40,6 +40,19 @@ export async function getSettingsAction() {
 
     if (!settings) {
       settings = await Settings.create(DEFAULT_SETTINGS);
+    } else if (
+      settings.phone === "+91 98765 43210" ||
+      settings.phone === "+919876543210" ||
+      !settings.phone ||
+      settings.whatsappNumber === "+919876543210" ||
+      settings.whatsappNumber === "+91 98765 43210"
+    ) {
+      await Settings.updateOne(
+        { _id: (settings as any)._id },
+        { $set: { phone: "+91 83088 68478", whatsappNumber: "+91 83088 68478" } }
+      );
+      (settings as any).phone = "+91 83088 68478";
+      (settings as any).whatsappNumber = "+91 83088 68478";
     }
 
     return JSON.parse(JSON.stringify(settings));

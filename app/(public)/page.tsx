@@ -1,5 +1,4 @@
 import { connectDB } from "@/lib/db/client";
-import { Creator } from "@/models/Creator";
 import { Campaign } from "@/models/Campaign";
 import { Brand } from "@/models/Brand";
 import { Testimonial } from "@/models/Testimonial";
@@ -10,7 +9,7 @@ import HeroSection from "@/components/public/HeroSection";
 import BrandMarquee from "@/components/public/BrandMarquee";
 import BentoWhyUs from "@/components/public/BentoWhyUs";
 import HomeServicesSection from "@/components/public/HomeServicesSection";
-import CreatorMarqueeGrid from "@/components/public/CreatorMarqueeGrid";
+import CreatorCategoriesSection from "@/components/public/CreatorCategoriesSection";
 import MaharashtraCoverage from "@/components/public/MaharashtraCoverage";
 import CampaignProcess from "@/components/public/CampaignProcess";
 import TestimonialsSection from "@/components/public/TestimonialsSection";
@@ -27,8 +26,7 @@ export const dynamic = "force-dynamic";
 export default async function HomePage() {
   await connectDB();
   const homepageContent = await getHomepageContentAction();
-  const [creators, campaigns, brands, testimonials, dbLocations] = await Promise.all([
-    Creator.find({ status: "PUBLISHED" }).sort({ totalFollowers: -1 }).limit(16).lean(),
+  const [campaigns, brands, testimonials, dbLocations] = await Promise.all([
     Campaign.find({ status: "PUBLISHED" }).populate("brandId", "name logo").limit(3).lean(),
     Brand.find({ status: "ACTIVE" }).sort({ displayOrder: 1 }).lean(),
     Testimonial.find({ status: "ACTIVE" }).sort({ displayOrder: 1, createdAt: -1 }).lean(),
@@ -61,7 +59,6 @@ export default async function HomePage() {
         secondaryCta={homepageContent.secondaryCtaText}
         creatorCount="200+"
         campaigns={JSON.parse(JSON.stringify(campaigns))}
-        creators={JSON.parse(JSON.stringify(creators))}
       />
 
       {/* 2. TRUSTED BRANDS (Off White) */}
@@ -73,34 +70,8 @@ export default async function HomePage() {
       {/* 4. CAPABILITIES & SERVICES (Off White) */}
       <HomeServicesSection />
 
-      {/* 5. CREATOR NETWORK (Light Gray - Alternate Light Section) */}
-      <section id="creators" className="py-20 sm:py-24 px-4 sm:px-6 bg-[#EAF0F3] relative overflow-hidden scroll-mt-28">
-        <SectionBackground variant="dots" />
-        <div className="max-w-6xl mx-auto space-y-12 relative z-10">
-          <ScrollReveal direction="up" distance={16}>
-            <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
-              <div className="space-y-3">
-                <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white border border-slate-200 text-[#0B1117] text-xs font-bold uppercase tracking-wider shadow-xs">
-                  <span className="w-2 h-2 rounded-full bg-[#00C8FF]" />
-                  <span>Exclusive Marathi Creators</span>
-                </div>
-                <h2 className="font-anton text-4xl sm:text-5xl md:text-6xl text-[#0B1117] uppercase tracking-tight leading-[0.98]">
-                  Featured Influencers & Voices
-                </h2>
-              </div>
-              <Link
-                href="/creators"
-                className="inline-flex items-center gap-1.5 px-6 py-3 rounded-full bg-white hover:bg-slate-50 text-[#0B1117] border border-slate-200 text-xs font-bold uppercase tracking-wider transition-all duration-200 shadow-xs hover:border-[#00C8FF]/60 hover:shadow-md shrink-0"
-              >
-                <span>Explore all 200+ creators</span>
-                <ArrowUpRight className="w-4 h-4 text-[#009DFF]" />
-              </Link>
-            </div>
-          </ScrollReveal>
-
-          <CreatorMarqueeGrid creators={JSON.parse(JSON.stringify(creators))} />
-        </div>
-      </section>
+      {/* 5. CREATOR CATEGORIES & VERTICALS (Light Gray - Alternate Light Section) */}
+      <CreatorCategoriesSection />
 
       {/* 6. MAHARASHTRA PRESENCE (Midnight - Dark Immersive Map Section) */}
       <MaharashtraCoverage locations={JSON.parse(JSON.stringify(locations))} />
@@ -143,6 +114,10 @@ export default async function HomePage() {
                         <img
                           src={camp.coverImage}
                           alt={camp.title}
+                          width={600}
+                          height={240}
+                          loading="lazy"
+                          decoding="async"
                           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         />
                         <div className="absolute top-4 left-4">

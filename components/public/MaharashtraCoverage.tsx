@@ -1,11 +1,20 @@
 "use client";
 
 import React, { useState } from "react";
+import dynamic from "next/dynamic";
 import { motion, useReducedMotion } from "framer-motion";
 import { EASINGS, DURATIONS } from "@/components/animations/MotionTokens";
 import { Counter } from "@/components/animations/Counter";
-import MaharashtraMap from "@/components/public/MaharashtraMap";
 import { CreatorLocationItem, DEFAULT_CREATOR_LOCATIONS } from "@/lib/data/maharashtra-geo";
+
+const MaharashtraMap = dynamic(() => import("@/components/public/MaharashtraMap"), {
+  ssr: false,
+  loading: () => (
+    <div className="w-full aspect-[900/680] max-h-[640px] bg-[#07111A] rounded-3xl flex items-center justify-center border border-cyan-500/20">
+      <div className="w-8 h-8 rounded-full border-2 border-[#00C8FF] border-t-transparent animate-spin" />
+    </div>
+  ),
+});
 
 interface MaharashtraCoverageProps {
   locations?: CreatorLocationItem[];

@@ -17,8 +17,7 @@ const CORE_VALUES = [
     title: "Authentic Creators First",
     description:
       "We do not work with superficial engagement pods. Every creator in our 200+ network is manually vetted for genuine community trust, active audience retention, and consistent delivery.",
-    image:
-      "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&auto=format&fit=crop&q=80",
+    image: "/images/about/about-creators.webp",
     highlight: "100% Engagement Vetted",
   },
   {
@@ -27,8 +26,7 @@ const CORE_VALUES = [
     title: "100% Grounded In Maharashtra",
     description:
       "From urban youth in Pune and Mumbai to farmers and agro-entrepreneurs in Nashik, Ahilyanagar, Satara, and Kolhapur, we understand the nuances of native dialects and local culture.",
-    image:
-      "https://images.unsplash.com/photo-1570168007204-dfb528c6958f?w=800&auto=format&fit=crop&q=80",
+    image: "/images/about/about-maharashtra.webp",
     highlight: "Dialect & Cultural Nuance",
   },
   {
@@ -37,8 +35,7 @@ const CORE_VALUES = [
     title: "Data & Integrity",
     description:
       "No inflated vanity metrics. We provide transparent campaign audits, verifiable view counts, and honest performance data to ensure every rupee invested generates measurable business equity.",
-    image:
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&auto=format&fit=crop&q=80",
+    image: "/images/about/about-analytics.webp",
     highlight: "Real-Time UTM Telemetry",
   },
 ];

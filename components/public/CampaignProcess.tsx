@@ -51,7 +51,7 @@ export default function CampaignProcess() {
         >
           <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white border border-slate-200 text-[#0B1117] text-xs font-bold uppercase tracking-wider shadow-xs">
             <Sparkles className="w-3.5 h-3.5 text-[#00C8FF]" />
-            <span>How It Works &bull; Campaign Process</span>
+            <span>How It Works</span>
           </div>
 
           <h2 className="font-anton text-4xl sm:text-5xl md:text-6xl text-[#0B1117] uppercase tracking-tight leading-[0.98]">
@@ -62,7 +62,7 @@ export default function CampaignProcess() {
           </h2>
 
           <p className="text-xs sm:text-sm text-[#64717C] font-normal max-w-xl mx-auto leading-relaxed">
-            End-to-end execution across 35 Maharashtra districts — from strategy to verified ROI.
+            End-to-end campaign execution across Maharashtra — from strategy to verified ROI.
           </p>
         </motion.div>
 
@@ -88,17 +88,17 @@ export default function CampaignProcess() {
               </div>
 
               <h3 className="font-anton text-3xl sm:text-4xl text-[#0B1117] uppercase tracking-tight leading-tight">
-                Define Brief & KPIs.
+                Brief & Strategy.
               </h3>
 
               <p className="text-xs sm:text-sm text-[#64717C] font-normal leading-relaxed">
-                We align your brand goals with target demographics, district allocation, and measurable performance KPIs.
+                Align brand goals, target districts, and measurable KPIs.
               </p>
 
               <div className="space-y-2 pt-1">
                 {[
-                  "Target district & vernacular audience mapping",
-                  "Deliverable scope (Reels, Story Sequences, Activations)",
+                  "District & audience mapping",
+                  "Deliverables scope & timeline",
                 ].map((item, idx) => (
                   <div key={idx} className="flex items-center gap-2.5 text-xs text-[#0B1117] font-medium">
                     <CheckCircle2 className="w-4 h-4 text-[#00C8FF] shrink-0" />
@@ -234,17 +234,17 @@ export default function CampaignProcess() {
               </div>
 
               <h3 className="font-anton text-3xl sm:text-4xl text-[#0B1117] uppercase tracking-tight leading-tight">
-                Creator Matchmaking.
+                Creator Match.
               </h3>
 
               <p className="text-xs sm:text-sm text-[#64717C] font-normal leading-relaxed">
-                We pair your brand with vetted vernacular creators who have verified engagement and community credibility.
+                Vetted regional creators matched to your audience and niche.
               </p>
 
               <div className="space-y-2 pt-1">
                 {[
-                  "100% verified engagement with zero bot pods",
-                  "Direct rate negotiation & transparent contracting",
+                  "Zero-bot audited creators",
+                  "Direct rate negotiation",
                 ].map((item, idx) => (
                   <div key={idx} className="flex items-center gap-2.5 text-xs text-[#0B1117] font-medium">
                     <CheckCircle2 className="w-4 h-4 text-[#00C8FF] shrink-0" />
@@ -268,21 +268,21 @@ export default function CampaignProcess() {
               className="order-1 space-y-4"
             >
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-cyan-200 text-[#009DFF] text-[11px] font-mono font-bold tracking-widest uppercase shadow-xs">
-                <span>03 / BRIEFING & APPROVAL</span>
+                <span>03 / SCRIPT & APPROVE</span>
               </div>
 
               <h3 className="font-anton text-3xl sm:text-4xl text-[#0B1117] uppercase tracking-tight leading-tight">
-                Native Content Scripting.
+                Script & Content.
               </h3>
 
               <p className="text-xs sm:text-sm text-[#64717C] font-normal leading-relaxed">
-                Creators craft high-impact regional content in native Marathi dialects with full brand review and rapid approval cycles.
+                Native Marathi scripting with fast brand review and sign-off.
               </p>
 
               <div className="space-y-2 pt-1">
                 {[
-                  "Authentic Marathi cultural hooks & storytelling",
-                  "Dedicated brand compliance & quality check",
+                  "Cultural hooks & native tone",
+                  "Brand compliance & quality check",
                 ].map((item, idx) => (
                   <div key={idx} className="flex items-center gap-2.5 text-xs text-[#0B1117] font-medium">
                     <CheckCircle2 className="w-4 h-4 text-[#00C8FF] shrink-0" />
@@ -403,21 +403,21 @@ export default function CampaignProcess() {
               className="order-1 lg:order-2 space-y-4"
             >
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-cyan-200 text-[#009DFF] text-[11px] font-mono font-bold tracking-widest uppercase shadow-xs">
-                <span>04 / CAMPAIGN LAUNCH</span>
+                <span>04 / LAUNCH</span>
               </div>
 
               <h3 className="font-anton text-3xl sm:text-4xl text-[#0B1117] uppercase tracking-tight leading-tight">
-                Synchronized Rollout.
+                Synchronized Launch.
               </h3>
 
               <p className="text-xs sm:text-sm text-[#64717C] font-normal leading-relaxed">
-                Coordinated drops across Instagram and YouTube timed to peak viewing hours for maximum regional reach.
+                Timed multi-wave drops across Instagram & YouTube for peak reach.
               </p>
 
               <div className="space-y-2 pt-1">
                 {[
-                  "Synchronized cross-creator posting window",
-                  "Trackable UTM links & active comment pinning",
+                  "Timed posting windows",
+                  "Trackable UTMs & comment pinning",
                 ].map((item, idx) => (
                   <div key={idx} className="flex items-center gap-2.5 text-xs text-[#0B1117] font-medium">
                     <CheckCircle2 className="w-4 h-4 text-[#00C8FF] shrink-0" />
@@ -441,21 +441,21 @@ export default function CampaignProcess() {
               className="order-1 space-y-4"
             >
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-cyan-200 text-[#009DFF] text-[11px] font-mono font-bold tracking-widest uppercase shadow-xs">
-                <span>05 / TRACKING & TELEMETRY</span>
+                <span>05 / TELEMETRY</span>
               </div>
 
               <h3 className="font-anton text-3xl sm:text-4xl text-[#0B1117] uppercase tracking-tight leading-tight">
-                Real-Time Telemetry.
+                Live Telemetry.
               </h3>
 
               <p className="text-xs sm:text-sm text-[#64717C] font-normal leading-relaxed">
-                Live monitoring of reach, click velocities, and audience sentiment with zero-bot auditing.
+                Live monitoring of views, click velocity, and engagement.
               </p>
 
               <div className="space-y-2 pt-1">
                 {[
-                  "Live UTM attribution & conversion velocity",
-                  "Zero-bot audit guaranteeing authentic impressions",
+                  "Live UTM conversion tracking",
+                  "Verified authentic impressions",
                 ].map((item, idx) => (
                   <div key={idx} className="flex items-center gap-2.5 text-xs text-[#0B1117] font-medium">
                     <CheckCircle2 className="w-4 h-4 text-[#00C8FF] shrink-0" />
@@ -577,21 +577,21 @@ export default function CampaignProcess() {
               className="order-1 lg:order-2 space-y-4"
             >
               <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-cyan-200 text-[#009DFF] text-[11px] font-mono font-bold tracking-widest uppercase shadow-xs">
-                <span>06 / REPORTING & INSIGHTS</span>
+                <span>06 / ROI DOSSIER</span>
               </div>
 
               <h3 className="font-anton text-3xl sm:text-4xl text-[#0B1117] uppercase tracking-tight leading-tight">
-                Executive ROI Dossier.
+                ROI & Analytics.
               </h3>
 
               <p className="text-xs sm:text-sm text-[#64717C] font-normal leading-relaxed">
-                Comprehensive performance audit breaking down verified reach, commercial efficiency, and scaling blueprint.
+                Post-campaign audit with verified reach, CPR/CPE metrics, and insights.
               </p>
 
               <div className="space-y-2 pt-1">
                 {[
-                  "Creator-by-creator metrics & content archive",
-                  "Verified CPM & cost-per-engagement audit",
+                  "Creator-level performance breakdown",
+                  "Audited CPR & cost-per-engagement",
                 ].map((item, idx) => (
                   <div key={idx} className="flex items-center gap-2.5 text-xs text-[#0B1117] font-medium">
                     <CheckCircle2 className="w-4 h-4 text-[#00C8FF] shrink-0" />
@@ -613,13 +613,13 @@ export default function CampaignProcess() {
         >
           <div className="space-y-2.5 text-center md:text-left max-w-xl">
             <span className="text-[11px] font-mono font-bold uppercase tracking-widest text-[#00C8FF] bg-cyan-500/10 px-3 py-1 rounded-full border border-cyan-500/30">
-              Ready For Execution
+              Get Started
             </span>
             <h3 className="font-anton text-3xl sm:text-4xl uppercase tracking-tight text-white leading-tight">
-              Ready To Launch Your Maharashtra Campaign?
+              Ready To Launch Your Campaign?
             </h3>
             <p className="text-xs sm:text-sm text-slate-300 font-normal leading-relaxed">
-              Share your brand goals with our strategy team. We’ll deliver a tailored creator proposal and transparent pricing within 48 hours.
+              Share your brief with us. We’ll deliver a tailored creator proposal within 48 hours.
             </p>
           </div>
 

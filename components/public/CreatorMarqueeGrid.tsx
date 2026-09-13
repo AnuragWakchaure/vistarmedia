@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowUpRight, MapPin, BadgeCheck, Users } from "lucide-react";
+import { ArrowUpRight, MapPin, BadgeCheck } from "lucide-react";
 import { useReducedMotion } from "framer-motion";
 import { formatFollowers } from "@/lib/utils";
 
@@ -21,7 +21,7 @@ interface CreatorMarqueeGridProps {
   creators: CreatorItem[];
 }
 
-function CreatorCard({ creator, idx }: { creator: CreatorItem; idx: number }) {
+function CreatorCard({ creator }: { creator: CreatorItem }) {
   return (
     <div className="w-[300px] sm:w-[340px] shrink-0 p-6 rounded-3xl bg-white border border-slate-200/90 hover:border-cyan-400 shadow-[0_4px_24px_rgba(11,17,23,0.03)] hover:shadow-[0_16px_36px_rgba(0,200,255,0.12)] transition-all duration-200 flex flex-col justify-between group select-none cursor-pointer">
       <div className="space-y-4">
@@ -38,10 +38,15 @@ function CreatorCard({ creator, idx }: { creator: CreatorItem; idx: number }) {
 
         {/* Creator Info: Avatar + Name */}
         <div className="flex items-center gap-4 pt-1">
-          <div className="relative shrink-0">
+          <div className="relative shrink-0 w-14 h-14 sm:w-16 sm:h-16">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={creator.profileImage}
               alt={creator.name}
+              width={64}
+              height={64}
+              loading="lazy"
+              decoding="async"
               className="w-14 h-14 sm:w-16 sm:h-16 rounded-full object-cover border-2 border-cyan-100 shadow-xs"
             />
             {creator.featured && (
@@ -96,17 +101,16 @@ export default function CreatorMarqueeGrid({ creators }: CreatorMarqueeGridProps
   const row1Base = creators.slice(0, midPoint);
   const row2Base = creators.slice(midPoint);
 
-  // Replicate rows to ensure seamless continuous infinite marquee loop
-  const repeatCount = 4;
-  const row1 = Array(repeatCount).fill(row1Base).flat();
-  const row2 = Array(repeatCount).fill(row2Base.length > 0 ? row2Base : row1Base).flat();
+  // Replicate rows 2x (exact mathematical minimum for CSS -50% infinite translation loop)
+  const row1 = [...row1Base, ...row1Base];
+  const row2 = [...(row2Base.length > 0 ? row2Base : row1Base), ...(row2Base.length > 0 ? row2Base : row1Base)];
 
   // If there are less than 4 creators or user prefers reduced motion: show steady static cards
   if (creators.length < 4 || shouldReduceMotion) {
     return (
       <div className="flex flex-wrap justify-center gap-6 max-w-6xl mx-auto">
-        {creators.map((c, idx) => (
-          <CreatorCard key={`${c._id}-${idx}`} creator={c} idx={idx} />
+        {creators.map((c) => (
+          <CreatorCard key={c._id} creator={c} />
         ))}
       </div>
     );
@@ -118,7 +122,7 @@ export default function CreatorMarqueeGrid({ creators }: CreatorMarqueeGridProps
       <div className="flex overflow-hidden">
         <div className="animate-marquee flex gap-6 pr-6">
           {row1.map((creator, idx) => (
-            <CreatorCard key={`r1-${creator._id}-${idx}`} creator={creator} idx={idx} />
+            <CreatorCard key={`r1-${creator._id}-${idx}`} creator={creator} />
           ))}
         </div>
       </div>
@@ -127,7 +131,7 @@ export default function CreatorMarqueeGrid({ creators }: CreatorMarqueeGridProps
       <div className="flex overflow-hidden">
         <div className="animate-marquee-reverse flex gap-6 pr-6">
           {row2.map((creator, idx) => (
-            <CreatorCard key={`r2-${creator._id}-${idx}`} creator={creator} idx={idx + 1} />
+            <CreatorCard key={`r2-${creator._id}-${idx}`} creator={creator} />
           ))}
         </div>
       </div>
