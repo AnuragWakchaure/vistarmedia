@@ -111,11 +111,6 @@ export default async function Footer() {
         {/* Minimal Bottom Bar */}
         <div className="pt-4 border-t border-white/10 flex flex-col sm:flex-row items-center justify-between text-[11px] text-slate-500 font-medium gap-3">
           <div>&copy; 2026 VISTAR MEDIA. All Rights Reserved.</div>
-          <div className="flex items-center gap-6">
-            <Link href="/admin/login" className="hover:text-[#00C8FF] transition-colors uppercase tracking-wider font-bold">
-              Admin Portal
-            </Link>
-          </div>
         </div>
       </div>
     </footer>
