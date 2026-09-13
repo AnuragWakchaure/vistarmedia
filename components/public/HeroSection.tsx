@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useRef, useEffect } from "react";
+import React, { useState, useRef, useEffect, useCallback } from "react";
 import Link from "next/link";
 import {
   ArrowUpRight,
@@ -11,10 +11,10 @@ import {
   Maximize2,
   RotateCcw,
   TrendingUp,
-  MapPin,
-  Flame,
+  ChevronLeft,
+  ChevronRight,
 } from "lucide-react";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion, type Variants } from "framer-motion";
 import { EASINGS, DURATIONS } from "@/components/animations/MotionTokens";
 import { Counter } from "@/components/animations/Counter";
 import { AuroraBackground } from "@/components/motion/AuroraBackground";
@@ -32,10 +32,22 @@ export interface ICampaignReelItem {
   engagement: string;
 }
 
-// 100% Guaranteed Public High-Speed Video Streams with Optimized Local WebP Posters
+// Exactly 2 Verified Campaign Video Reels (High-Reach Spotlight First)
 const DEFAULT_CAMPAIGNS: ICampaignReelItem[] = [
   {
     id: "campaign-01",
+    brand: "Mahindra Tractors",
+    title: "New Tractor Launch Campaign",
+    category: "Regional Agriculture & Auto Campaign",
+    location: "Chhatrapati Sambhajinagar • Maharashtra",
+    videoUrl: "/videos/mahindra-launch-reel.mp4",
+    posterUrl: "https://images.unsplash.com/photo-1589923188900-85dae523342b?w=1200&auto=format&fit=crop&q=80",
+    reach: "1.8M+ Reach",
+    reachSubtext: "@mh20vlogger_yt • Maharashtra",
+    engagement: "93K+ Likes • 144 Comments",
+  },
+  {
+    id: "campaign-02",
     brand: "Vishal Kadlag Collab",
     title: "Kaka ❌ Brand Ambassador ✅",
     category: "Vernacular Influencer Campaign",
@@ -45,42 +57,6 @@ const DEFAULT_CAMPAIGNS: ICampaignReelItem[] = [
     reach: "135K+ Reach",
     reachSubtext: "@vishal_kadlag08 • Maharashtra",
     engagement: "6,591 Likes • 34 Comments",
-  },
-  {
-    id: "campaign-02",
-    brand: "Tata Motors",
-    title: "Nexon EV Regional Roadshow",
-    category: "Automotive & EV",
-    location: "Pune, Mumbai & Nashik",
-    videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4",
-    posterUrl: "/images/hero-reel-poster.webp",
-    reach: "3.6M+",
-    reachSubtext: "Pune, Mumbai & Nashik Hubs",
-    engagement: "3.2x Higher Brand Recall",
-  },
-  {
-    id: "campaign-03",
-    brand: "Sahyadri Farms",
-    title: "Direct-to-Consumer Fresh Harvest",
-    category: "FMCG & Agro-Foods",
-    location: "Western Maharashtra",
-    videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4",
-    posterUrl: "/images/hero-reel-poster.webp",
-    reach: "2.9M+",
-    reachSubtext: "Western Maharashtra Belt",
-    engagement: "48K Direct App Inquiries",
-  },
-  {
-    id: "campaign-04",
-    brand: "FinMarathi",
-    title: "Regional Financial Literacy Outreach",
-    category: "Fintech & Vernacular Education",
-    location: "35 Districts Across Maharashtra",
-    videoUrl: "https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4",
-    posterUrl: "/images/hero-reel-poster.webp",
-    reach: "5.1M+",
-    reachSubtext: "Statewide Vernacular Outreach",
-    engagement: "110K Verified Signups",
   },
 ];
 
@@ -105,27 +81,13 @@ export default function HeroSection({
 }) {
   const shouldReduceMotion = useReducedMotion();
 
-  // Normalize campaigns list with fallback to working video URLs
-  const campaignList: ICampaignReelItem[] =
-    campaigns && campaigns.length > 0
-      ? [
-          DEFAULT_CAMPAIGNS[0],
-          ...campaigns.slice(0, 3).map((c, i) => ({
-            id: c._id?.toString() || `campaign-0${i + 2}`,
-            title: c.title || DEFAULT_CAMPAIGNS[(i + 1) % DEFAULT_CAMPAIGNS.length].title,
-            brand: c.brandId?.name || c.brand || DEFAULT_CAMPAIGNS[(i + 1) % DEFAULT_CAMPAIGNS.length].brand,
-            category: c.industry || c.category || DEFAULT_CAMPAIGNS[(i + 1) % DEFAULT_CAMPAIGNS.length].category,
-            location: c.location || "Maharashtra",
-            videoUrl: c.videos?.[0]?.url || DEFAULT_CAMPAIGNS[(i + 1) % DEFAULT_CAMPAIGNS.length].videoUrl,
-            posterUrl: c.coverImage || "/images/hero-reel-poster.webp",
-            reach: c.results?.[0]?.value || DEFAULT_CAMPAIGNS[(i + 1) % DEFAULT_CAMPAIGNS.length].reach,
-            reachSubtext: c.location || DEFAULT_CAMPAIGNS[(i + 1) % DEFAULT_CAMPAIGNS.length].reachSubtext,
-            engagement: c.results?.[1]?.value || DEFAULT_CAMPAIGNS[(i + 1) % DEFAULT_CAMPAIGNS.length].engagement,
-          })),
-        ]
-      : DEFAULT_CAMPAIGNS;
+  // Exactly 2 Hero campaign videos
+  const campaignList: ICampaignReelItem[] = DEFAULT_CAMPAIGNS;
 
   const [activeIdx, setActiveIdx] = useState(0);
+  const [direction, setDirection] = useState(0);
+  const isDraggingRef = useRef(false);
+
   const activeCampaign = campaignList[activeIdx] || campaignList[0];
 
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -138,9 +100,23 @@ export default function HeroSection({
   const [showControls, setShowControls] = useState(false);
   const controlsTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
+  // Pagination Handler
+  const paginate = useCallback(
+    (newDirection: number) => {
+      setDirection(newDirection);
+      setActiveIdx((prev) => (prev + newDirection + campaignList.length) % campaignList.length);
+    },
+    [campaignList.length]
+  );
+
+  const goToSlide = (index: number) => {
+    if (index === activeIdx) return;
+    setDirection(index > activeIdx ? 1 : -1);
+    setActiveIdx(index);
+  };
+
   // Defer video initialization until after initial page load & interactivity to safeguard LCP
   useEffect(() => {
-    // Schedule video attachment during browser idle or short delay
     const timer = setTimeout(() => {
       setVideoLoaded(true);
     }, 400);
@@ -148,7 +124,7 @@ export default function HeroSection({
     return () => clearTimeout(timer);
   }, []);
 
-  // Auto-play reliably once video source is ready
+  // Auto-play active video reliably whenever active slide changes
   useEffect(() => {
     if (!videoLoaded) return;
     const video = videoRef.current;
@@ -162,7 +138,7 @@ export default function HeroSection({
         await video.play();
         setIsPlaying(true);
       } catch (err) {
-        // Fall back to muted play
+        // Fall back to muted play if unmuted playback was blocked by browser
         try {
           video.muted = true;
           setIsMuted(true);
@@ -175,7 +151,7 @@ export default function HeroSection({
     };
 
     playVideo();
-  }, [activeCampaign.videoUrl, videoLoaded]);
+  }, [activeIdx, videoLoaded, activeCampaign.videoUrl]);
 
   // Video Progress Update
   const handleTimeUpdate = () => {
@@ -244,6 +220,81 @@ export default function HeroSection({
     setShowControls(false);
   };
 
+  // Handle Drag Gestures on Carousel Card
+  const handleDragStart = () => {
+    isDraggingRef.current = true;
+  };
+
+  const handleDragEnd = (
+    _: any,
+    info: { offset: { x: number; y: number }; velocity: { x: number; y: number } }
+  ) => {
+    const { offset, velocity } = info;
+    const swipeThreshold = 50;
+    const velocityThreshold = 400;
+
+    if (offset.x < -swipeThreshold || velocity.x < -velocityThreshold) {
+      paginate(1);
+    } else if (offset.x > swipeThreshold || velocity.x > velocityThreshold) {
+      paginate(-1);
+    }
+    setTimeout(() => {
+      isDraggingRef.current = false;
+    }, 120);
+  };
+
+  const handleCardClick = () => {
+    if (isDraggingRef.current) return;
+    togglePlay();
+  };
+
+  // Keyboard navigation
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "ArrowLeft") {
+      e.preventDefault();
+      paginate(-1);
+    } else if (e.key === "ArrowRight") {
+      e.preventDefault();
+      paginate(1);
+    } else if (e.key === " " || e.key === "Enter") {
+      e.preventDefault();
+      togglePlay();
+    } else if (e.key === "m" || e.key === "M") {
+      e.preventDefault();
+      toggleMute(e as any);
+    }
+  };
+
+  // Variants for Slide Horizontal Physical Motion
+  const slideVariants: Variants = {
+    enter: (dir: number) => ({
+      x: shouldReduceMotion ? 0 : dir > 0 ? "100%" : dir < 0 ? "-100%" : 0,
+      opacity: shouldReduceMotion ? 1 : 0.85,
+    }),
+    center: {
+      zIndex: 1,
+      x: 0,
+      opacity: 1,
+      transition: {
+        x: shouldReduceMotion
+          ? { duration: 0 }
+          : { type: "spring" as const, stiffness: 320, damping: 32 },
+        opacity: { duration: 0.2 },
+      },
+    },
+    exit: (dir: number) => ({
+      zIndex: 0,
+      x: shouldReduceMotion ? 0 : dir < 0 ? "100%" : "-100%",
+      opacity: shouldReduceMotion ? 1 : 0.85,
+      transition: {
+        x: shouldReduceMotion
+          ? { duration: 0 }
+          : { type: "spring" as const, stiffness: 320, damping: 32 },
+        opacity: { duration: 0.2 },
+      },
+    }),
+  };
+
   const containerVariants = {
     hidden: { opacity: shouldReduceMotion ? 1 : 0 },
     visible: {
@@ -271,7 +322,7 @@ export default function HeroSection({
   };
 
   return (
-    <section className="relative min-h-[92vh] flex items-center justify-center pt-28 sm:pt-32 pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden bg-[#05080D]">
+    <section className="relative min-h-screen lg:min-h-[92vh] flex items-center justify-center pt-24 sm:pt-32 pb-16 sm:pb-20 px-4 sm:px-6 lg:px-8 overflow-hidden bg-[#05080D]">
       {/* Motion UI Aurora Ambient Background */}
       <AuroraBackground showGrid={true} />
 
@@ -403,177 +454,257 @@ export default function HeroSection({
           </div>
 
           {/* ========================================================================= */}
-          {/* RIGHT COLUMN: VISTAR Custom 9:16 Reel Player & Reach Showcase */}
+          {/* RIGHT COLUMN: VISTAR Swipeable 9:16 Campaign Reel Carousel */}
           {/* ========================================================================= */}
-          <div className="lg:col-span-5 xl:col-span-5 relative flex flex-col items-center lg:items-end justify-center py-4 sm:py-6 space-y-4">
+          <div className="lg:col-span-5 xl:col-span-5 relative flex flex-col items-center lg:items-end justify-center py-2 sm:py-6 space-y-3 sm:space-y-3.5 w-full">
             {/* Ambient Cyan/Navy Backlight Glow */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[320px] sm:w-[380px] h-[480px] bg-gradient-to-tr from-[#00C8FF]/20 via-[#009DFF]/15 to-transparent blur-3xl pointer-events-none rounded-full" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[280px] sm:w-[380px] h-[420px] sm:h-[480px] bg-gradient-to-tr from-[#00C8FF]/20 via-[#009DFF]/15 to-transparent blur-3xl pointer-events-none rounded-full" />
 
-            {/* Custom 9:16 Video Player Container */}
-            <div className="relative w-full max-w-[310px] sm:max-w-[340px] flex flex-col items-center">
+            {/* Swipeable Carousel Wrapper */}
+            <div className="relative w-full max-w-[300px] sm:max-w-[340px] flex flex-col items-center space-y-2.5 sm:space-y-3">
+              {/* 9:16 Video Player Card Container */}
               <div
                 ref={playerContainerRef}
                 onMouseMove={handleMouseMove}
                 onMouseLeave={handleMouseLeave}
-                onClick={togglePlay}
                 tabIndex={0}
                 role="region"
-                aria-label="VISTAR Campaign Reel Player"
-                onKeyDown={(e) => {
-                  if (e.key === " " || e.key === "Enter") {
-                    e.preventDefault();
-                    togglePlay();
-                  } else if (e.key === "m" || e.key === "M") {
-                    e.preventDefault();
-                    toggleMute(e as any);
-                  }
-                }}
-                className="relative cursor-pointer w-full aspect-[9/16] rounded-3xl overflow-hidden border border-white/15 hover:border-cyan-500/40 bg-[#07111A] shadow-[0_20px_50px_rgba(0,0,0,0.6)] group select-none flex flex-col justify-between focus:outline-none focus:ring-2 focus:ring-[#00C8FF]"
+                aria-roledescription="carousel"
+                aria-label="VISTAR Campaign Reel Carousel"
+                onKeyDown={handleKeyDown}
+                className="relative w-full aspect-[9/16] rounded-3xl overflow-hidden border border-white/15 hover:border-cyan-500/40 bg-[#07111A] shadow-[0_20px_50px_rgba(0,0,0,0.6)] group select-none focus:outline-none focus:ring-2 focus:ring-[#00C8FF] touch-pan-y shrink-0"
               >
-                {/* Top Animated Playback Progress Bar */}
-                <div className="absolute top-0 left-0 right-0 h-1 bg-white/20 z-30 pointer-events-none">
-                  <div
-                    className="h-full bg-gradient-to-r from-[#00C8FF] to-[#009DFF] transition-all duration-100"
-                    style={{ width: `${progress}%` }}
-                  />
-                </div>
-
-                {/* Top Header Controls Overlay */}
-                <div
-                  className={`absolute top-3.5 left-3.5 right-3.5 flex items-center justify-between z-20 transition-opacity duration-300 pointer-events-auto ${
-                    showControls || !isPlaying ? "opacity-100" : "opacity-80 group-hover:opacity-100"
-                  }`}
-                >
-                  {/* Subtle Proof of Work Indicator */}
-                  <div className="flex items-center gap-1.5 px-3 py-1 rounded-full bg-black/70 backdrop-blur-md border border-white/15 text-white text-[10px] font-mono font-bold tracking-wider shadow-sm">
-                    <span className="w-2 h-2 rounded-full bg-[#00C8FF] animate-pulse" />
-                    <span>FEATURED CAMPAIGN REEL</span>
-                  </div>
-
-                  {/* Top Right Controls Group */}
-                  <div className="flex items-center gap-1.5">
-                    {/* Restart Button */}
-                    <button
-                      type="button"
-                      onClick={restartVideo}
-                      aria-label="Replay campaign video from beginning"
-                      className="w-7 h-7 rounded-full bg-black/70 backdrop-blur-md border border-white/15 hover:border-[#00C8FF] text-white flex items-center justify-center transition-all hover:scale-110 shadow-sm cursor-pointer"
-                      title="Restart"
-                    >
-                      <RotateCcw className="w-3 h-3 text-slate-300" />
-                    </button>
-
-                    {/* Mute / Unmute Button */}
-                    <button
-                      type="button"
-                      onClick={toggleMute}
-                      aria-label={isMuted ? "Unmute campaign video audio" : "Mute campaign video audio"}
-                      className="w-7 h-7 rounded-full bg-black/70 backdrop-blur-md border border-white/15 hover:border-[#00C8FF] text-white flex items-center justify-center transition-all hover:scale-110 shadow-sm cursor-pointer"
-                      title={isMuted ? "Unmute audio" : "Mute audio"}
-                    >
-                      {isMuted ? (
-                        <VolumeX className="w-3 h-3 text-slate-300" />
-                      ) : (
-                        <Volume2 className="w-3 h-3 text-[#00C8FF]" />
-                      )}
-                    </button>
-
-                    {/* Fullscreen Button */}
-                    <button
-                      type="button"
-                      onClick={toggleFullscreen}
-                      aria-label="Toggle fullscreen video playback"
-                      className="w-7 h-7 rounded-full bg-black/70 backdrop-blur-md border border-white/15 hover:border-[#00C8FF] text-white flex items-center justify-center transition-all hover:scale-110 shadow-sm cursor-pointer"
-                      title="Fullscreen"
-                    >
-                      <Maximize2 className="w-3 h-3 text-slate-300" />
-                    </button>
-                  </div>
-                </div>
-
-                {/* HTML5 Native Video Tag with Deferred Loading & Preload None */}
-                {videoLoaded ? (
-                  <video
-                    ref={videoRef}
-                    key={activeCampaign.videoUrl}
-                    src={activeCampaign.videoUrl}
-                    poster={activeCampaign.posterUrl}
-                    autoPlay
-                    muted={isMuted}
-                    loop
-                    playsInline
-                    preload="none"
-                    crossOrigin="anonymous"
-                    onTimeUpdate={handleTimeUpdate}
-                    onPlay={() => setIsPlaying(true)}
-                    onPause={() => setIsPlaying(false)}
-                    className="w-full h-full object-cover"
-                  />
-                ) : (
-                  // eslint-disable-next-line @next/next/no-img-element
-                  <img
-                    src={activeCampaign.posterUrl}
-                    alt={activeCampaign.title}
-                    className="w-full h-full object-cover select-none"
-                    loading="eager"
-                  />
-                )}
-
-                {/* Subtle Vignette Gradient for Contrast */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#05080D]/90 via-transparent to-[#05080D]/40 pointer-events-none" />
-
-                {/* Centered VISTAR Custom Play Button Overlay (when paused or hovered) */}
-                <div
-                  className={`absolute inset-0 flex items-center justify-center z-20 pointer-events-none transition-all duration-300 ${
-                    !isPlaying ? "opacity-100 bg-black/40 backdrop-blur-xs" : "opacity-0 group-hover:opacity-100"
-                  }`}
-                >
-                  <div
-                    className="w-16 h-16 rounded-full bg-[#05080D]/85 backdrop-blur-md border border-cyan-400/50 flex items-center justify-center text-[#00C8FF] shadow-[0_0_30px_rgba(0,200,255,0.35)] hover:scale-105 transition-transform"
-                    aria-hidden="true"
+                {/* Physical Slide AnimatePresence Container */}
+                <AnimatePresence initial={false} custom={direction} mode="popLayout">
+                  <motion.div
+                    key={activeCampaign.id}
+                    custom={direction}
+                    variants={slideVariants}
+                    initial="enter"
+                    animate="center"
+                    exit="exit"
+                    drag="x"
+                    dragConstraints={{ left: 0, right: 0 }}
+                    dragElastic={0.25}
+                    onDragStart={handleDragStart}
+                    onDragEnd={handleDragEnd}
+                    onClick={handleCardClick}
+                    className="absolute inset-0 w-full h-full cursor-grab active:cursor-grabbing flex flex-col justify-between"
                   >
-                    {isPlaying ? (
-                      <Pause className="w-7 h-7 fill-current" />
+                    {/* Top Animated Playback Progress Bar */}
+                    <div className="absolute top-0 left-0 right-0 h-1 bg-white/20 z-30 pointer-events-none">
+                      <div
+                        className="h-full bg-gradient-to-r from-[#00C8FF] to-[#009DFF] transition-all duration-100"
+                        style={{ width: `${progress}%` }}
+                      />
+                    </div>
+
+                    {/* Top Header Controls Overlay */}
+                    <div
+                      className={`absolute top-3 left-3 right-3 sm:top-3.5 sm:left-3.5 sm:right-3.5 flex items-center justify-between z-20 transition-opacity duration-300 pointer-events-auto ${
+                        showControls || !isPlaying
+                          ? "opacity-100"
+                          : "opacity-80 group-hover:opacity-100"
+                      }`}
+                    >
+                      {/* Subtle Proof of Work Indicator Badge */}
+                      <div className="flex items-center gap-1.5 px-2.5 sm:px-3 py-1 rounded-full bg-black/70 backdrop-blur-md border border-white/15 text-white text-[9px] sm:text-[10px] font-mono font-bold tracking-wider shadow-sm">
+                        <span className="w-2 h-2 rounded-full bg-[#00C8FF] animate-pulse" />
+                        <span>FEATURED CAMPAIGN</span>
+                      </div>
+
+                      {/* Top Right Controls Group */}
+                      <div className="flex items-center gap-1 sm:gap-1.5">
+                        {/* Restart Button */}
+                        <button
+                          type="button"
+                          onClick={restartVideo}
+                          aria-label="Replay campaign video from beginning"
+                          className="w-7 h-7 rounded-full bg-black/70 backdrop-blur-md border border-white/15 hover:border-[#00C8FF] text-white flex items-center justify-center transition-all hover:scale-110 shadow-sm cursor-pointer"
+                          title="Restart"
+                        >
+                          <RotateCcw className="w-3 h-3 text-slate-300" />
+                        </button>
+
+                        {/* Mute / Unmute Button */}
+                        <button
+                          type="button"
+                          onClick={toggleMute}
+                          aria-label={
+                            isMuted
+                              ? "Unmute campaign video audio"
+                              : "Mute campaign video audio"
+                          }
+                          className="w-7 h-7 rounded-full bg-black/70 backdrop-blur-md border border-white/15 hover:border-[#00C8FF] text-white flex items-center justify-center transition-all hover:scale-110 shadow-sm cursor-pointer"
+                          title={isMuted ? "Unmute audio" : "Mute audio"}
+                        >
+                          {isMuted ? (
+                            <VolumeX className="w-3 h-3 text-slate-300" />
+                          ) : (
+                            <Volume2 className="w-3 h-3 text-[#00C8FF]" />
+                          )}
+                        </button>
+
+                        {/* Fullscreen Button */}
+                        <button
+                          type="button"
+                          onClick={toggleFullscreen}
+                          aria-label="Toggle fullscreen video playback"
+                          className="w-7 h-7 rounded-full bg-black/70 backdrop-blur-md border border-white/15 hover:border-[#00C8FF] text-white flex items-center justify-center transition-all hover:scale-110 shadow-sm cursor-pointer"
+                          title="Fullscreen"
+                        >
+                          <Maximize2 className="w-3 h-3 text-slate-300" />
+                        </button>
+                      </div>
+                    </div>
+
+                    {/* ONLY Mount Video for the Active Slide (Lazy Loading & Core Web Vitals) */}
+                    {videoLoaded ? (
+                      <video
+                        ref={videoRef}
+                        key={activeCampaign.videoUrl}
+                        src={activeCampaign.videoUrl}
+                        poster={activeCampaign.posterUrl}
+                        autoPlay
+                        muted={isMuted}
+                        loop
+                        playsInline
+                        preload="none"
+                        crossOrigin="anonymous"
+                        onTimeUpdate={handleTimeUpdate}
+                        onPlay={() => setIsPlaying(true)}
+                        onPause={() => setIsPlaying(false)}
+                        className="w-full h-full object-cover pointer-events-none"
+                      />
                     ) : (
-                      <Play className="w-7 h-7 fill-current translate-x-0.5" />
+                      // eslint-disable-next-line @next/next/no-img-element
+                      <img
+                        src={activeCampaign.posterUrl}
+                        alt={activeCampaign.title}
+                        className="w-full h-full object-cover select-none pointer-events-none"
+                        loading="eager"
+                      />
                     )}
+
+                    {/* Subtle Vignette Gradient for Contrast */}
+                    <div className="absolute inset-0 bg-gradient-to-t from-[#05080D]/95 via-transparent to-[#05080D]/40 pointer-events-none" />
+
+                    {/* Centered VISTAR Custom Play Button Overlay (when paused or hovered) */}
+                    <div
+                      className={`absolute inset-0 flex items-center justify-center z-20 pointer-events-none transition-all duration-300 ${
+                        !isPlaying
+                          ? "opacity-100 bg-black/40 backdrop-blur-xs"
+                          : "opacity-0 group-hover:opacity-100"
+                      }`}
+                    >
+                      <div
+                        className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-[#05080D]/85 backdrop-blur-md border border-cyan-400/50 flex items-center justify-center text-[#00C8FF] shadow-[0_0_30px_rgba(0,200,255,0.35)] hover:scale-105 transition-transform"
+                        aria-hidden="true"
+                      >
+                        {isPlaying ? (
+                          <Pause className="w-6 h-6 sm:w-7 sm:h-7 fill-current" />
+                        ) : (
+                          <Play className="w-6 h-6 sm:w-7 sm:h-7 fill-current translate-x-0.5" />
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Bottom Campaign Information Overlay */}
+                    <div className="absolute bottom-2.5 left-2.5 right-2.5 sm:bottom-3.5 sm:left-3.5 sm:right-3.5 z-20 p-2.5 sm:p-3.5 rounded-2xl bg-[#07111A]/90 backdrop-blur-md border border-white/10 text-left space-y-1 sm:space-y-1.5 pointer-events-auto">
+                      <div className="flex items-center justify-between gap-2">
+                        <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#00C8FF] truncate">
+                          {activeCampaign.brand}
+                        </span>
+                        <span className="text-[9px] font-mono px-2 py-0.5 rounded bg-white/10 text-slate-300 shrink-0">
+                          {activeCampaign.location}
+                        </span>
+                      </div>
+
+                      <div className="font-anton text-xs sm:text-sm md:text-base text-white leading-tight line-clamp-1">
+                        {activeCampaign.title}
+                      </div>
+
+                      <div className="text-[10px] text-slate-400 font-medium line-clamp-1">
+                        {activeCampaign.category}
+                      </div>
+                    </div>
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+
+              {/* =================================================================== */}
+              {/* EDITORIAL NAVIGATION & PAGINATION BAR */}
+              {/* =================================================================== */}
+              <div className="w-full flex items-center justify-between px-1 shrink-0">
+                {/* Previous Button */}
+                <button
+                  type="button"
+                  onClick={() => paginate(-1)}
+                  aria-label="Previous campaign reel"
+                  className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#07111A]/90 hover:bg-[#0B1822] border border-white/15 hover:border-[#00C8FF]/60 text-white flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95 shadow-md group cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#00C8FF]"
+                >
+                  <ChevronLeft className="w-4 h-4 text-slate-300 group-hover:text-[#00C8FF] transition-colors" />
+                </button>
+
+                {/* Editorial Counter & Indicator Pills */}
+                <div className="flex items-center gap-2.5 sm:gap-3">
+                  {/* Counter: 01 / 02 */}
+                  <div className="font-mono text-xs tracking-wider flex items-center gap-1.5 select-none">
+                    <span className="text-[#00C8FF] font-bold text-sm">
+                      {String(activeIdx + 1).padStart(2, "0")}
+                    </span>
+                    <span className="text-[#8E9CA7] font-medium">/</span>
+                    <span className="text-[#8E9CA7] font-medium">
+                      {String(campaignList.length).padStart(2, "0")}
+                    </span>
+                  </div>
+
+                  {/* Indicator Pills */}
+                  <div className="flex items-center gap-1.5 ml-1">
+                    {campaignList.map((_, i) => (
+                      <button
+                        key={i}
+                        type="button"
+                        onClick={() => goToSlide(i)}
+                        aria-label={`Go to campaign slide ${i + 1}`}
+                        className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer focus:outline-none ${
+                          i === activeIdx
+                            ? "w-6 bg-[#00C8FF] shadow-[0_0_8px_rgba(0,200,255,0.6)]"
+                            : "w-2 bg-white/20 hover:bg-white/40"
+                        }`}
+                      />
+                    ))}
                   </div>
                 </div>
 
-                {/* Bottom Campaign Information Overlay */}
-                <div className="absolute bottom-3.5 left-3.5 right-3.5 z-20 p-3.5 rounded-2xl bg-[#07111A]/90 backdrop-blur-md border border-white/10 text-left space-y-1.5 pointer-events-auto">
-                  <div className="flex items-center justify-between">
-                    <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#00C8FF]">
-                      {activeCampaign.brand}
-                    </span>
-                    <span className="text-[9px] font-mono px-2 py-0.5 rounded bg-white/10 text-slate-300">
-                      {activeCampaign.location}
-                    </span>
-                  </div>
-
-                  <div className="font-anton text-sm sm:text-base text-white leading-tight line-clamp-1">
-                    {activeCampaign.title}
-                  </div>
-
-                  <div className="text-[10px] text-slate-400 font-medium">
-                    {activeCampaign.category}
-                  </div>
-                </div>
+                {/* Next Button */}
+                <button
+                  type="button"
+                  onClick={() => paginate(1)}
+                  aria-label="Next campaign reel"
+                  className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#07111A]/90 hover:bg-[#0B1822] border border-white/15 hover:border-[#00C8FF]/60 text-white flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95 shadow-md group cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#00C8FF]"
+                >
+                  <ChevronRight className="w-4 h-4 text-slate-300 group-hover:text-[#00C8FF] transition-colors" />
+                </button>
               </div>
 
               {/* =================================================================== */}
               {/* REEL REACH & VERIFIED PERFORMANCE STATS BAR */}
               {/* =================================================================== */}
-              <div className="w-full mt-3 p-3.5 rounded-2xl bg-[#07111A]/95 backdrop-blur-md border border-white/10 shadow-lg flex items-center justify-between gap-3">
+              <div className="w-full p-3 sm:p-3.5 rounded-2xl bg-[#07111A]/95 backdrop-blur-md border border-white/10 shadow-lg flex flex-col sm:flex-row sm:items-center justify-between gap-2.5 sm:gap-3 shrink-0">
                 {/* Left: Reach Metrics Counter */}
                 <div className="flex items-center gap-2.5 min-w-0">
-                  <div className="w-9 h-9 rounded-xl bg-gradient-to-tr from-[#00C8FF] to-[#009DFF] text-[#05080D] flex items-center justify-center font-anton text-sm shadow-md shrink-0">
-                    <TrendingUp className="w-4 h-4 font-bold" />
+                  <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-gradient-to-tr from-[#00C8FF] to-[#009DFF] text-[#05080D] flex items-center justify-center font-anton text-xs sm:text-sm shadow-md shrink-0">
+                    <TrendingUp className="w-3.5 h-3.5 sm:w-4 sm:h-4 font-bold" />
                   </div>
                   <div className="text-left min-w-0">
                     <div className="text-xs font-anton text-white flex items-center gap-1.5 leading-tight">
-                      <span className="text-[#00C8FF] text-sm">{activeCampaign.reach}</span>
-                      <span className="uppercase tracking-wide text-slate-200">Reel Reach</span>
+                      <span className="text-[#00C8FF] text-sm">
+                        {activeCampaign.reach}
+                      </span>
+                      <span className="uppercase tracking-wide text-slate-200 text-[11px] sm:text-xs">
+                        Reel Reach
+                      </span>
                     </div>
                     <div className="text-[10px] text-slate-400 font-medium truncate">
                       {activeCampaign.reachSubtext}
@@ -582,8 +713,8 @@ export default function HeroSection({
                 </div>
 
                 {/* Right: Key Verified Engagement Pill */}
-                <div className="flex flex-col items-end shrink-0">
-                  <span className="text-[10px] font-mono font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-0.5 rounded-full flex items-center gap-1.5">
+                <div className="flex items-center sm:items-end justify-between sm:justify-center sm:flex-col shrink-0 pt-1.5 sm:pt-0 border-t sm:border-t-0 border-white/5">
+                  <span className="text-[10px] font-mono font-bold text-emerald-400 bg-emerald-500/10 border border-emerald-500/20 px-2.5 py-0.5 rounded-full flex items-center gap-1.5 whitespace-nowrap">
                     <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse" />
                     <span>{activeCampaign.engagement}</span>
                   </span>
