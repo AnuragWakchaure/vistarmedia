@@ -5,10 +5,25 @@ import { Statistic } from "@/models/Statistic";
 import { requireAdminRole } from "@/lib/auth/session";
 import { revalidatePath } from "next/cache";
 
+const DEFAULT_STATS = [
+  { _id: "s1", label: "Creators Roster", value: "500", suffix: "+", description: "Top verified creators across Maharashtra", displayOrder: 1, status: "ACTIVE" },
+  { _id: "s2", label: "Audience Reach", value: "25", suffix: "M+", description: "Monthly vernacular impressions generated", displayOrder: 2, status: "ACTIVE" },
+  { _id: "s3", label: "Brand Campaigns", value: "120", suffix: "+", description: "Delivered for leading national & regional brands", displayOrder: 3, status: "ACTIVE" },
+  { _id: "s4", label: "Regional Coverage", value: "36", suffix: " Districts", description: "Comprehensive footprint across Maharashtra", displayOrder: 4, status: "ACTIVE" },
+];
+
 export async function getStatisticsAction() {
-  await connectDB();
-  const stats = await Statistic.find().sort({ displayOrder: 1 }).lean();
-  return JSON.parse(JSON.stringify(stats));
+  try {
+    await connectDB();
+    const stats = await Statistic.find().sort({ displayOrder: 1 }).lean();
+    if (!stats || stats.length === 0) {
+      return DEFAULT_STATS;
+    }
+    return JSON.parse(JSON.stringify(stats));
+  } catch (error) {
+    console.warn("[Statistics] Database unreachable, serving fallback statistics:", error);
+    return DEFAULT_STATS;
+  }
 }
 
 export async function createStatisticAction(formData: FormData) {

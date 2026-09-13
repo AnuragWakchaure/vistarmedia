@@ -29,7 +29,7 @@ const HomepageSchema = new Schema<IHomepage>(
       type: String,
       default: "200+ Creators Connected Across Maharashtra",
     },
-    primaryCtaText: { type: String, default: "START YOUR CAMPAIGN" },
+    primaryCtaText: { type: String, default: "GET IN TOUCH" },
     secondaryCtaText: { type: String, default: "VIEW OUR CAMPAIGNS" },
     whyUsHeading: {
       type: String,

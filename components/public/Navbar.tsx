@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Menu, X, ArrowUpRight } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -39,29 +40,40 @@ export default function Navbar() {
     >
       <div
         className={cn(
-          "max-w-6xl mx-auto rounded-full px-5 py-2.5 sm:py-3 flex items-center justify-between pointer-events-auto transition-all duration-300",
+          "max-w-6xl mx-auto rounded-full px-4 sm:px-6 py-2.5 sm:py-3 flex items-center justify-between pointer-events-auto transition-all duration-300",
           scrolled
-            ? "bg-white/95 backdrop-blur-md shadow-nickpat-lg border-2 border-[#111111]/10"
-            : "bg-white/90 backdrop-blur-sm shadow-nickpat border-2 border-[#111111]/10"
+            ? "bg-[#07111A]/95 backdrop-blur-xl border border-white/10 shadow-[0_10px_35px_rgba(0,0,0,0.5)]"
+            : "bg-[#07111A]/85 backdrop-blur-md border border-white/10 shadow-[0_4px_20px_rgba(0,0,0,0.3)]"
         )}
       >
-        {/* Brand Logo */}
-        <Link href="/" className="flex items-center gap-2 group">
+        {/* Brand Logo with Official Image */}
+        <Link href="/" className="flex items-center gap-2.5 group">
           <motion.div
-            whileHover={{ scale: 1.06 }}
+            whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             transition={EASINGS.spring}
-            className="w-8 h-8 rounded-lg bg-[#B80F0A] border-2 border-[#960C08] flex items-center justify-center font-extrabold text-white text-base shadow-sm"
+            className="relative w-8 h-8 sm:w-9 sm:h-9 rounded-xl overflow-hidden border border-white/15 shadow-sm bg-white shrink-0"
           >
-            V
+            <Image
+              src="/images/logo.png"
+              alt="VISTAR Logo"
+              fill
+              className="object-cover"
+              priority
+            />
           </motion.div>
-          <span className="font-anton text-2xl tracking-wider text-[#111111]">
-            VISTAR
-          </span>
+          <div className="flex flex-col">
+            <span className="font-anton text-xl sm:text-2xl tracking-wider text-white group-hover:text-[#00C8FF] transition-colors leading-none">
+              VISTAR
+            </span>
+            <span className="text-[8px] font-mono uppercase tracking-widest text-[#00C8FF] font-bold hidden sm:block">
+              Marketing Agency
+            </span>
+          </div>
         </Link>
 
         {/* Desktop Navigation */}
-        <nav className="hidden md:flex items-center gap-7 text-xs uppercase tracking-wider font-bold text-stone-700">
+        <nav className="hidden md:flex items-center gap-6 lg:gap-8 text-xs uppercase tracking-wider font-semibold text-slate-300">
           {NAV_LINKS.map((link) => {
             const isActive = pathname === link.href;
             return (
@@ -69,19 +81,19 @@ export default function Navbar() {
                 key={link.href}
                 href={link.href}
                 className={cn(
-                  "relative py-1 transition-colors hover:text-[#B80F0A] group",
-                  isActive ? "text-[#B80F0A] font-extrabold" : "text-stone-700"
+                  "relative py-1 transition-colors hover:text-[#00C8FF] group",
+                  isActive ? "text-[#00C8FF] font-bold" : "text-slate-300"
                 )}
               >
                 <span>{link.label}</span>
                 {isActive ? (
                   <motion.span
                     layoutId="nav-active-indicator"
-                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#B80F0A] rounded-full"
+                    className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[#00C8FF] to-[#009DFF] rounded-full shadow-[0_0_8px_#00C8FF]"
                     transition={EASINGS.gentleSpring}
                   />
                 ) : (
-                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#B80F0A]/60 rounded-full transition-all duration-200 group-hover:w-full" />
+                  <span className="absolute bottom-0 left-0 w-0 h-0.5 bg-[#00C8FF]/60 rounded-full transition-all duration-200 group-hover:w-full" />
                 )}
               </Link>
             );
@@ -91,15 +103,15 @@ export default function Navbar() {
         {/* Desktop CTA Button */}
         <div className="hidden md:flex items-center gap-3">
           <motion.div
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
             transition={EASINGS.spring}
           >
             <Link
               href="/#campaign-enquiry"
-              className="group inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-[#B80F0A] hover:bg-[#960C08] text-white text-xs font-bold uppercase tracking-wider transition-colors shadow-md border border-[#960C08]"
+              className="group inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-gradient-to-r from-[#00C8FF] to-[#009DFF] hover:from-[#33D4FF] hover:to-[#00C8FF] text-[#05080D] text-xs font-extrabold uppercase tracking-wider transition-all shadow-[0_4px_20px_rgba(0,200,255,0.4)]"
             >
-              <span>Start Campaign</span>
+              <span>Get In Touch</span>
               <ArrowUpRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </Link>
           </motion.div>
@@ -109,10 +121,10 @@ export default function Navbar() {
         <motion.button
           whileTap={{ scale: 0.9 }}
           onClick={() => setMobileOpen(!mobileOpen)}
-          className="md:hidden text-stone-900 hover:text-[#B80F0A] p-1.5 rounded-full hover:bg-stone-100 transition"
+          className="md:hidden text-slate-300 hover:text-[#00C8FF] p-2 rounded-full hover:bg-white/10 transition border border-transparent"
           aria-label="Toggle navigation menu"
         >
-          {mobileOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+          {mobileOpen ? <X className="w-5 h-5 text-[#00C8FF]" /> : <Menu className="w-5 h-5" />}
         </motion.button>
       </div>
 
@@ -124,9 +136,9 @@ export default function Navbar() {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: -10, scale: 0.98 }}
             transition={{ duration: DURATIONS.fast, ease: EASINGS.easeOutQuart }}
-            className="md:hidden mt-2 max-w-6xl mx-auto bg-white border-2 border-stone-200 rounded-3xl p-6 shadow-nickpat-lg pointer-events-auto space-y-4"
+            className="md:hidden mt-2 max-w-6xl mx-auto bg-[#07111A]/95 backdrop-blur-2xl border border-white/10 rounded-3xl p-6 shadow-2xl pointer-events-auto space-y-4"
           >
-            <nav className="flex flex-col space-y-2">
+            <nav className="flex flex-col space-y-1.5">
               {NAV_LINKS.map((link, idx) => {
                 const isActive = pathname === link.href;
                 return (
@@ -140,10 +152,10 @@ export default function Navbar() {
                       href={link.href}
                       onClick={() => setMobileOpen(false)}
                       className={cn(
-                        "block text-sm font-bold uppercase tracking-wider py-2 px-3 rounded-xl transition",
+                        "block text-xs font-bold uppercase tracking-wider py-2.5 px-4 rounded-xl transition",
                         isActive
-                          ? "text-[#B80F0A] bg-[#FCECDF]"
-                          : "text-stone-800 hover:text-[#B80F0A] hover:bg-stone-50"
+                          ? "text-[#00C8FF] bg-cyan-500/10 border border-cyan-500/30"
+                          : "text-slate-300 hover:text-[#00C8FF] hover:bg-white/5"
                       )}
                     >
                       {link.label}
@@ -152,13 +164,13 @@ export default function Navbar() {
                 );
               })}
             </nav>
-            <div className="pt-3 border-t border-stone-100">
+            <div className="pt-3 border-t border-white/10">
               <Link
                 href="/#campaign-enquiry"
                 onClick={() => setMobileOpen(false)}
-                className="w-full inline-flex items-center justify-center gap-2 py-3 rounded-full bg-[#B80F0A] text-white text-xs font-bold uppercase tracking-wider shadow-md active:scale-98 transition"
+                className="w-full inline-flex items-center justify-center gap-2 py-3 rounded-full bg-gradient-to-r from-[#00C8FF] to-[#009DFF] text-[#05080D] text-xs font-extrabold uppercase tracking-wider shadow-[0_4px_20px_rgba(0,200,255,0.4)] active:scale-98 transition"
               >
-                Start Your Campaign <ArrowUpRight className="w-4 h-4" />
+                Get In Touch <ArrowUpRight className="w-4 h-4" />
               </Link>
             </div>
           </motion.div>
@@ -166,4 +178,4 @@ export default function Navbar() {
       </AnimatePresence>
     </motion.header>
   );
-}
+}

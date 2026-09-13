@@ -66,9 +66,9 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      className={`${anton.variable} ${interTight.variable} ${inter.variable} h-full antialiased scroll-smooth`}
+      className={`${anton.variable} ${interTight.variable} ${inter.variable} h-full antialiased scroll-smooth dark`}
     >
-      <body className="min-h-full flex flex-col font-sans bg-[#FCECDF] text-[#111111]">{children}</body>
+      <body className="min-h-full flex flex-col font-sans bg-[#07090E] text-[#F8FAFC] selection:bg-[#00D2FF]/30 selection:text-white">{children}</body>
     </html>
   );
 }

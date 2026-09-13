@@ -6,6 +6,7 @@ export interface IService {
   shortDescription: string;
   detailedContent?: string;
   icon?: string;
+  image?: string;
   displayOrder: number;
   status: "ACTIVE" | "INACTIVE";
 }
@@ -17,6 +18,7 @@ const ServiceSchema = new Schema<IService>(
     shortDescription: { type: String, required: true },
     detailedContent: { type: String, default: "" },
     icon: { type: String, default: "Layers" },
+    image: { type: String, default: "" },
     displayOrder: { type: Number, default: 0 },
     status: { type: String, enum: ["ACTIVE", "INACTIVE"], default: "ACTIVE" },
   },

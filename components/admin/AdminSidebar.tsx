@@ -41,23 +41,25 @@ function NavContent({ onClose }: { onClose?: () => void }) {
   const pathname = usePathname();
 
   return (
-    <div className="flex flex-col h-full">
+    <div className="flex flex-col h-full bg-[#0D121D]">
       {/* Brand Header */}
-      <div className="h-20 px-6 flex items-center justify-between border-b-2 border-stone-800 shrink-0">
+      <div className="h-20 px-6 flex items-center justify-between border-b border-white/10 shrink-0">
         <Link href="/admin" onClick={onClose} className="flex items-center gap-3 group">
-          <div className="w-9 h-9 rounded-xl bg-[#B80F0A] flex items-center justify-center font-anton text-white text-lg tracking-wider shadow-sm group-hover:scale-105 transition-transform">
-            V
-          </div>
+          {/* eslint-disable-next-line @next/next/no-img-element */}
+          <img
+            src="/images/logo.png"
+            alt="VISTAR"
+            className="h-8 w-auto object-contain drop-shadow-[0_0_10px_rgba(0,210,255,0.3)]"
+          />
           <div>
-            <div className="font-anton text-base tracking-wider text-white">VISTAR</div>
-            <div className="text-[10px] text-[#FBCB77] font-mono font-bold tracking-wider uppercase">CMS Engine</div>
+            <div className="text-[10px] text-[#00D2FF] font-mono font-bold tracking-wider uppercase">Console</div>
           </div>
         </Link>
 
         {onClose && (
           <button
             onClick={onClose}
-            className="lg:hidden p-2 rounded-xl bg-stone-800 text-stone-300 hover:text-white hover:bg-stone-700 transition"
+            className="lg:hidden p-2 rounded-xl bg-white/10 text-slate-300 hover:text-white hover:bg-white/20 transition cursor-pointer"
             aria-label="Close menu"
           >
             <X className="w-4 h-4" />
@@ -82,11 +84,11 @@ function NavContent({ onClose }: { onClose?: () => void }) {
               className={cn(
                 "flex items-center gap-3 px-3.5 py-2.5 rounded-2xl text-xs font-bold transition-all uppercase tracking-wider",
                 isActive
-                  ? "bg-[#B80F0A] text-white shadow-sm border border-[#960C08]"
-                  : "text-stone-400 hover:text-white hover:bg-white/10"
+                  ? "bg-[#00D2FF] text-black shadow-[0_0_15px_rgba(0,210,255,0.3)] font-black"
+                  : "text-slate-400 hover:text-white hover:bg-white/10"
               )}
             >
-              <Icon className={cn("w-4 h-4 shrink-0", isActive ? "text-[#FBCB77]" : "text-stone-400")} />
+              <Icon className={cn("w-4 h-4 shrink-0", isActive ? "text-black" : "text-slate-400")} />
               <span>{item.label}</span>
             </Link>
           );
@@ -94,17 +96,17 @@ function NavContent({ onClose }: { onClose?: () => void }) {
       </nav>
 
       {/* Footer Controls */}
-      <div className="p-4 border-t-2 border-stone-800 space-y-2 shrink-0">
+      <div className="p-4 border-t border-white/10 space-y-2 shrink-0">
         <Link
           href="/"
           target="_blank"
-          className="w-full flex items-center justify-between px-3.5 py-2 rounded-xl text-xs font-bold text-stone-400 hover:text-white hover:bg-white/10 transition uppercase tracking-wider"
+          className="w-full flex items-center justify-between px-3.5 py-2 rounded-xl text-xs font-bold text-slate-400 hover:text-[#00D2FF] hover:bg-white/10 transition uppercase tracking-wider"
         >
           <span className="flex items-center gap-2">
-            <ExternalLink className="w-3.5 h-3.5 text-[#FBCB77]" />
+            <ExternalLink className="w-3.5 h-3.5 text-[#00D2FF]" />
             Live Website
           </span>
-          <span className="text-[10px] font-mono text-stone-500">&rarr;</span>
+          <span className="text-[10px] font-mono text-slate-500">&rarr;</span>
         </Link>
 
         <form action={logoutAdminAction}>
@@ -127,7 +129,7 @@ export default function AdminSidebar() {
   return (
     <>
       {/* Desktop Fixed Sidebar */}
-      <aside className="hidden lg:flex w-64 bg-[#111111] border-r-2 border-stone-800 flex-col shrink-0 h-screen sticky top-0 z-40 text-stone-300">
+      <aside className="hidden lg:flex w-64 bg-[#0D121D] border-r border-white/10 flex-col shrink-0 h-screen sticky top-0 z-40 text-slate-300">
         <NavContent />
       </aside>
 
@@ -141,7 +143,7 @@ export default function AdminSidebar() {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               onClick={closeMobileNav}
-              className="fixed inset-0 bg-black/70 backdrop-blur-sm"
+              className="fixed inset-0 bg-black/80 backdrop-blur-md"
               aria-hidden="true"
             />
 
@@ -151,7 +153,7 @@ export default function AdminSidebar() {
               animate={{ x: 0 }}
               exit={{ x: "-100%" }}
               transition={{ type: "spring", damping: 25, stiffness: 300 }}
-              className="relative w-72 max-w-[85vw] bg-[#111111] border-r-2 border-stone-800 flex flex-col h-full shadow-2xl z-10"
+              className="relative w-72 max-w-[85vw] bg-[#0D121D] border-r border-white/10 flex flex-col h-full shadow-[0_0_50px_rgba(0,0,0,0.8)] z-10"
             >
               <NavContent onClose={closeMobileNav} />
             </motion.div>

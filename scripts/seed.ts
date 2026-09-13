@@ -9,6 +9,7 @@ import { Statistic } from "../models/Statistic";
 import { Campaign } from "../models/Campaign";
 import { Creator } from "../models/Creator";
 import { CreatorLocation } from "../models/CreatorLocation";
+import { Service } from "../models/Service";
 
 const MONGODB_URI = process.env.MONGODB_URI;
 
@@ -318,6 +319,73 @@ const SAMPLE_BRANDS = [
   },
 ];
 
+const SAMPLE_SERVICES = [
+  {
+    title: "Regional Influencer Campaigns",
+    slug: "regional-influencer-campaigns",
+    shortDescription: "End-to-end strategic campaign execution with top Marathi creators across Maharashtra.",
+    image: "https://images.unsplash.com/photo-1516251193007-45ef944ab0c6?w=800&auto=format&fit=crop&q=80",
+    displayOrder: 1,
+    status: "ACTIVE",
+  },
+  {
+    title: "Vernacular Content Production",
+    slug: "vernacular-content-production",
+    shortDescription: "High-impact video reels, brand integrations, and authentic vernacular storytelling.",
+    image: "https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?w=800&auto=format&fit=crop&q=80",
+    displayOrder: 2,
+    status: "ACTIVE",
+  },
+  {
+    title: "Creator Talent Management",
+    slug: "creator-talent-management",
+    shortDescription: "Exclusive representation for Maharashtra's premier digital influencers and artists.",
+    image: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&auto=format&fit=crop&q=80",
+    displayOrder: 3,
+    status: "ACTIVE",
+  },
+  {
+    title: "Hyperlocal Brand Activations",
+    slug: "hyperlocal-brand-activations",
+    shortDescription: "District-level marketing reaching tier-2 and tier-3 consumers across Maharashtra.",
+    image: "https://images.unsplash.com/photo-1511578314322-379afb476865?w=800&auto=format&fit=crop&q=80",
+    displayOrder: 4,
+    status: "ACTIVE",
+  },
+  {
+    title: "UGC Content Creation",
+    slug: "ugc-content-creation",
+    shortDescription: "Authentic user-generated video reviews, product unboxings, and relatable creator stories.",
+    image: "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=800&auto=format&fit=crop&q=80",
+    displayOrder: 5,
+    status: "ACTIVE",
+  },
+  {
+    title: "Reels & Short-Form Video",
+    slug: "reels-short-form-content",
+    shortDescription: "Viral-engineered short-form content optimized for Instagram Reels and YouTube Shorts.",
+    image: "https://images.unsplash.com/photo-1533750516457-a7f992034fec?w=800&auto=format&fit=crop&q=80",
+    displayOrder: 6,
+    status: "ACTIVE",
+  },
+  {
+    title: "Turnkey Campaign Management",
+    slug: "campaign-management",
+    shortDescription: "Complete creator briefing, legal contracting, vernacular script approvals, and execution.",
+    image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&auto=format&fit=crop&q=80",
+    displayOrder: 7,
+    status: "ACTIVE",
+  },
+  {
+    title: "Performance Tracking & ROI",
+    slug: "performance-reporting",
+    shortDescription: "Transparent UTM tracking, verified impression telemetry, and zero-bot reporting audit.",
+    image: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&auto=format&fit=crop&q=80",
+    displayOrder: 8,
+    status: "ACTIVE",
+  },
+];
+
 async function seed() {
   if (!MONGODB_URI) {
     console.error("MONGODB_URI missing in environment variables.");
@@ -325,7 +393,7 @@ async function seed() {
   }
 
   await mongoose.connect(MONGODB_URI);
-  console.log("Connected to MongoDB. Seeding creators, brands & locations...");
+  console.log("Connected to MongoDB. Seeding creators, brands, locations & services...");
 
   for (const c of SAMPLE_CREATORS) {
     await Creator.findOneAndUpdate(
@@ -354,6 +422,15 @@ async function seed() {
     console.log(`[✓] Seeded Location: ${loc.name} (${loc.countDisplay})`);
   }
 
+  for (const s of SAMPLE_SERVICES) {
+    await Service.findOneAndUpdate(
+      { slug: s.slug },
+      { ...s, updatedAt: new Date() },
+      { upsert: true, returnDocument: "after" }
+    );
+    console.log(`[✓] Seeded Service: ${s.title}`);
+  }
+
   // Seed Super Admin
   const adminEmail = "admin@vistar.in";
   const defaultPassword = process.env.ADMIN_PASSWORD || "admin123";
@@ -374,7 +451,7 @@ async function seed() {
   );
   console.log(`[✓] Seeded Super Admin: ${adminEmail} (password: ${defaultPassword})`);
 
-  console.log(`\nSuccessfully seeded creators, brands, locations, and admin into MongoDB!`);
+  console.log(`\nSuccessfully seeded creators, brands, locations, services, and admin into MongoDB!`);
   await mongoose.disconnect();
   process.exit(0);
 }

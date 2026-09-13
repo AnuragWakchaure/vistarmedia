@@ -38,7 +38,7 @@ export function SectionBackground({
           aria-hidden="true"
           className={`absolute inset-0 overflow-hidden pointer-events-none select-none z-0 ${className}`}
         >
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-[#FBCB77]/10 rounded-full blur-[120px]" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[300px] bg-[#00D2FF]/10 rounded-full blur-[130px]" />
         </div>
       );
   }

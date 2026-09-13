@@ -19,24 +19,34 @@ const SettingsUpdateSchema = z.object({
   facebookUrl: z.string().optional().default(""),
 });
 
+const DEFAULT_SETTINGS = {
+  companyName: "VISTAR",
+  whatsappNumber: "+919876543210",
+  whatsappDefaultMessage:
+    "Hi VISTAR, I'm interested in an influencer marketing campaign for my brand. I would like to discuss my campaign requirements.",
+  phone: "+91 98765 43210",
+  email: "connect@vistar.in",
+  address: "Pune & Mumbai, Maharashtra, India",
+  instagramUrl: "https://instagram.com",
+  linkedinUrl: "https://linkedin.com",
+  youtubeUrl: "https://youtube.com",
+  facebookUrl: "https://facebook.com",
+};
+
 export async function getSettingsAction() {
-  await connectDB();
-  let settings = await Settings.findOne().lean();
+  try {
+    await connectDB();
+    let settings = await Settings.findOne().lean();
 
-  if (!settings) {
-    settings = await Settings.create({
-      companyName: "VISTAR",
-      whatsappNumber: "+919876543210",
-      whatsappDefaultMessage:
-        "Hi VISTAR, I'm interested in an influencer marketing campaign for my brand. I would like to discuss my campaign requirements.",
-      phone: "+91 98765 43210",
-      email: "connect@vistar.in",
-      address: "Pune & Mumbai, Maharashtra, India",
-    });
-    settings = JSON.parse(JSON.stringify(settings));
+    if (!settings) {
+      settings = await Settings.create(DEFAULT_SETTINGS);
+    }
+
+    return JSON.parse(JSON.stringify(settings));
+  } catch (error) {
+    console.warn("[Settings] Falling back to default settings due to database connection issue:", error);
+    return DEFAULT_SETTINGS;
   }
-
-  return JSON.parse(JSON.stringify(settings));
 }
 
 export async function updateSettingsAction(data: any) {

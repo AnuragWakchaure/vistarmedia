@@ -35,11 +35,11 @@ export function SpotlightBackground({
           repeat: Infinity,
           ease: "easeInOut",
         }}
-        className="absolute -top-[10%] left-1/2 -translate-x-1/2 w-[700px] sm:w-[950px] h-[500px] sm:h-[650px] bg-gradient-to-b from-[#FBCB77]/30 via-[#B80F0A]/10 to-transparent rounded-full blur-[100px] sm:blur-[130px]"
+        className="absolute -top-[10%] left-1/2 -translate-x-1/2 w-[700px] sm:w-[950px] h-[500px] sm:h-[650px] bg-gradient-to-b from-[#00D2FF]/20 via-[#0A84FF]/10 to-transparent rounded-full blur-[100px] sm:blur-[130px]"
       />
 
       {/* Subtle Bottom Ambient Tone */}
-      <div className="absolute -bottom-[15%] left-1/2 -translate-x-1/2 w-[550px] h-[300px] bg-[#B80F0A]/5 rounded-full blur-[100px]" />
+      <div className="absolute -bottom-[15%] left-1/2 -translate-x-1/2 w-[550px] h-[300px] bg-[#00D2FF]/5 rounded-full blur-[100px]" />
     </div>
   );
 }

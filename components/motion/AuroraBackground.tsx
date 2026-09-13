@@ -18,18 +18,18 @@ export function AuroraBackground({
       aria-hidden="true"
       className={`absolute inset-0 overflow-hidden pointer-events-none select-none z-0 ${className}`}
     >
-      {/* 1. Subtle Fine Dot Grid Texture */}
+      {/* 1. Subtle Cyber Cyan Dot Grid Texture */}
       {showGrid && (
         <div
-          className="absolute inset-0 opacity-[0.4] [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_75%)]"
+          className="absolute inset-0 opacity-[0.35] [mask-image:radial-gradient(ellipse_at_center,black_30%,transparent_75%)]"
           style={{
-            backgroundImage: `radial-gradient(rgba(184, 15, 10, 0.18) 1px, transparent 1px)`,
+            backgroundImage: `radial-gradient(rgba(0, 210, 255, 0.22) 1px, transparent 1px)`,
             backgroundSize: "28px 28px",
           }}
         />
       )}
 
-      {/* 2. Top-Center Gold Aurora Blob */}
+      {/* 2. Top-Center Electric Cyan Aurora Blob */}
       <motion.div
         animate={
           shouldReduceMotion
@@ -45,10 +45,10 @@ export function AuroraBackground({
           repeat: Infinity,
           ease: "easeInOut",
         }}
-        className="absolute top-[-5%] left-1/2 -translate-x-1/2 w-[750px] sm:w-[900px] h-[400px] sm:h-[480px] bg-[#FBCB77]/25 rounded-full blur-[110px] sm:blur-[140px]"
+        className="absolute top-[-10%] left-1/2 -translate-x-1/2 w-[750px] sm:w-[950px] h-[450px] sm:h-[550px] bg-[#00D2FF]/14 rounded-full blur-[120px] sm:blur-[160px]"
       />
 
-      {/* 3. Bottom-Right Crimson Aurora Blob */}
+      {/* 3. Bottom-Right Vibrant Royal Blue Aurora Blob */}
       <motion.div
         animate={
           shouldReduceMotion
@@ -64,10 +64,10 @@ export function AuroraBackground({
           repeat: Infinity,
           ease: "easeInOut",
         }}
-        className="absolute bottom-[-10%] right-[-5%] sm:right-[5%] w-[450px] sm:w-[600px] h-[350px] sm:h-[450px] bg-[#B80F0A]/8 rounded-full blur-[100px] sm:blur-[130px]"
+        className="absolute bottom-[-10%] right-[-5%] sm:right-[5%] w-[450px] sm:w-[650px] h-[350px] sm:h-[500px] bg-[#0A84FF]/16 rounded-full blur-[110px] sm:blur-[150px]"
       />
 
-      {/* 4. Top-Left Soft Crimson Ambient Sheen */}
+      {/* 4. Top-Left Deep Electric Ambient Sheen */}
       <motion.div
         animate={
           shouldReduceMotion
@@ -83,7 +83,7 @@ export function AuroraBackground({
           repeat: Infinity,
           ease: "easeInOut",
         }}
-        className="absolute top-[15%] left-[-8%] w-[400px] sm:w-[500px] h-[300px] sm:h-[400px] bg-[#EE6A43]/6 rounded-full blur-[90px] sm:blur-[120px]"
+        className="absolute top-[15%] left-[-8%] w-[400px] sm:w-[500px] h-[300px] sm:h-[400px] bg-[#0051FF]/12 rounded-full blur-[90px] sm:blur-[130px]"
       />
     </div>
   );

@@ -12,20 +12,20 @@ interface GridBackgroundProps {
 export function GridBackground({
   className = "",
   pattern = "dots",
-  glowColor = "rgba(251, 203, 119, 0.18)",
-  glowOpacity = 0.4,
+  glowColor = "rgba(0, 210, 255, 0.15)",
+  glowOpacity = 0.35,
 }: GridBackgroundProps) {
   const shouldReduceMotion = useReducedMotion();
 
   const getBackgroundImage = () => {
     switch (pattern) {
       case "lines":
-        return `linear-gradient(to right, rgba(184, 15, 10, 0.08) 1px, transparent 1px), linear-gradient(to bottom, rgba(184, 15, 10, 0.08) 1px, transparent 1px)`;
+        return `linear-gradient(to right, rgba(0, 210, 255, 0.08) 1px, transparent 1px), linear-gradient(to bottom, rgba(0, 210, 255, 0.08) 1px, transparent 1px)`;
       case "cross":
-        return `radial-gradient(rgba(184, 15, 10, 0.15) 1.5px, transparent 1.5px)`;
+        return `radial-gradient(rgba(0, 210, 255, 0.2) 1.5px, transparent 1.5px)`;
       case "dots":
       default:
-        return `radial-gradient(rgba(184, 15, 10, 0.14) 1px, transparent 1px)`;
+        return `radial-gradient(rgba(0, 210, 255, 0.18) 1px, transparent 1px)`;
     }
   };
 
@@ -34,7 +34,7 @@ export function GridBackground({
       aria-hidden="true"
       className={`absolute inset-0 overflow-hidden pointer-events-none select-none z-0 ${className}`}
     >
-      {/* Central Soft Ambient Glow */}
+      {/* Central Soft Ambient Cyan Glow */}
       <motion.div
         animate={
           shouldReduceMotion
@@ -49,7 +49,7 @@ export function GridBackground({
           repeat: Infinity,
           ease: "easeInOut",
         }}
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] sm:w-[850px] h-[350px] sm:h-[450px] rounded-full blur-[120px]"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] sm:w-[850px] h-[350px] sm:h-[450px] rounded-full blur-[130px]"
         style={{ backgroundColor: glowColor }}
       />
 

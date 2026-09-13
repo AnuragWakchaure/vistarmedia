@@ -18,7 +18,7 @@ export function TextReveal({
   text,
   className = "",
   highlightWords = [],
-  highlightClassName = "text-[#B80F0A]",
+  highlightClassName = "text-[#00D2FF]",
   delay = 0.1,
   stagger = 0.05,
   once = true,

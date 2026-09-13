@@ -1,26 +1,32 @@
 @import "tailwindcss";
 
 :root {
-  --background: #FCECDF;
-  --foreground: #111111;
-  --crimson: #B80F0A;
-  --crimson-dark: #960C08;
-  --gold: #FBCB77;
-  --coral: #EE6A43;
-  --peach: #FCECDF;
-  --card-bg: #FFFFFF;
-  --muted: #555555;
-  --border-crimson: #B80F0A;
+  /* Exact VISTAR System Color Palette */
+  --vistar-midnight: #05080D;      /* Hero, dark sections, footer */
+  --vistar-deep-navy: #07111A;     /* Dark cards / secondary dark backgrounds */
+  --vistar-offwhite: #F3F6F8;      /* Main light-section background */
+  --vistar-light-gray: #EAF0F3;    /* Alternate light sections */
+  --vistar-pure-white: #FFFFFF;    /* Cards, inputs, elevated surfaces */
+  --vistar-electric-cyan: #00C8FF; /* Primary brand accent / CTAs */
+  --vistar-bright-blue: #009DFF;   /* Hover states / secondary accent */
+  --vistar-near-black: #0B1117;    /* Text on light backgrounds */
+  --vistar-muted-gray: #64717C;    /* Secondary text */
+
+  --background: var(--vistar-offwhite);
+  --foreground: var(--vistar-near-black);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --color-crimson: #B80F0A;
-  --color-crimson-dark: #960C08;
-  --color-gold: #FBCB77;
-  --color-coral: #EE6A43;
-  --color-peach: #FCECDF;
+  --color-vistar-midnight: #05080D;
+  --color-vistar-deep-navy: #07111A;
+  --color-vistar-offwhite: #F3F6F8;
+  --color-vistar-light-gray: #EAF0F3;
+  --color-vistar-pure-white: #FFFFFF;
+  --color-vistar-electric-cyan: #00C8FF;
+  --color-vistar-bright-blue: #009DFF;
+  --color-vistar-near-black: #0B1117;
+  --color-vistar-muted-gray: #64717C;
+
   --font-anton: var(--font-anton), Impact, sans-serif;
   --font-display: var(--font-anton), Impact, sans-serif;
   --font-tight: var(--font-inter-tight), sans-serif;
@@ -28,13 +34,15 @@
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
+  background: #F3F6F8;
+  color: #0B1117;
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
 }
 
+/* Typography Helpers (Preserving Existing Typography) */
 .font-anton {
   font-family: var(--font-anton), Impact, sans-serif;
   text-transform: uppercase;
@@ -51,36 +59,78 @@ body {
   font-family: var(--font-tight);
 }
 
-/* Retro-editorial sticker badge */
-.badge-sticker-red {
-  background-color: #FFFFFF;
-  border: 2px dashed #B80F0A;
-  color: #B80F0A;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+/* Elevated Pure White Cards on Light Sections */
+.vistar-card {
+  background: #FFFFFF;
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  box-shadow: 0 4px 20px -2px rgba(11, 17, 23, 0.04), 0 2px 6px -1px rgba(11, 17, 23, 0.02);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.badge-sticker-gold {
-  background-color: #FBCB77;
-  border: 2px solid #111111;
-  color: #111111;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
+.vistar-card:hover {
+  border-color: rgba(0, 200, 255, 0.5);
+  box-shadow: 0 16px 36px -6px rgba(0, 200, 255, 0.14), 0 4px 12px -2px rgba(11, 17, 23, 0.04);
+  transform: translateY(-2px);
 }
 
-/* Card shadows matching nickpatmedia */
-.shadow-nickpat {
-  box-shadow: 0 4px 20px -2px rgba(0, 0, 0, 0.06), 0 2px 6px -1px rgba(0, 0, 0, 0.04);
+.vistar-card-solid {
+  background: #FFFFFF;
+  border: 1px solid rgba(226, 232, 240, 0.9);
 }
 
-.shadow-nickpat-lg {
-  box-shadow: 0 10px 30px -4px rgba(0, 0, 0, 0.08), 0 4px 10px -2px rgba(0, 0, 0, 0.04);
+.vistar-light-card {
+  background: #FFFFFF;
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  box-shadow: 0 4px 20px -2px rgba(11, 17, 23, 0.04);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-.shadow-nickpat-card {
-  box-shadow: 0 1px 3px rgba(0,0,0,0.05), 0 8px 24px rgba(0,0,0,0.04);
+.vistar-light-card:hover {
+  border-color: rgba(0, 200, 255, 0.5);
+  box-shadow: 0 16px 36px -6px rgba(0, 200, 255, 0.14);
+  transform: translateY(-2px);
+}
+
+/* Elevated Dark Cards on Midnight Sections */
+.vistar-dark-card {
+  background: #07111A;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.vistar-dark-card:hover {
+  border-color: rgba(0, 200, 255, 0.4);
+  box-shadow: 0 16px 36px -6px rgba(0, 200, 255, 0.18);
+  transform: translateY(-2px);
+}
+
+/* Signature Brand Buttons */
+.btn-electric-cyan {
+  background: linear-gradient(135deg, #00C8FF 0%, #009DFF 100%);
+  color: #05080D;
+  font-weight: 800;
+  box-shadow: 0 4px 20px rgba(0, 200, 255, 0.35);
+  transition: all 0.25s ease;
+}
+
+.btn-electric-cyan:hover {
+  background: linear-gradient(135deg, #33D4FF 0%, #00C8FF 100%);
+  box-shadow: 0 6px 28px rgba(0, 200, 255, 0.5);
+  transform: scale(1.02);
+}
+
+/* Brand Badges */
+.badge-cyan {
+  background: rgba(0, 200, 255, 0.08);
+  border: 1px solid rgba(0, 200, 255, 0.3);
+  color: #009DFF;
+}
+
+.badge-dark-cyan {
+  background: rgba(0, 200, 255, 0.1);
+  border: 1px solid rgba(0, 200, 255, 0.35);
+  color: #00C8FF;
 }
 
 /* Continuous Marquee Animation */
@@ -112,5 +162,3 @@ body {
 .animate-marquee-reverse:hover {
   animation-play-state: paused;
 }
-
-

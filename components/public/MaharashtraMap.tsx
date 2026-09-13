@@ -5,13 +5,11 @@ import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import {
   MAHARASHTRA_DISTRICTS,
   MAHARASHTRA_VIEWBOX,
-  MAP_WIDTH,
-  MAP_HEIGHT,
   DEFAULT_CREATOR_LOCATIONS,
   CreatorLocationItem,
   projectCoordinates,
 } from "@/lib/data/maharashtra-geo";
-import { MapPin, Users, Sparkles, Navigation, X } from "lucide-react";
+import { MapPin, Sparkles, X } from "lucide-react";
 import { EASINGS, DURATIONS } from "@/components/animations/MotionTokens";
 
 interface MaharashtraMapProps {
@@ -35,7 +33,6 @@ const CORRIDORS = [
   { from: "Satara", to: "Kolhapur" },
 ];
 
-// Optimized label placements around marker coordinates to avoid overlapping
 const LABEL_OFFSETS: Record<string, { dx: number; dy: number; textAnchor: "start" | "middle" | "end" }> = {
   Mumbai: { dx: -14, dy: -6, textAnchor: "end" },
   Pune: { dx: -14, dy: 16, textAnchor: "end" },
@@ -100,7 +97,6 @@ export default function MaharashtraMap({
       const end = locMap.get(c.to);
       if (!start || !end) return null;
 
-      // Calculate subtle quadratic bezier control point
       const midX = (start.x + end.x) / 2;
       const midY = (start.y + end.y) / 2;
       const dx = end.x - start.x;
@@ -131,14 +127,14 @@ export default function MaharashtraMap({
   };
 
   return (
-    <div className="relative w-full rounded-3xl bg-gradient-to-b from-[#FFFDF9] via-[#FAF6EF] to-[#F5EFEB] border-2 border-stone-200/90 shadow-nickpat overflow-hidden p-3 sm:p-6 md:p-8 select-none">
-      {/* Subtle Map Ambient Header Badges */}
+    <div className="relative w-full rounded-3xl bg-gradient-to-b from-[#07111A] via-[#05080D] to-[#04060A] border border-cyan-500/30 shadow-[0_0_50px_rgba(0,0,0,0.8)] overflow-hidden p-3 sm:p-6 md:p-8 select-none">
+      {/* Ambient Header Badges */}
       <div className="absolute top-4 left-4 sm:top-6 sm:left-8 z-20 flex flex-wrap items-center gap-2 pointer-events-none">
-        <div className="px-3 py-1 rounded-full bg-white/95 backdrop-blur-md border border-stone-200/90 shadow-sm flex items-center gap-1.5 text-[11px] font-bold text-stone-800 uppercase tracking-wider">
-          <span className="w-2 h-2 rounded-full bg-[#B80F0A] animate-pulse" />
-          <span>Real Maharashtra Geo-Network</span>
+        <div className="px-3 py-1 rounded-full bg-[#05080D]/90 backdrop-blur-md border border-cyan-500/30 shadow-sm flex items-center gap-1.5 text-[11px] font-bold text-slate-200 uppercase tracking-wider">
+          <span className="w-2 h-2 rounded-full bg-[#00C8FF] animate-ping" />
+          <span className="text-[#00C8FF]">Maharashtra Geo-Grid</span>
         </div>
-        <div className="hidden md:flex px-2.5 py-1 rounded-full bg-[#111111] text-white text-[10px] font-mono font-semibold uppercase tracking-wider shadow-sm">
+        <div className="hidden md:flex px-2.5 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/25 text-[#00C8FF] text-[10px] font-mono font-semibold uppercase tracking-wider">
           35 Districts Verified
         </div>
       </div>
@@ -151,7 +147,7 @@ export default function MaharashtraMap({
               setHoveredLocation(null);
               if (onSelectLocation) onSelectLocation(null);
             }}
-            className="px-3 py-1.5 rounded-full bg-white/95 hover:bg-stone-100 text-stone-700 hover:text-[#B80F0A] text-xs font-bold uppercase tracking-wider border border-stone-200 shadow-sm transition flex items-center gap-1.5"
+            className="px-3 py-1.5 rounded-full bg-[#07111A]/90 hover:bg-[#05080D] text-slate-300 hover:text-[#00C8FF] text-xs font-bold uppercase tracking-wider border border-cyan-500/30 shadow-sm transition flex items-center gap-1.5 cursor-pointer"
             aria-label="Clear location filter"
           >
             <X className="w-3.5 h-3.5" />
@@ -168,29 +164,22 @@ export default function MaharashtraMap({
           xmlns="http://www.w3.org/2000/svg"
         >
           <defs>
-            {/* Filter for marker dropshadow */}
-            <filter id="marker-shadow" x="-50%" y="-50%" width="200%" height="200%">
-              <feDropShadow dx="0" dy="2" stdDeviation="2.5" floodColor="#111111" floodOpacity="0.2" />
+            <filter id="marker-shadow-cyan" x="-50%" y="-50%" width="200%" height="200%">
+              <feDropShadow dx="0" dy="0" stdDeviation="4" floodColor="#00C8FF" floodOpacity="0.6" />
             </filter>
-            {/* Filter for state soft shadow */}
-            <filter id="state-depth" x="-10%" y="-10%" width="120%" height="120%">
-              <feDropShadow dx="0" dy="8" stdDeviation="12" floodColor="#B80F0A" floodOpacity="0.06" />
-            </filter>
-            {/* Linear gradient for active district pulse */}
-            <linearGradient id="district-highlight" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#FBCB77" stopOpacity="0.45" />
-              <stop offset="100%" stopColor="#FEEFDB" stopOpacity="0.8" />
+            <linearGradient id="district-highlight-cyan" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#00C8FF" stopOpacity="0.35" />
+              <stop offset="100%" stopColor="#009DFF" stopOpacity="0.2" />
             </linearGradient>
-            {/* Red Network Corridor Gradient */}
-            <linearGradient id="corridor-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#B80F0A" stopOpacity="0.6" />
-              <stop offset="50%" stopColor="#FBCB77" stopOpacity="0.75" />
-              <stop offset="100%" stopColor="#B80F0A" stopOpacity="0.6" />
+            <linearGradient id="corridor-gradient-cyan" x1="0%" y1="0%" x2="100%" y2="100%">
+              <stop offset="0%" stopColor="#00C8FF" stopOpacity="0.8" />
+              <stop offset="50%" stopColor="#38bdf8" stopOpacity="0.9" />
+              <stop offset="100%" stopColor="#009DFF" stopOpacity="0.8" />
             </linearGradient>
           </defs>
 
-          {/* 1. Maharashtra State Districts Layer (35 Official Districts) */}
-          <g filter="url(#state-depth)">
+          {/* 1. Maharashtra State Districts Layer */}
+          <g>
             {MAHARASHTRA_DISTRICTS.map((district) => {
               const isDistrictHovered = hoveredDistrict === district.name;
               const hasActiveCity =
@@ -206,20 +195,19 @@ export default function MaharashtraMap({
                   d={district.path}
                   fill={
                     hasActiveCity
-                      ? "url(#district-highlight)"
+                      ? "url(#district-highlight-cyan)"
                       : isDistrictHovered
-                      ? "#FFF3E0"
-                      : "#FCF9F2"
+                      ? "rgba(0, 200, 255, 0.15)"
+                      : "#07111A"
                   }
-                  stroke={hasActiveCity ? "#B80F0A" : isDistrictHovered ? "#B80F0A" : "#DDD4C5"}
-                  strokeWidth={hasActiveCity ? 1.5 : isDistrictHovered ? 1.2 : 0.85}
+                  stroke={hasActiveCity ? "#00C8FF" : isDistrictHovered ? "#00C8FF" : "rgba(0, 200, 255, 0.18)"}
+                  strokeWidth={hasActiveCity ? 1.5 : isDistrictHovered ? 1.2 : 0.75}
                   strokeLinejoin="round"
                   strokeLinecap="round"
                   className="transition-colors duration-200 cursor-pointer"
                   onMouseEnter={() => setHoveredDistrict(district.name)}
                   onMouseLeave={() => setHoveredDistrict(null)}
                   aria-label={`${district.name} District, Maharashtra`}
-                  data-district={district.name}
                 />
               );
             })}
@@ -234,21 +222,19 @@ export default function MaharashtraMap({
 
               return (
                 <g key={c.id}>
-                  {/* Base corridor dashed trace */}
                   <path
                     d={c.path}
                     fill="none"
-                    stroke={isCorridorActive ? "#B80F0A" : "#B80F0A"}
+                    stroke={isCorridorActive ? "#00C8FF" : "#009DFF"}
                     strokeWidth={isCorridorActive ? 2 : 1.2}
                     strokeDasharray={isCorridorActive ? "none" : "3 5"}
-                    strokeOpacity={isCorridorActive ? 0.8 : 0.25}
+                    strokeOpacity={isCorridorActive ? 0.9 : 0.3}
                     className="transition-all duration-300"
                   />
-                  {/* Subtle pulsing energy dot traveling on active corridors */}
                   {mounted && !shouldReduceMotion && (
-                    <circle r={isCorridorActive ? 3 : 2} fill="#B80F0A" opacity={isCorridorActive ? 0.9 : 0.4}>
+                    <circle r={isCorridorActive ? 3 : 2} fill="#00C8FF" opacity={isCorridorActive ? 1 : 0.6}>
                       <animateMotion
-                        dur={isCorridorActive ? "3.5s" : "7s"}
+                        dur={isCorridorActive ? "3s" : "6s"}
                         repeatCount="indefinite"
                         path={c.path}
                       />
@@ -279,88 +265,78 @@ export default function MaharashtraMap({
                   tabIndex={0}
                   role="button"
                   aria-label={`${loc.name}, ${loc.countDisplay} creators, ${loc.category}`}
-                  onKeyDown={(e) => {
-                    if (e.key === "Enter" || e.key === " ") {
-                      e.preventDefault();
-                      handleMarkerClick(loc);
-                    }
-                  }}
                 >
                   {/* Pulsing Ripple Effect */}
                   {mounted && !shouldReduceMotion && (
                     <circle
                       r={radius * 2.4}
-                      fill="#B80F0A"
+                      fill="#00C8FF"
                       className={`animate-ping opacity-30 pointer-events-none transition-opacity ${
-                        isActive ? "opacity-60" : "opacity-20"
+                        isActive ? "opacity-75" : "opacity-25"
                       }`}
                     />
                   )}
 
-                  {/* Outer Glow Halo when selected */}
+                  {/* Outer Glow Halo */}
                   {isActive && (
                     <circle
-                      r={radius + 7}
-                      fill="#B80F0A"
-                      fillOpacity={0.2}
+                      r={radius + 8}
+                      fill="#00C8FF"
+                      fillOpacity={0.25}
                       className="transition-all duration-300 pointer-events-none"
                     />
                   )}
 
-                  {/* White Outer Border Ring */}
+                  {/* Border Ring */}
                   <circle
-                    r={radius + 2.5}
-                    fill="#FFFFFF"
-                    stroke="#111111"
-                    strokeWidth={1.2}
-                    filter="url(#marker-shadow)"
+                    r={radius + 2}
+                    fill="#05080D"
+                    stroke="#00C8FF"
+                    strokeWidth={1.5}
+                    filter="url(#marker-shadow-cyan)"
                   />
 
-                  {/* Red Core Circle */}
+                  {/* Core Circle */}
                   <circle
                     r={radius}
-                    fill={isActive ? "#B80F0A" : "#B80F0A"}
+                    fill={isActive ? "#00C8FF" : "#009DFF"}
                     className="transition-all duration-200"
                   />
 
-                  {/* Inner Golden Dot */}
-                  <circle r={2} fill="#FBCB77" />
+                  {/* Inner White Dot */}
+                  <circle r={2} fill="#FFFFFF" />
 
-                  {/* City Label & Badge on Map */}
+                  {/* City Label on Map */}
                   <g
                     transform={`translate(${offset.dx}, ${offset.dy})`}
                     className="transition-transform duration-200 pointer-events-none"
                   >
-                    {/* Background Pill for High Contrast Readability */}
                     <rect
                       x={offset.textAnchor === "end" ? -90 : -4}
                       y={-12}
                       width={94}
                       height={18}
                       rx={5}
-                      fill="#FFFFFF"
-                      fillOpacity={isActive ? 0.95 : 0.82}
-                      stroke={isActive ? "#B80F0A" : "#E2D9CC"}
+                      fill="#05080D"
+                      fillOpacity={isActive ? 0.95 : 0.85}
+                      stroke={isActive ? "#00C8FF" : "rgba(0, 200, 255, 0.3)"}
                       strokeWidth={isActive ? 1.2 : 0.75}
-                      className="shadow-sm"
                     />
 
-                    {/* City Name */}
                     <text
                       x={offset.textAnchor === "end" ? -6 : 4}
                       y={1}
                       textAnchor={offset.textAnchor === "end" ? "end" : "start"}
-                      className="font-anton text-[10px] sm:text-[11px] tracking-wide fill-[#111111] uppercase select-none font-medium"
+                      className="font-anton text-[10px] sm:text-[11px] tracking-wide fill-slate-100 uppercase select-none"
                     >
                       {loc.name === "Chhatrapati Sambhajinagar" ? "Sambhajinagar" : loc.name}
                     </text>
 
-                    {/* Creator Count Sub-badge */}
                     <text
                       x={offset.textAnchor === "end" ? -72 : 72}
                       y={1}
                       textAnchor="middle"
-                      className="font-mono text-[9px] font-bold fill-[#B80F0A] select-none"
+                      className="font-mono text-[9px] font-bold fill-[#00C8FF] select-none"
                     >
                       {loc.countDisplay}
                     </text>
@@ -372,7 +348,7 @@ export default function MaharashtraMap({
         </svg>
       </div>
 
-      {/* Interactive Tooltip Card on Marker Hover/Select */}
+      {/* Interactive Tooltip Card */}
       <AnimatePresence>
         {activeLocation && (
           <motion.div
@@ -380,32 +356,32 @@ export default function MaharashtraMap({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.96 }}
             transition={{ duration: DURATIONS.micro, ease: EASINGS.easeOutCubic }}
-            className="absolute bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:bottom-6 sm:max-w-sm z-30 p-4 sm:p-5 rounded-2xl bg-white/95 backdrop-blur-md border-2 border-[#111111] shadow-nickpat-lg text-left space-y-2"
+            className="absolute bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:bottom-6 sm:max-w-sm z-30 p-4 sm:p-5 rounded-2xl bg-[#07111A]/95 backdrop-blur-xl border border-cyan-500/40 shadow-[0_0_35px_rgba(0,200,255,0.2)] text-left space-y-2"
           >
-            <div className="flex items-center justify-between gap-2 border-b border-stone-100 pb-2">
+            <div className="flex items-center justify-between gap-2 border-b border-slate-800 pb-2">
               <div className="flex items-center gap-2">
-                <span className="p-1.5 rounded-lg bg-[#FCECDF] text-[#B80F0A]">
+                <span className="p-1.5 rounded-lg bg-cyan-500/10 text-[#00C8FF] border border-cyan-500/25">
                   <MapPin className="w-4 h-4" />
                 </span>
                 <div>
-                  <h4 className="font-anton text-lg sm:text-xl text-[#111111] uppercase tracking-tight leading-none">
+                  <h4 className="font-anton text-lg sm:text-xl text-white uppercase tracking-tight leading-none">
                     {activeLocation.name}
                   </h4>
-                  <p className="text-[11px] font-bold text-stone-500 uppercase tracking-wider">
+                  <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
                     {activeLocation.lat.toFixed(4)}° N, {activeLocation.lon.toFixed(4)}° E
                   </p>
                 </div>
               </div>
-              <span className="px-2.5 py-1 rounded-full bg-[#FBCB77] text-[#111111] font-mono text-xs font-black border border-stone-300">
+              <span className="px-2.5 py-1 rounded-full bg-gradient-to-r from-[#00C8FF] to-[#009DFF] text-[#05080D] font-mono text-xs font-black">
                 {activeLocation.countDisplay} Creators
               </span>
             </div>
 
             <div className="space-y-1">
-              <div className="text-xs font-bold text-[#B80F0A] uppercase tracking-wider">
+              <div className="text-xs font-bold text-[#00C8FF] uppercase tracking-wider">
                 {activeLocation.category}
               </div>
-              <p className="text-xs text-stone-700 leading-relaxed font-medium">
+              <p className="text-xs text-slate-300 leading-relaxed font-normal">
                 {activeLocation.description ||
                   "Verified regional voice connecting urban and rural consumer clusters."}
               </p>
@@ -415,22 +391,22 @@ export default function MaharashtraMap({
       </AnimatePresence>
 
       {/* Map Legend Footer */}
-      <div className="mt-4 pt-4 border-t border-stone-200/80 flex flex-wrap items-center justify-between gap-4 text-xs text-stone-600 font-medium">
+      <div className="mt-4 pt-4 border-t border-slate-800 flex flex-wrap items-center justify-between gap-4 text-xs text-slate-400 font-medium">
         <div className="flex items-center gap-4 flex-wrap">
           <div className="flex items-center gap-1.5">
-            <span className="w-3 h-3 rounded-full bg-[#B80F0A] inline-block border border-white shadow-sm" />
-            <span className="text-stone-700 font-bold">Active Creator Hub</span>
+            <span className="w-3 h-3 rounded-full bg-[#00C8FF] inline-block shadow-[0_0_8px_#00C8FF]" />
+            <span className="text-slate-200 font-bold">Active Creator Hub</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <span className="w-5 h-0.5 bg-[#B80F0A] inline-block opacity-60" />
+            <span className="w-5 h-0.5 bg-[#00C8FF] inline-block opacity-70" />
             <span>Distribution Corridor</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <span className="w-3 h-3 rounded bg-[#FFF3E0] border border-[#B80F0A] inline-block" />
+            <span className="w-3 h-3 rounded bg-[#00C8FF]/20 border border-cyan-500 inline-block" />
             <span>District Coverage</span>
           </div>
         </div>
-        <div className="text-[11px] text-stone-500 italic hidden sm:block">
+        <div className="text-[11px] text-slate-400 italic hidden sm:block">
           Click any marker or district to view regional insights
         </div>
       </div>

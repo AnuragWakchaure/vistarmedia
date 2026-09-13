@@ -16,8 +16,8 @@ export function NetworkBeamBackground({
       aria-hidden="true"
       className={`absolute inset-0 overflow-hidden pointer-events-none select-none z-0 ${className}`}
     >
-      {/* Background ambient warm wash */}
-      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-[#FBCB77]/15 rounded-full blur-[130px]" />
+      {/* Background ambient cool wash */}
+      <div className="absolute top-1/3 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[350px] bg-[#00D2FF]/10 rounded-full blur-[130px]" />
 
       {/* SVG Network Beams */}
       <svg
@@ -26,14 +26,14 @@ export function NetworkBeamBackground({
       >
         <defs>
           <linearGradient id="beamGradient1" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" stopColor="#B80F0A" stopOpacity="0.05" />
-            <stop offset="50%" stopColor="#B80F0A" stopOpacity="0.4" />
-            <stop offset="100%" stopColor="#FBCB77" stopOpacity="0.1" />
+            <stop offset="0%" stopColor="#00D2FF" stopOpacity="0.05" />
+            <stop offset="50%" stopColor="#00D2FF" stopOpacity="0.5" />
+            <stop offset="100%" stopColor="#0A84FF" stopOpacity="0.1" />
           </linearGradient>
           <linearGradient id="beamGradient2" x1="100%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#EE6A43" stopOpacity="0.05" />
-            <stop offset="50%" stopColor="#B80F0A" stopOpacity="0.35" />
-            <stop offset="100%" stopColor="#111111" stopOpacity="0.05" />
+            <stop offset="0%" stopColor="#0A84FF" stopOpacity="0.05" />
+            <stop offset="50%" stopColor="#00D2FF" stopOpacity="0.4" />
+            <stop offset="100%" stopColor="#0051FF" stopOpacity="0.05" />
           </linearGradient>
         </defs>
 
@@ -80,9 +80,9 @@ export function NetworkBeamBackground({
         />
 
         {/* Connection Node Rings */}
-        <circle cx="25%" cy="30%" r="3" fill="#B80F0A" opacity="0.4" />
-        <circle cx="50%" cy="45%" r="4" fill="#B80F0A" opacity="0.3" />
-        <circle cx="75%" cy="35%" r="3" fill="#B80F0A" opacity="0.4" />
+        <circle cx="25%" cy="30%" r="3" fill="#00D2FF" opacity="0.6" />
+        <circle cx="50%" cy="45%" r="4" fill="#0A84FF" opacity="0.5" />
+        <circle cx="75%" cy="35%" r="3" fill="#00D2FF" opacity="0.6" />
       </svg>
     </div>
   );
