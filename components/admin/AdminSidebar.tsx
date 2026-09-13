@@ -15,6 +15,7 @@ import {
   Image as ImageIcon,
   Inbox,
   Settings as SettingsIcon,
+  ShieldCheck,
   LogOut,
   ExternalLink,
   X,
@@ -35,6 +36,7 @@ const NAV_ITEMS = [
   { label: "Homepage Editor", href: "/admin/homepage", icon: Home },
   { label: "Media Library", href: "/admin/media", icon: ImageIcon },
   { label: "Global Settings", href: "/admin/settings", icon: SettingsIcon },
+  { label: "Admin & Security", href: "/admin/admins", icon: ShieldCheck },
 ];
 
 function NavContent({ onClose }: { onClose?: () => void }) {

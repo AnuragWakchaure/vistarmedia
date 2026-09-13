@@ -22,6 +22,19 @@ export default async function AdminSettingsPage() {
         </p>
       </div>
 
+      <div className="p-5 rounded-2xl bg-[#0D121D]/90 border border-white/10 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div className="space-y-1">
+          <h3 className="text-sm font-bold text-white">Administrator Access & Credentials</h3>
+          <p className="text-xs text-slate-400">Change your password or manage team administrator accounts.</p>
+        </div>
+        <a
+          href="/admin/admins"
+          className="px-4 py-2 rounded-xl bg-white/10 hover:bg-[#00D2FF] text-slate-200 hover:text-black font-bold text-xs uppercase tracking-wider transition shrink-0 inline-flex items-center gap-1.5"
+        >
+          <span>Manage Admins &rarr;</span>
+        </a>
+      </div>
+
       <SettingsForm initialData={settings} />
     </div>
   );

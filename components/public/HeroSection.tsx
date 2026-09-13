@@ -87,6 +87,7 @@ const DEFAULT_CAMPAIGNS: ICampaignReelItem[] = [
 export default function HeroSection({
   heading,
   subheading,
+  highlight,
   primaryCta,
   secondaryCta,
   creatorCount = "200+",
@@ -95,6 +96,7 @@ export default function HeroSection({
 }: {
   heading?: string;
   subheading?: string;
+  highlight?: string;
   primaryCta?: string;
   secondaryCta?: string;
   creatorCount?: string;
@@ -289,7 +291,7 @@ export default function HeroSection({
               <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-[#07111A]/90 border border-cyan-500/30 backdrop-blur-md shadow-[0_0_20px_rgba(0,200,255,0.15)]">
                 <span className="w-2 h-2 rounded-full bg-[#00C8FF] animate-pulse" />
                 <span className="text-[11px] font-mono font-bold uppercase tracking-widest text-[#00C8FF]">
-                  Maharashtra Influencer Agency
+                  {highlight || "Maharashtra Influencer Agency"}
                 </span>
                 <span className="text-[10px] px-1.5 py-0.5 rounded bg-cyan-500/10 text-slate-300 font-semibold border border-cyan-500/20">
                   Verified ROI

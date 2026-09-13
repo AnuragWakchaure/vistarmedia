@@ -3,22 +3,21 @@
 import { useState, Suspense } from "react";
 import { useSearchParams } from "next/navigation";
 import { loginAdminAction } from "@/actions/auth.actions";
-import { ShieldAlert, ArrowRight, Lock, Mail, Sparkles } from "lucide-react";
+import { ShieldAlert, ArrowRight, Lock, Mail, Sparkles, Eye, EyeOff } from "lucide-react";
 import Link from "next/link";
 
 function LoginForm() {
   const searchParams = useSearchParams();
   const callbackUrl = searchParams.get("callbackUrl") || "/admin";
   const [error, setError] = useState<string | null>(null);
-  const [info, setInfo] = useState<string | null>(null);
   const [loading, setLoading] = useState(false);
-  const [email, setEmail] = useState("admin@vistar.in");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [showPassword, setShowPassword] = useState(false);
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     setError(null);
-    setInfo(null);
     setLoading(true);
 
     const formData = new FormData();
@@ -40,37 +39,13 @@ function LoginForm() {
   }
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-5">
       {error && (
         <div className="p-3.5 rounded-2xl bg-rose-500/10 border border-rose-500/30 text-rose-400 text-xs font-semibold leading-relaxed flex items-start gap-2.5">
           <ShieldAlert className="w-4 h-4 shrink-0 text-rose-400 mt-0.5" />
           <span>{error}</span>
         </div>
       )}
-
-      {info && (
-        <div className="p-3.5 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-400 text-xs font-medium leading-relaxed">
-          {info}
-        </div>
-      )}
-
-      {/* Quick Credentials Info Box */}
-      <div className="p-3 bg-[#07090E]/80 border border-white/10 rounded-2xl text-[11px] text-slate-300 flex items-center justify-between">
-        <div>
-          <span className="font-bold text-[#00D2FF]">Default Access: </span>
-          <span className="font-mono font-medium text-slate-400">admin@vistar.in / admin123</span>
-        </div>
-        <button
-          type="button"
-          onClick={() => {
-            setEmail("admin@vistar.in");
-            setPassword("admin123");
-          }}
-          className="text-[10px] font-bold uppercase tracking-wider bg-[#00D2FF]/20 hover:bg-[#00D2FF] text-[#00D2FF] hover:text-black px-2.5 py-1 rounded-full transition cursor-pointer border border-[#00D2FF]/30"
-        >
-          Auto-Fill
-        </button>
-      </div>
 
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
@@ -85,7 +60,7 @@ function LoginForm() {
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="admin@vistar.in"
+              placeholder="Enter administrator email"
               className="w-full bg-[#07090E]/80 border border-white/10 focus:border-[#00D2FF] focus:bg-[#07090E] rounded-2xl pl-10 pr-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none transition font-medium focus:ring-1 focus:ring-[#00D2FF]/50"
             />
           </div>
@@ -99,20 +74,28 @@ function LoginForm() {
             <Lock className="w-4 h-4 text-slate-500 absolute left-3.5 top-3.5" />
             <input
               name="password"
-              type="password"
+              type={showPassword ? "text" : "password"}
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="••••••••••••"
-              className="w-full bg-[#07090E]/80 border border-white/10 focus:border-[#00D2FF] focus:bg-[#07090E] rounded-2xl pl-10 pr-4 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none transition font-medium focus:ring-1 focus:ring-[#00D2FF]/50"
+              placeholder="Enter password"
+              className="w-full bg-[#07090E]/80 border border-white/10 focus:border-[#00D2FF] focus:bg-[#07090E] rounded-2xl pl-10 pr-10 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none transition font-medium focus:ring-1 focus:ring-[#00D2FF]/50"
             />
+            <button
+              type="button"
+              onClick={() => setShowPassword(!showPassword)}
+              className="absolute right-3.5 top-2.5 text-slate-500 hover:text-slate-300 transition"
+              aria-label={showPassword ? "Hide password" : "Show password"}
+            >
+              {showPassword ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+            </button>
           </div>
         </div>
 
         <button
           type="submit"
           disabled={loading}
-          className="w-full mt-2 bg-gradient-to-r from-[#00D2FF] to-[#0A84FF] hover:from-[#00E5FF] hover:to-[#0070E0] disabled:opacity-50 text-black font-bold py-3.5 px-4 rounded-full flex items-center justify-center gap-2 transition uppercase tracking-wider text-xs shadow-[0_0_20px_rgba(0,210,255,0.3)] cursor-pointer hover:scale-[1.01] border border-cyan-300/40"
+          className="w-full mt-3 bg-gradient-to-r from-[#00D2FF] to-[#0A84FF] hover:from-[#00E5FF] hover:to-[#0070E0] disabled:opacity-50 text-black font-bold py-3.5 px-4 rounded-full flex items-center justify-center gap-2 transition uppercase tracking-wider text-xs shadow-[0_0_20px_rgba(0,210,255,0.3)] cursor-pointer hover:scale-[1.01] border border-cyan-300/40"
         >
           <span>{loading ? "Authenticating..." : "Sign In to Admin Console"}</span>
           <ArrowRight className="w-4 h-4 text-black" />
@@ -136,7 +119,7 @@ export default function AdminLoginPage() {
             VISTAR Control Center
           </h1>
           <p className="text-xs text-slate-400 font-medium max-w-xs mx-auto">
-            Authorized administrator access for managing creators, campaigns, and enquiries.
+            Authorized administrator access for managing creators, campaigns, and agency configuration.
           </p>
         </div>
 
@@ -148,7 +131,7 @@ export default function AdminLoginPage() {
           <Link href="/" className="text-slate-400 hover:text-[#00D2FF] transition">
             &larr; Back to Website
           </Link>
-          <span className="text-[11px] text-[#00D2FF] font-mono">VISTAR &bull; CMS</span>
+          <span className="text-[11px] text-[#00D2FF] font-mono">VISTAR &bull; Security</span>
         </div>
       </div>
     </div>

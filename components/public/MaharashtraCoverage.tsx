@@ -18,10 +18,14 @@ const MaharashtraMap = dynamic(() => import("@/components/public/MaharashtraMap"
 
 interface MaharashtraCoverageProps {
   locations?: CreatorLocationItem[];
+  heading?: string;
+  description?: string;
 }
 
 export default function MaharashtraCoverage({
   locations = DEFAULT_CREATOR_LOCATIONS,
+  heading,
+  description,
 }: MaharashtraCoverageProps) {
   const shouldReduceMotion = useReducedMotion();
   const [selectedCity, setSelectedCity] = useState<string | null>(null);
@@ -43,13 +47,18 @@ export default function MaharashtraCoverage({
               <span>Geographic Presence</span>
             </div>
             <h2 className="font-anton text-4xl sm:text-5xl md:text-6xl text-white uppercase tracking-tight leading-[0.98]">
-              Deep Regional Reach Across{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00C8FF] via-[#33D4FF] to-[#009DFF]">
-                Maharashtra.
-              </span>
+              {heading || (
+                <>
+                  Deep Regional Reach Across{" "}
+                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00C8FF] via-[#33D4FF] to-[#009DFF]">
+                    Maharashtra.
+                  </span>
+                </>
+              )}
             </h2>
             <p className="text-xs sm:text-sm text-slate-300 font-normal leading-relaxed">
-              Our network spans urban metros and rural farming clusters, giving brands authenticated local trust that generic agencies cannot match.
+              {description ||
+                "Our network spans urban metros and rural farming clusters, giving brands authenticated local trust that generic agencies cannot match."}
             </p>
           </div>
           <div className="p-5 sm:p-6 rounded-3xl bg-[#07111A]/90 backdrop-blur-md border border-white/10 shadow-xl text-left md:text-right shrink-0">

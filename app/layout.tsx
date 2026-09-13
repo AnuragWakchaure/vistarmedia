@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Anton, Inter_Tight, Inter } from "next/font/google";
+import NavigationProgress from "@/components/ui/NavigationProgress";
 import "./globals.css";
 
 const anton = Anton({
@@ -79,8 +80,12 @@ export default function RootLayout({
       lang="en"
       className={`${anton.variable} ${interTight.variable} ${inter.variable} h-full antialiased scroll-smooth dark`}
     >
-      <body className="min-h-full flex flex-col font-sans bg-[#07090E] text-[#F8FAFC] selection:bg-[#00D2FF]/30 selection:text-white">{children}</body>
+      <body className="min-h-full flex flex-col font-sans bg-[#07090E] text-[#F8FAFC] selection:bg-[#00D2FF]/30 selection:text-white">
+        <NavigationProgress />
+        {children}
+      </body>
     </html>
   );
 }
+
 

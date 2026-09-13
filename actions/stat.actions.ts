@@ -6,10 +6,10 @@ import { requireAdminRole } from "@/lib/auth/session";
 import { revalidatePath } from "next/cache";
 
 const DEFAULT_STATS = [
-  { _id: "s1", label: "Creators Roster", value: "500", suffix: "+", description: "Top verified creators across Maharashtra", displayOrder: 1, status: "ACTIVE" },
-  { _id: "s2", label: "Audience Reach", value: "25", suffix: "M+", description: "Monthly vernacular impressions generated", displayOrder: 2, status: "ACTIVE" },
-  { _id: "s3", label: "Brand Campaigns", value: "120", suffix: "+", description: "Delivered for leading national & regional brands", displayOrder: 3, status: "ACTIVE" },
-  { _id: "s4", label: "Regional Coverage", value: "36", suffix: " Districts", description: "Comprehensive footprint across Maharashtra", displayOrder: 4, status: "ACTIVE" },
+  { _id: "s1", label: "Verified Creators", value: "200", suffix: "+", description: "Over 200 handpicked regional creators vetted for authentic engagement", displayOrder: 1, status: "ACTIVE" },
+  { _id: "s2", label: "Districts Covered", value: "35", suffix: "+", description: "Deep geographic presence across Pune, Mumbai, Nashik, Kolhapur, and rural belts", displayOrder: 2, status: "ACTIVE" },
+  { _id: "s3", label: "Vernacular Resonance", value: "3.8", suffix: "x", description: "Culturally tuned Marathi content delivering higher brand recall", displayOrder: 3, status: "ACTIVE" },
+  { _id: "s4", label: "Bot Pod Inflation", value: "0", suffix: "%", description: "Transparent real-time telemetry and 100% human-verified auditing", displayOrder: 4, status: "ACTIVE" },
 ];
 
 export async function getStatisticsAction() {

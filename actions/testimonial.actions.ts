@@ -8,23 +8,36 @@ import { revalidatePath } from "next/cache";
 const DEFAULT_TESTIMONIALS = [
   {
     _id: "t1",
-    personName: "Vikram Sardesai",
-    designation: "Head of Regional Marketing",
-    company: "Mahindra Agri",
-    photo: "/images/testimonials/testimonial-1.webp",
-    testimonial: "VISTAR delivered unparalleled reach across rural Maharashtra for our tractor campaign. Highly recommended!",
+    personName: "Anand Deshmukh",
+    designation: "Marketing Head",
+    company: "Mahindra Tractors",
+    photo: "/images/brands/mahindra-tractors.png",
+    testimonial:
+      "VISTAR transformed our tractor and agricultural machinery campaigns into high-impact Marathi creator stories, delivering a 3.4x surge in direct dealer inquiries across rural Maharashtra.",
     featured: true,
     displayOrder: 1,
   },
   {
     _id: "t2",
-    personName: "Ananya Deshpande",
+    personName: "Priyanka Kadam",
     designation: "Brand Lead",
-    company: "Sahyadri Farms",
+    company: "Sahyadri Natural Foods",
     photo: "/images/testimonials/testimonial-2.webp",
-    testimonial: "The regional storytelling and authenticity of VISTAR's Marathi creator network drove a 4x increase in engagement.",
+    testimonial:
+      "Vernacular storytelling brought authentic local trust that generic agencies couldn't replicate. Generated immediate consumer adoption across Western Maharashtra.",
     featured: true,
     displayOrder: 2,
+  },
+  {
+    _id: "t3",
+    personName: "Naukrivalaa (Rohan Patil)",
+    designation: "Creator (670K+ Followers)",
+    company: "Educational Vernacular Channel",
+    photo: "/images/testimonials/testimonial-3.webp",
+    testimonial:
+      "Seamless creator workflow with clear briefs, transparent pricing, timely payments, and brand partnerships that genuinely respect Marathi audiences.",
+    featured: true,
+    displayOrder: 3,
   },
 ];
 

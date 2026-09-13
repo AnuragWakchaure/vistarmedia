@@ -3,6 +3,7 @@ import { Campaign } from "@/models/Campaign";
 import { Brand } from "@/models/Brand";
 import { Testimonial } from "@/models/Testimonial";
 import { CreatorLocation } from "@/models/CreatorLocation";
+import { Statistic } from "@/models/Statistic";
 import { DEFAULT_CREATOR_LOCATIONS } from "@/lib/data/maharashtra-geo";
 import { getHomepageContentAction } from "@/actions/homepage.actions";
 import HeroSection from "@/components/public/HeroSection";
@@ -26,11 +27,12 @@ export const dynamic = "force-dynamic";
 export default async function HomePage() {
   await connectDB();
   const homepageContent = await getHomepageContentAction();
-  const [campaigns, brands, testimonials, dbLocations] = await Promise.all([
+  const [campaigns, brands, testimonials, dbLocations, statistics] = await Promise.all([
     Campaign.find({ status: "PUBLISHED" }).populate("brandId", "name logo").limit(3).lean(),
     Brand.find({ status: "ACTIVE" }).sort({ displayOrder: 1 }).lean(),
     Testimonial.find({ status: "ACTIVE" }).sort({ displayOrder: 1, createdAt: -1 }).lean(),
     CreatorLocation.find({ active: true }).sort({ displayOrder: 1 }).lean(),
+    Statistic.find({ status: "ACTIVE" }).sort({ displayOrder: 1 }).lean(),
   ]);
 
   const locations =
@@ -55,6 +57,7 @@ export default async function HomePage() {
       <HeroSection
         heading={homepageContent.heroHeading}
         subheading={homepageContent.heroSubheading}
+        highlight={homepageContent.heroHighlight}
         primaryCta={homepageContent.primaryCtaText}
         secondaryCta={homepageContent.secondaryCtaText}
         creatorCount="200+"
@@ -71,10 +74,17 @@ export default async function HomePage() {
       <HomeServicesSection />
 
       {/* 5. CREATOR CATEGORIES & VERTICALS (Light Gray - Alternate Light Section) */}
-      <CreatorCategoriesSection />
+      <CreatorCategoriesSection
+        heading={homepageContent.creatorsHeading}
+        description={homepageContent.creatorsDescription}
+      />
 
       {/* 6. MAHARASHTRA PRESENCE (Midnight - Dark Immersive Map Section) */}
-      <MaharashtraCoverage locations={JSON.parse(JSON.stringify(locations))} />
+      <MaharashtraCoverage
+        heading={homepageContent.maharashtraHeading}
+        description={homepageContent.maharashtraDescription}
+        locations={JSON.parse(JSON.stringify(locations))}
+      />
 
       {/* 7. CAMPAIGN PROCESS (Light Gray - Alternate Light Section) */}
       <CampaignProcess />

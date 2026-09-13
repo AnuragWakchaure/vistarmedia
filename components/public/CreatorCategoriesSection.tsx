@@ -125,7 +125,13 @@ const CREATOR_CATEGORIES: CreatorCategoryItem[] = [
   },
 ];
 
-export default function CreatorCategoriesSection() {
+export default function CreatorCategoriesSection({
+  heading,
+  description,
+}: {
+  heading?: string;
+  description?: string;
+} = {}) {
   const shouldReduceMotion = useReducedMotion();
 
   const containerVariants = {
@@ -178,11 +184,12 @@ export default function CreatorCategoriesSection() {
             </div>
 
             <h2 className="font-anton text-4xl sm:text-5xl md:text-6xl text-[#0B1117] uppercase tracking-tight leading-[0.98]">
-              Creator Categories & Verticals
+              {heading || "Creator Categories & Verticals"}
             </h2>
 
             <p className="text-xs sm:text-sm text-[#64717C] font-normal leading-relaxed">
-              Explore Maharashtra&apos;s most influential regional voices categorized by audience affinity, cultural resonance, and purchasing power.
+              {description ||
+                "Explore Maharashtra's most influential regional voices categorized by audience affinity, cultural resonance, and purchasing power."}
             </p>
           </div>
 
