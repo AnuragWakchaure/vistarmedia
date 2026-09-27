@@ -23,43 +23,43 @@ interface CreatorMarqueeGridProps {
 
 function CreatorCard({ creator }: { creator: CreatorItem }) {
   return (
-    <div className="w-[300px] sm:w-[340px] shrink-0 p-6 rounded-3xl bg-white border border-slate-200/90 hover:border-cyan-400 shadow-[0_4px_24px_rgba(11,17,23,0.03)] hover:shadow-[0_16px_36px_rgba(0,200,255,0.12)] transition-all duration-200 flex flex-col justify-between group select-none cursor-pointer">
-      <div className="space-y-4">
+    <div className="w-[280px] sm:w-[320px] shrink-0 p-5 rounded-xl bg-white border border-slate-200/90 hover:border-[#00B8F0]/40 shadow-xs hover:shadow-md transition-all duration-150 flex flex-col justify-between group select-none cursor-pointer">
+      <div className="space-y-3.5">
         {/* Top Header Row: Category Badge & Location */}
         <div className="flex items-center justify-between gap-2">
-          <span className="px-3 py-1 rounded-full text-[11px] font-bold uppercase tracking-wider bg-cyan-50 text-[#009DFF] border border-cyan-100">
+          <span className="px-2.5 py-0.5 rounded text-[10px] font-mono font-semibold uppercase tracking-wider bg-[#00B8F0]/10 text-[#0088B8] border border-[#00B8F0]/20">
             {creator.categories?.[0] || "Exclusive Creator"}
           </span>
-          <span className="text-[11px] text-[#64717C] font-semibold flex items-center gap-1 shrink-0">
-            <MapPin className="w-3.5 h-3.5 text-[#009DFF]" />
+          <span className="text-[11px] text-slate-500 font-medium flex items-center gap-1 shrink-0">
+            <MapPin className="w-3.5 h-3.5 text-[#00B8F0]" />
             {creator.location}
           </span>
         </div>
 
         {/* Creator Info: Avatar + Name */}
-        <div className="flex items-center gap-4 pt-1">
-          <div className="relative shrink-0 w-14 h-14 sm:w-16 sm:h-16">
+        <div className="flex items-center gap-3.5 pt-0.5">
+          <div className="relative shrink-0 w-13 h-13 sm:w-14 sm:h-14">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img
               src={creator.profileImage}
               alt={creator.name}
-              width={64}
-              height={64}
+              width={56}
+              height={56}
               loading="lazy"
               decoding="async"
-              className="w-14 h-14 sm:w-16 sm:h-16 rounded-full object-cover border-2 border-cyan-100 shadow-xs"
+              className="w-13 h-13 sm:w-14 sm:h-14 rounded-full object-cover border-2 border-slate-100 shadow-2xs"
             />
             {creator.featured && (
-              <span className="absolute -top-1 -right-1 w-5 h-5 rounded-full bg-[#00C8FF] text-[#05080D] flex items-center justify-center shadow-xs" title="Verified Creator">
-                <BadgeCheck className="w-3.5 h-3.5 text-[#05080D]" />
+              <span className="absolute -top-0.5 -right-0.5 w-4.5 h-4.5 rounded-full bg-[#00B8F0] text-[#05080D] flex items-center justify-center shadow-2xs" title="Verified Creator">
+                <BadgeCheck className="w-3 h-3 text-[#05080D]" />
               </span>
             )}
           </div>
           <div className="min-w-0 flex-1">
-            <h3 className="font-anton text-xl sm:text-2xl text-[#0B1117] group-hover:text-[#009DFF] transition-colors truncate">
+            <h3 className="font-anton text-lg sm:text-xl text-[#0B1117] group-hover:text-[#0088B8] transition-colors truncate">
               {creator.name}
             </h3>
-            <p className="text-xs text-[#64717C] font-medium line-clamp-1 mt-0.5">
+            <p className="text-xs text-slate-500 font-normal line-clamp-1 mt-0.5">
               {creator.bio || "Maharashtra Regional Creator"}
             </p>
           </div>
@@ -67,22 +67,22 @@ function CreatorCard({ creator }: { creator: CreatorItem }) {
       </div>
 
       {/* Bottom Row: Reach Badge & Direct CTA */}
-      <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between gap-3">
+      <div className="mt-5 pt-3 border-t border-slate-100 flex items-center justify-between gap-3">
         <div>
-          <span className="text-[10px] uppercase font-bold text-slate-400 block leading-none">
+          <span className="text-[10px] uppercase font-semibold text-slate-400 block leading-none">
             Verified Reach
           </span>
-          <span className="font-anton text-xl text-[#00C8FF] tracking-tight">
+          <span className="font-anton text-lg text-[#00B8F0] tracking-tight">
             {formatFollowers(creator.totalFollowers || 0)}
           </span>
         </div>
 
         <Link
           href="/#campaign-enquiry"
-          className="inline-flex items-center gap-1 px-4 py-2 rounded-full bg-[#EAF0F3] group-hover:bg-gradient-to-r group-hover:from-[#00C8FF] group-hover:to-[#009DFF] text-[#0B1117] group-hover:text-[#05080D] text-xs font-bold uppercase tracking-wider transition-all duration-200 border border-slate-200 group-hover:border-cyan-300 shadow-xs"
+          className="inline-flex items-center gap-1 px-3 py-1.5 rounded-lg bg-slate-100 group-hover:bg-[#00B8F0] text-slate-800 group-hover:text-[#05080D] text-xs font-semibold uppercase tracking-wider transition-all duration-150 border border-slate-200 group-hover:border-[#00B8F0]"
         >
           <span>Book</span>
-          <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+          <ArrowUpRight className="w-3.5 h-3.5 transition-transform duration-150 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
         </Link>
       </div>
     </div>

@@ -18,17 +18,18 @@ export default async function CampaignsDirectoryPage() {
     .lean();
 
   return (
-    <div className="relative overflow-hidden bg-[#F3F6F8]">
+    <div className="relative overflow-hidden bg-[#F8FAFC]">
       <SectionBackground variant="spotlight" intensity="subtle" />
-      <div className="pt-36 pb-24 px-4 sm:px-6 max-w-6xl mx-auto space-y-12 relative z-10">
+      <div className="pt-32 pb-24 px-4 sm:px-6 max-w-6xl mx-auto space-y-12 relative z-10">
         <ScrollReveal direction="up" distance={20} className="space-y-4 max-w-3xl">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#00C8FF]/10 border border-[#00C8FF]/30 text-[#009DFF] text-xs font-bold uppercase tracking-wider">
-            Proven Agency Track Record &bull; Verified Impact
+          <div className="inline-flex items-center gap-2 px-3 py-0.5 rounded text-[11px] font-semibold uppercase tracking-wider bg-[#00B8F0]/10 text-[#0088B8] border border-[#00B8F0]/25">
+            <span className="w-1.5 h-1.5 rounded-full bg-[#00B8F0]" />
+            <span>Verified Impact &bull; Case Studies</span>
           </div>
           <h1 className="font-anton text-4xl sm:text-6xl lg:text-7xl text-[#0B1117] uppercase tracking-tight leading-[0.98]">
             Client Campaigns & Case Studies
           </h1>
-          <p className="text-sm sm:text-base text-[#64717C] font-medium leading-relaxed">
+          <p className="text-base sm:text-lg text-slate-600 font-normal leading-relaxed">
             Explore how VISTAR executes creator-led regional marketing for enterprise and high-growth brands in Maharashtra.
           </p>
         </ScrollReveal>
@@ -37,40 +38,40 @@ export default async function CampaignsDirectoryPage() {
           {campaigns.map((camp: any) => (
             <ScrollRevealItem key={camp._id}>
               <AnimatedCard className="h-full">
-                <div className="rounded-3xl bg-[#FFFFFF] border border-slate-200/90 hover:border-[#00C8FF]/60 transition-all duration-300 overflow-hidden flex flex-col justify-between h-full group shadow-[0_12px_40px_rgba(15,23,42,0.06)] hover:shadow-[0_16px_45px_rgba(0,200,255,0.15)]">
-                  <div className="h-64 relative bg-[#EAF0F3] overflow-hidden">
+                <div className="rounded-xl bg-white border border-slate-200/90 hover:border-[#00B8F0]/40 overflow-hidden shadow-xs hover:shadow-md transition-all duration-150 flex flex-col justify-between h-full group">
+                  <div className="h-60 relative bg-slate-100 overflow-hidden">
                     <img
                       src={camp.coverImage}
                       alt={camp.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />
-                    <div className="absolute top-4 left-4">
-                      <span className="px-3.5 py-1 rounded-full bg-[#FFFFFF]/95 backdrop-blur-sm text-[#009DFF] text-[11px] font-extrabold uppercase tracking-wider border border-[#00C8FF]/30 shadow-sm">
+                    <div className="absolute top-3 left-3">
+                      <span className="px-2.5 py-0.5 rounded bg-white/95 backdrop-blur-md text-[#0088B8] text-[10px] font-semibold uppercase tracking-wider border border-slate-200 shadow-2xs">
                         {camp.brandId?.name || "Client"} &bull; {camp.industry}
                       </span>
                     </div>
                   </div>
-                  <div className="p-8 space-y-4 flex-1 flex flex-col justify-between">
-                    <div className="space-y-3">
-                      <h3 className="font-anton text-2xl text-[#0B1117] group-hover:text-[#009DFF] transition-colors leading-tight">
+                  <div className="p-6 space-y-4 flex-1 flex flex-col justify-between">
+                    <div className="space-y-2">
+                      <h3 className="font-anton text-2xl text-[#0B1117] group-hover:text-[#0088B8] transition-colors leading-tight">
                         {camp.title}
                       </h3>
-                      <p className="text-xs sm:text-sm text-[#64717C] font-medium leading-relaxed line-clamp-3">
+                      <p className="text-xs sm:text-sm text-slate-600 font-normal leading-relaxed line-clamp-3">
                         {camp.objective}
                       </p>
                     </div>
 
                     <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
-                      <span className="text-xs font-bold text-[#64717C] flex items-center gap-1">
-                        <MapPin className="w-3.5 h-3.5 text-[#00C8FF]" />
+                      <span className="text-xs font-semibold text-slate-600 flex items-center gap-1.5">
+                        <MapPin className="w-3.5 h-3.5 text-[#00B8F0]" />
                         {camp.location}
                       </span>
                       <Link
                         href={`/campaigns/${camp.slug}`}
-                        className="text-xs text-[#009DFF] font-extrabold uppercase tracking-wider inline-flex items-center gap-1 hover:underline"
+                        className="text-xs text-[#0088B8] font-bold uppercase tracking-wider inline-flex items-center gap-1 hover:underline"
                       >
                         <span>View Case Study</span>
-                        <ArrowUpRight className="w-4 h-4 text-[#009DFF]" />
+                        <ArrowUpRight className="w-4 h-4 text-[#00B8F0]" />
                       </Link>
                     </div>
                   </div>

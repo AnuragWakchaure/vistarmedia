@@ -195,10 +195,10 @@ export default function CreatorCategoriesSection({
 
           <Link
             href="/#campaign-enquiry"
-            className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-white hover:bg-slate-50 text-[#0B1117] border border-slate-200 hover:border-[#00C8FF]/60 text-xs font-bold uppercase tracking-wider transition-all shadow-xs hover:shadow-md shrink-0 hover:-translate-y-0.5"
+            className="inline-flex items-center gap-2 px-5 py-2.5 rounded-lg bg-white hover:bg-slate-50 text-[#0B1117] border border-slate-200 hover:border-slate-300 text-xs font-semibold uppercase tracking-wider transition-colors shadow-xs shrink-0"
           >
             <span>Request Creator Shortlist</span>
-            <ArrowUpRight className="w-4 h-4 text-[#009DFF]" />
+            <ArrowUpRight className="w-4 h-4 text-[#00B8F0]" />
           </Link>
         </motion.div>
 
@@ -219,25 +219,20 @@ export default function CreatorCategoriesSection({
               <motion.div key={cat.id} variants={itemVariants}>
                 <Link
                   href="/#campaign-enquiry"
-                  className={`group relative flex flex-col justify-between h-full rounded-3xl bg-white border border-slate-200/90 ${cat.borderAccent} shadow-[0_4px_24px_rgba(11,17,23,0.03)] hover:shadow-[0_16px_36px_rgba(0,200,255,0.12)] transition-all duration-300 p-6 sm:p-7 overflow-hidden hover:-translate-y-1 cursor-pointer block select-none`}
+                  className="group relative flex flex-col justify-between h-full rounded-xl bg-white border border-slate-200/90 hover:border-[#00B8F0]/40 shadow-xs hover:shadow-md transition-all duration-200 p-6 sm:p-7 overflow-hidden hover:-translate-y-0.5 cursor-pointer block select-none"
                 >
-                  {/* Subtle Top-Right Ambient Glow */}
-                  <div
-                    className={`pointer-events-none absolute -top-10 -right-10 w-32 h-32 rounded-full bg-gradient-to-br ${cat.gradient} blur-xl`}
-                  />
-
                   <div className="space-y-4 relative z-10">
                     {/* Top Header: Icon + Stats Pills */}
                     <div className="flex items-center justify-between gap-3">
-                      <div className="w-12 h-12 rounded-2xl bg-[#EAF0F3] group-hover:bg-gradient-to-tr group-hover:from-[#00C8FF] group-hover:to-[#009DFF] text-[#0B1117] group-hover:text-[#05080D] flex items-center justify-center transition-all duration-300 shadow-xs">
-                        <IconComponent className="w-6 h-6 transition-transform group-hover:scale-110" />
+                      <div className="w-11 h-11 rounded-xl bg-slate-100 group-hover:bg-[#00B8F0]/15 text-[#0B1117] group-hover:text-[#0088B8] flex items-center justify-center transition-all duration-200">
+                        <IconComponent className="w-5 h-5 transition-transform group-hover:scale-105" />
                       </div>
 
                       <div className="flex items-center gap-1.5 flex-wrap justify-end">
-                        <span className={`px-2.5 py-1 rounded-full text-[10px] font-mono font-bold uppercase tracking-wider border ${cat.badgeBg}`}>
+                        <span className={`px-2.5 py-0.5 rounded-md text-[10px] font-mono font-bold uppercase tracking-wider border ${cat.badgeBg}`}>
                           {cat.creatorCount}
                         </span>
-                        <span className="px-2 py-1 rounded-full bg-slate-100 text-slate-700 text-[10px] font-mono font-semibold">
+                        <span className="px-2 py-0.5 rounded-md bg-slate-100 text-slate-700 text-[10px] font-mono font-semibold">
                           {cat.reach}
                         </span>
                       </div>
@@ -245,7 +240,7 @@ export default function CreatorCategoriesSection({
 
                     {/* Title & Description */}
                     <div className="space-y-1.5 pt-1">
-                      <h3 className="font-anton text-2xl text-[#0B1117] group-hover:text-[#009DFF] transition-colors leading-tight">
+                      <h3 className="font-anton text-2xl text-[#0B1117] group-hover:text-[#0088B8] transition-colors leading-tight">
                         {cat.name}
                       </h3>
                       <p className="text-xs text-[#64717C] leading-relaxed line-clamp-2">
@@ -258,7 +253,7 @@ export default function CreatorCategoriesSection({
                       {cat.tags.map((tag) => (
                         <span
                           key={tag}
-                          className="px-2.5 py-0.5 rounded-md bg-[#F3F6F8] border border-slate-200/80 text-slate-700 text-[10px] font-medium"
+                          className="px-2 py-0.5 rounded bg-slate-100 border border-slate-200/60 text-slate-600 text-[10px] font-medium"
                         >
                           #{tag}
                         </span>
@@ -267,12 +262,12 @@ export default function CreatorCategoriesSection({
                   </div>
 
                   {/* Bottom Action Footer */}
-                  <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between relative z-10">
-                    <span className="text-xs font-bold text-slate-500 group-hover:text-[#009DFF] transition-colors flex items-center gap-1 uppercase tracking-wider text-[11px]">
-                      <Users className="w-3.5 h-3.5 text-[#00C8FF]" /> Request {cat.slug} Shortlist
+                  <div className="mt-6 pt-3.5 border-t border-slate-100 flex items-center justify-between relative z-10">
+                    <span className="text-[11px] font-semibold text-slate-500 group-hover:text-[#0088B8] transition-colors flex items-center gap-1 uppercase tracking-wider">
+                      <Users className="w-3.5 h-3.5 text-[#00B8F0]" /> Request {cat.slug} Shortlist
                     </span>
-                    <div className="w-8 h-8 rounded-full bg-[#EAF0F3] group-hover:bg-[#00C8FF] text-[#0B1117] group-hover:text-[#05080D] flex items-center justify-center transition-all duration-200 shadow-xs">
-                      <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                    <div className="w-7 h-7 rounded-md bg-slate-100 group-hover:bg-[#00B8F0] text-[#0B1117] group-hover:text-[#05080D] flex items-center justify-center transition-all duration-150">
+                      <ArrowUpRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                     </div>
                   </div>
                 </Link>
@@ -289,7 +284,7 @@ export default function CreatorCategoriesSection({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: DURATIONS.normal, ease: EASINGS.easeOutQuart }}
-          className="rounded-3xl bg-white border border-slate-200/90 p-6 sm:p-8 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-6"
+          className="rounded-xl bg-white border border-slate-200/90 p-6 sm:p-7 shadow-xs flex flex-col sm:flex-row items-center justify-between gap-6"
         >
           <div className="space-y-1 text-center sm:text-left">
             <div className="font-anton text-xl sm:text-2xl text-[#0B1117] uppercase leading-tight">
@@ -302,7 +297,7 @@ export default function CreatorCategoriesSection({
 
           <Link
             href="/#campaign-enquiry"
-            className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-gradient-to-r from-[#00C8FF] to-[#009DFF] hover:from-[#33D4FF] hover:to-[#00C8FF] text-[#05080D] font-extrabold text-xs uppercase tracking-wider transition-all shadow-[0_4px_20px_rgba(0,200,255,0.35)] shrink-0 hover:scale-[1.02]"
+            className="inline-flex items-center gap-2 px-6 py-3 rounded-lg bg-[#00B8F0] hover:bg-[#00A3D9] text-[#05080D] font-bold text-xs uppercase tracking-wider transition-all shadow-xs shrink-0 active:scale-[0.99]"
           >
             <span>Request Creator Shortlist</span>
             <ArrowUpRight className="w-4 h-4" />

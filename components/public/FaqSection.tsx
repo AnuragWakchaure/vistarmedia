@@ -54,29 +54,29 @@ export default function FaqSection() {
   };
 
   return (
-    <section className="py-20 sm:py-24 px-4 sm:px-6 bg-[#F3F6F8] relative overflow-hidden">
+    <section className="py-20 sm:py-24 px-4 sm:px-6 bg-[#F8FAFC] relative overflow-hidden">
       <SectionBackground variant="grid" intensity="minimal" />
 
-      <div className="max-w-4xl mx-auto space-y-12 relative z-10">
+      <div className="max-w-3xl mx-auto space-y-10 relative z-10">
         {/* Header */}
         <ScrollReveal direction="up" distance={16} className="text-center space-y-3 max-w-xl mx-auto">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white border border-slate-200 text-[#0B1117] text-xs font-bold uppercase tracking-wider shadow-xs">
-            <HelpCircle className="w-3.5 h-3.5 text-[#009DFF]" />
-            <span>FAQ’s &bull; Direct Answers</span>
+          <div className="inline-flex items-center gap-2 px-3 py-0.5 rounded-full bg-white border border-slate-200 text-[#0B1117] text-xs font-semibold uppercase tracking-wider shadow-2xs">
+            <HelpCircle className="w-3.5 h-3.5 text-[#00B8F0]" />
+            <span>FAQ &bull; Clarifications</span>
           </div>
-          <h2 className="font-anton text-4xl sm:text-5xl lg:text-6xl text-[#0B1117] uppercase tracking-tight leading-[0.98]">
+          <h2 className="font-anton text-3xl sm:text-4xl lg:text-5xl text-[#0B1117] uppercase tracking-tight leading-[1.02]">
             Frequently Asked{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#009DFF] to-[#00C8FF]">
+            <span className="text-[#00B8F0]">
               Questions.
             </span>
           </h2>
-          <p className="text-xs sm:text-sm text-[#64717C] font-normal leading-relaxed">
+          <p className="text-xs sm:text-sm text-slate-600 font-normal leading-relaxed">
             Everything you need to know about partnering with VISTAR for regional creator campaigns.
           </p>
         </ScrollReveal>
 
         {/* Minimalist Accordion List */}
-        <div className="space-y-3.5">
+        <div className="space-y-3">
           {FAQS.map((faq, idx) => {
             const isOpen = openIndex === idx;
 
@@ -87,32 +87,32 @@ export default function FaqSection() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.1 }}
                 transition={{ duration: 0.3, delay: idx * 0.04 }}
-                className={`rounded-3xl border transition-all duration-200 bg-white ${
+                className={`rounded-xl border transition-all duration-150 bg-white ${
                   isOpen
-                    ? "border-cyan-400 ring-2 ring-cyan-100 shadow-[0_8px_25px_rgba(0,200,255,0.08)]"
-                    : "border-slate-200/90 hover:border-cyan-300 shadow-xs"
+                    ? "border-[#00B8F0]/40 shadow-xs"
+                    : "border-slate-200/90 hover:border-slate-300 shadow-2xs"
                 } overflow-hidden`}
               >
                 <button
                   onClick={() => toggleFaq(idx)}
-                  className="w-full p-6 text-left flex items-center justify-between gap-4 select-none focus:outline-hidden cursor-pointer"
+                  className="w-full p-5 text-left flex items-center justify-between gap-4 select-none focus:outline-none cursor-pointer"
                   aria-expanded={isOpen}
                 >
                   <span
-                    className={`font-anton text-lg sm:text-xl uppercase tracking-wide transition-colors ${
-                      isOpen ? "text-[#009DFF]" : "text-[#0B1117] hover:text-[#009DFF]"
+                    className={`text-sm sm:text-base font-semibold transition-colors ${
+                      isOpen ? "text-[#007EA6]" : "text-slate-900 hover:text-[#007EA6]"
                     }`}
                   >
                     {faq.question}
                   </span>
                   <div
-                    className={`w-8 h-8 rounded-xl flex items-center justify-center shrink-0 border transition-all duration-200 ${
+                    className={`w-7 h-7 rounded-md flex items-center justify-center shrink-0 border transition-all duration-150 ${
                       isOpen
-                        ? "bg-[#00C8FF] text-[#05080D] border-[#00C8FF] rotate-180"
-                        : "bg-[#EAF0F3] text-slate-500 border-slate-200"
+                        ? "bg-[#00B8F0] text-[#05080D] border-[#00B8F0]"
+                        : "bg-slate-50 text-slate-500 border-slate-200"
                     }`}
                   >
-                    {isOpen ? <Minus className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
+                    {isOpen ? <Minus className="w-3.5 h-3.5" /> : <Plus className="w-3.5 h-3.5" />}
                   </div>
                 </button>
 
@@ -123,9 +123,9 @@ export default function FaqSection() {
                       initial={{ height: 0, opacity: 0 }}
                       animate={{ height: "auto", opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
-                      transition={{ duration: shouldReduceMotion ? 0 : 0.25, ease: EASINGS.easeInOutCubic }}
+                      transition={{ duration: shouldReduceMotion ? 0 : 0.2, ease: EASINGS.easeInOutCubic }}
                     >
-                      <div className="px-6 pb-6 pt-1 text-xs sm:text-sm text-[#64717C] font-normal leading-relaxed border-t border-slate-100">
+                      <div className="px-5 pb-5 pt-0 text-xs sm:text-sm text-slate-600 font-normal leading-relaxed border-t border-slate-100/80">
                         {faq.answer}
                       </div>
                     </motion.div>

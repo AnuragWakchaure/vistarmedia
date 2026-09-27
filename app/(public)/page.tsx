@@ -91,14 +91,14 @@ export default async function HomePage() {
 
       {/* 8. CAMPAIGN CASE STUDIES (Off White) */}
       {campaigns.length > 0 && (
-        <section id="campaigns" className="py-20 sm:py-24 px-4 sm:px-6 bg-[#F3F6F8] relative overflow-hidden scroll-mt-28 border-t border-slate-200/60">
+        <section id="campaigns" className="py-20 sm:py-24 px-4 sm:px-6 bg-[#F8FAFC] relative overflow-hidden scroll-mt-28 border-t border-slate-200/80">
           <SectionBackground variant="spotlight" intensity="subtle" />
           <div className="max-w-6xl mx-auto space-y-12 relative z-10">
             <ScrollReveal direction="up" distance={16}>
               <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
                 <div className="space-y-3">
-                  <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white border border-slate-200 text-[#0B1117] text-xs font-bold uppercase tracking-wider shadow-xs">
-                    <span className="w-2 h-2 rounded-full bg-[#00C8FF]" />
+                  <div className="inline-flex items-center gap-2 px-3 py-0.5 rounded text-[11px] font-semibold uppercase tracking-wider bg-[#00B8F0]/10 text-[#0088B8] border border-[#00B8F0]/25">
+                    <span className="w-1.5 h-1.5 rounded-full bg-[#00B8F0]" />
                     <span>Case Studies & Proof</span>
                   </div>
                   <h2 className="font-anton text-4xl sm:text-5xl md:text-6xl text-[#0B1117] uppercase tracking-tight leading-[0.98]">
@@ -107,10 +107,10 @@ export default async function HomePage() {
                 </div>
                 <Link
                   href="/campaigns"
-                  className="inline-flex items-center gap-1.5 px-6 py-3 rounded-full bg-white hover:bg-[#EAF0F3] text-[#0B1117] border border-slate-200 text-xs font-bold uppercase tracking-wider transition-all duration-200 shadow-xs hover:border-[#00C8FF]/60 hover:shadow-md shrink-0"
+                  className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-lg bg-white hover:bg-slate-50 text-slate-800 border border-slate-200 text-xs font-bold uppercase tracking-wider transition-all duration-150 shadow-xs hover:border-[#00B8F0]/40 shrink-0"
                 >
                   <span>View all case studies</span>
-                  <ArrowUpRight className="w-4 h-4 text-[#009DFF]" />
+                  <ArrowUpRight className="w-4 h-4 text-[#00B8F0]" />
                 </Link>
               </div>
             </ScrollReveal>
@@ -119,7 +119,7 @@ export default async function HomePage() {
               {campaigns.map((camp: any) => (
                 <ScrollRevealItem key={camp._id}>
                   <AnimatedCard className="h-full">
-                    <div className="rounded-3xl bg-white border border-slate-200/90 hover:border-cyan-400 overflow-hidden shadow-[0_4px_24px_rgba(11,17,23,0.03)] hover:shadow-[0_16px_36px_rgba(0,200,255,0.12)] transition-all duration-300 flex flex-col justify-between h-full group">
+                    <div className="rounded-xl bg-white border border-slate-200/90 hover:border-[#00B8F0]/40 overflow-hidden shadow-xs hover:shadow-md transition-all duration-150 flex flex-col justify-between h-full group">
                       <div className="h-60 relative bg-slate-100 overflow-hidden">
                         <img
                           src={camp.coverImage}
@@ -128,31 +128,31 @@ export default async function HomePage() {
                           height={240}
                           loading="lazy"
                           decoding="async"
-                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                         />
-                        <div className="absolute top-4 left-4">
-                          <span className="px-3 py-1 rounded-full bg-white/95 backdrop-blur-sm text-[#009DFF] text-[11px] font-bold uppercase tracking-wider border border-slate-200 shadow-xs">
+                        <div className="absolute top-3 left-3">
+                          <span className="px-2.5 py-0.5 rounded bg-white/95 backdrop-blur-md text-[#0088B8] text-[10px] font-semibold uppercase tracking-wider border border-slate-200 shadow-2xs">
                             {camp.brandId?.name || "Client"} &bull; {camp.industry}
                           </span>
                         </div>
                       </div>
-                      <div className="p-7 sm:p-8 space-y-4 flex-1 flex flex-col justify-between">
+                      <div className="p-6 space-y-4 flex-1 flex flex-col justify-between">
                         <div className="space-y-2">
-                          <h3 className="font-anton text-2xl sm:text-3xl text-[#0B1117] group-hover:text-[#009DFF] transition-colors leading-tight">
+                          <h3 className="font-anton text-2xl text-[#0B1117] group-hover:text-[#0088B8] transition-colors leading-tight">
                             {camp.title}
                           </h3>
-                          <p className="text-xs sm:text-sm text-[#64717C] font-normal line-clamp-2 leading-relaxed">
+                          <p className="text-xs sm:text-sm text-slate-600 font-normal line-clamp-2 leading-relaxed">
                             {camp.objective}
                           </p>
                         </div>
                         <div className="pt-4 border-t border-slate-100 flex items-center justify-between">
-                          <span className="text-xs font-semibold text-[#64717C] flex items-center gap-1.5">
-                            <MapPin className="w-3.5 h-3.5 text-[#009DFF]" />
+                          <span className="text-xs font-semibold text-slate-600 flex items-center gap-1.5">
+                            <MapPin className="w-3.5 h-3.5 text-[#00B8F0]" />
                             {camp.location}
                           </span>
                           <Link
                             href={`/campaigns/${camp.slug}`}
-                            className="text-xs text-[#009DFF] font-bold uppercase tracking-wider inline-flex items-center gap-1 hover:underline"
+                            className="text-xs text-[#0088B8] font-bold uppercase tracking-wider inline-flex items-center gap-1 hover:underline"
                           >
                             Read Strategy <ArrowUpRight className="w-3.5 h-3.5" />
                           </Link>

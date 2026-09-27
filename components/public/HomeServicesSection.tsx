@@ -61,9 +61,8 @@ export default function HomeServicesSection() {
       id="services"
       className="relative overflow-hidden bg-[#F8FAFC] scroll-mt-28 py-20 sm:py-24 px-4 sm:px-6"
     >
-      {/* Subtle Atmospheric Ambient Background Glows */}
-      <div className="pointer-events-none absolute -top-40 right-10 h-96 w-96 rounded-full bg-[#00C2FF]/10 blur-3xl" />
-      <div className="pointer-events-none absolute top-1/3 -left-32 h-80 w-80 rounded-full bg-[#0088FF]/10 blur-3xl" />
+      {/* Subtle Top Border Divider */}
+      <div className="pointer-events-none absolute top-0 left-0 right-0 h-px bg-slate-200" />
 
       <div className="max-w-6xl mx-auto space-y-12 relative z-10">
         {/* ========================================================================= */}
@@ -78,8 +77,8 @@ export default function HomeServicesSection() {
         >
           <div className="space-y-3.5 max-w-3xl">
             {/* Live Indicator Pill */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-white border border-slate-200/90 shadow-xs">
-              <span className="w-2 h-2 rounded-full bg-[#00C2FF] animate-pulse" />
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white border border-slate-200/90 shadow-2xs">
+              <span className="w-2 h-2 rounded-full bg-[#00B8F0] animate-pulse" />
               <span className="text-[11px] font-mono font-bold uppercase text-[#0B111E] tracking-wider">
                 Full-Stack Regional Capabilities
               </span>
@@ -88,13 +87,13 @@ export default function HomeServicesSection() {
             {/* Master Headline */}
             <h2 className="font-anton text-4xl sm:text-5xl md:text-6xl text-[#0B111E] uppercase leading-[0.98] tracking-tight">
               Strategic Solutions Built For{" "}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#0088FF] via-[#00C2FF] to-[#0074DB]">
+              <span className="text-[#00B8F0]">
                 Regional Scale.
               </span>
             </h2>
 
             {/* Body Description */}
-            <p className="text-sm sm:text-base text-[#64748B] font-normal leading-relaxed max-w-2xl">
+            <p className="text-sm sm:text-base text-slate-600 font-normal leading-relaxed max-w-2xl">
               From high-production metro campaigns to grassroots agricultural storytelling, we manage your entire influencer marketing lifecycle across Tier-2 and Tier-3 heartlands.
             </p>
           </div>
@@ -103,7 +102,7 @@ export default function HomeServicesSection() {
           <div className="flex flex-wrap items-center gap-3 self-start lg:self-end shrink-0">
             <Link
               href="/services"
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-[#0B111E] text-white hover:bg-[#0088FF] font-extrabold text-xs uppercase tracking-wider transition-all shadow-md hover:-translate-y-0.5 hover:shadow-lg"
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-[#0B111E] text-white hover:bg-[#00B8F0] hover:text-[#05080D] font-bold text-xs uppercase tracking-wider transition-all duration-150 shadow-xs active:scale-[0.99]"
             >
               <span>Explore All Capabilities</span>
               <ArrowUpRight className="w-4 h-4" />
@@ -111,9 +110,9 @@ export default function HomeServicesSection() {
 
             <Link
               href="/#campaign-enquiry"
-              className="inline-flex items-center gap-2 px-6 py-3.5 rounded-full bg-white text-[#0B111E] hover:bg-[#F1F5F9] border border-slate-200 text-xs font-bold uppercase tracking-wider transition-colors shadow-xs"
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-lg bg-white text-[#0B111E] hover:bg-slate-50 border border-slate-200 text-xs font-semibold uppercase tracking-wider transition-colors shadow-xs active:scale-[0.99]"
             >
-              <Download className="w-4 h-4 text-[#0088FF]" />
+              <Download className="w-4 h-4 text-[#00B8F0]" />
               <span>Credentials Deck</span>
             </Link>
           </div>
@@ -134,7 +133,7 @@ export default function HomeServicesSection() {
           {/* ===================================================================== */}
           <motion.div
             variants={itemVariants}
-            className="group relative flex flex-col justify-between rounded-3xl bg-white border border-slate-200/90 hover:border-[#00C2FF]/60 shadow-[0_4px_24px_rgba(11,17,30,0.04)] hover:shadow-[0_16px_36px_rgba(0,194,255,0.12)] transition-all duration-300 p-6 sm:p-7 overflow-hidden hover:-translate-y-1"
+            className="group relative flex flex-col justify-between rounded-xl bg-white border border-slate-200/90 hover:border-[#00B8F0]/40 shadow-xs hover:shadow-md transition-all duration-200 p-6 sm:p-7 overflow-hidden hover:-translate-y-0.5"
           >
             <div className="flex flex-col space-y-4">
               {/* Header Meta */}
@@ -226,7 +225,7 @@ export default function HomeServicesSection() {
           {/* ===================================================================== */}
           <motion.div
             variants={itemVariants}
-            className="group relative flex flex-col justify-between rounded-3xl bg-white border border-slate-200/90 hover:border-[#00C2FF]/60 shadow-[0_4px_24px_rgba(11,17,30,0.04)] hover:shadow-[0_16px_36px_rgba(0,194,255,0.12)] transition-all duration-300 p-6 sm:p-7 overflow-hidden hover:-translate-y-1"
+            className="group relative flex flex-col justify-between rounded-xl bg-white border border-slate-200/90 hover:border-[#00B8F0]/40 shadow-xs hover:shadow-md transition-all duration-200 p-6 sm:p-7 overflow-hidden hover:-translate-y-0.5"
           >
             <div className="flex flex-col space-y-4">
               {/* Header Meta */}
@@ -321,7 +320,7 @@ export default function HomeServicesSection() {
           {/* ===================================================================== */}
           <motion.div
             variants={itemVariants}
-            className="group relative flex flex-col justify-between rounded-3xl bg-white border border-slate-200/90 hover:border-[#00C2FF]/60 shadow-[0_4px_24px_rgba(11,17,30,0.04)] hover:shadow-[0_16px_36px_rgba(0,194,255,0.12)] transition-all duration-300 p-6 sm:p-7 overflow-hidden hover:-translate-y-1"
+            className="group relative flex flex-col justify-between rounded-xl bg-white border border-slate-200/90 hover:border-[#00B8F0]/40 shadow-xs hover:shadow-md transition-all duration-200 p-6 sm:p-7 overflow-hidden hover:-translate-y-0.5"
           >
             <div className="flex flex-col space-y-4">
               {/* Header Meta */}
@@ -402,7 +401,7 @@ export default function HomeServicesSection() {
           {/* ===================================================================== */}
           <motion.div
             variants={itemVariants}
-            className="group relative flex flex-col justify-between rounded-3xl bg-white border border-slate-200/90 hover:border-[#00C2FF]/60 shadow-[0_4px_24px_rgba(11,17,30,0.04)] hover:shadow-[0_16px_36px_rgba(0,194,255,0.12)] transition-all duration-300 p-6 sm:p-7 overflow-hidden hover:-translate-y-1"
+            className="group relative flex flex-col justify-between rounded-xl bg-white border border-slate-200/90 hover:border-[#00B8F0]/40 shadow-xs hover:shadow-md transition-all duration-200 p-6 sm:p-7 overflow-hidden hover:-translate-y-0.5"
           >
             <div className="flex flex-col space-y-4">
               {/* Header Meta */}
@@ -496,10 +495,8 @@ export default function HomeServicesSection() {
           {/* ===================================================================== */}
           <motion.div
             variants={itemVariants}
-            className="group relative flex flex-col justify-between rounded-3xl bg-white border-2 border-[#00C2FF]/50 shadow-[0_8px_32px_rgba(0,194,255,0.16)] transition-all duration-300 p-6 sm:p-7 overflow-hidden ring-4 ring-[#00C2FF]/10 hover:-translate-y-1"
+            className="group relative flex flex-col justify-between rounded-xl bg-white border-2 border-[#00B8F0] shadow-xs hover:shadow-md transition-all duration-200 p-6 sm:p-7 overflow-hidden hover:-translate-y-0.5"
           >
-            {/* Electric ambient corner glow */}
-            <div className="pointer-events-none absolute -top-12 -right-12 h-36 w-36 rounded-full bg-[#00C2FF]/20 blur-xl" />
 
             <div className="flex flex-col space-y-4 relative z-10">
               {/* Header Meta */}
@@ -592,7 +589,7 @@ export default function HomeServicesSection() {
           {/* ===================================================================== */}
           <motion.div
             variants={itemVariants}
-            className="group relative flex flex-col justify-between rounded-3xl bg-white border border-slate-200/90 hover:border-[#00C2FF]/60 shadow-[0_4px_24px_rgba(11,17,30,0.04)] hover:shadow-[0_16px_36px_rgba(0,194,255,0.12)] transition-all duration-300 p-6 sm:p-7 overflow-hidden hover:-translate-y-1"
+            className="group relative flex flex-col justify-between rounded-xl bg-white border border-slate-200/90 hover:border-[#00B8F0]/40 shadow-xs hover:shadow-md transition-all duration-200 p-6 sm:p-7 overflow-hidden hover:-translate-y-0.5"
           >
             <div className="flex flex-col space-y-4">
               {/* Header Meta */}
@@ -674,7 +671,7 @@ export default function HomeServicesSection() {
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: DURATIONS.normal, ease: EASINGS.easeOutQuart }}
-          className="rounded-3xl bg-white border border-slate-200/90 p-6 sm:p-8 lg:p-10 shadow-[0_4px_24px_rgba(11,17,30,0.04)] flex flex-col lg:flex-row items-center justify-between gap-8 mt-6"
+          className="rounded-xl bg-white border border-slate-200/90 p-6 sm:p-8 lg:p-10 shadow-xs flex flex-col lg:flex-row items-center justify-between gap-8 mt-6"
         >
           {/* 4 Verified Numerical Badges */}
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 sm:gap-8 w-full lg:w-auto">

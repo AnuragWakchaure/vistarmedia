@@ -1,5 +1,17 @@
 import { getBrandsAction, createBrandAction, deleteBrandAction } from "@/actions/brand.actions";
-import { Award, Trash2, Plus, Globe, Sparkles } from "lucide-react";
+import { Award, Trash2, Plus, Globe } from "lucide-react";
+import {
+  PageHeader,
+  Button,
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+  Input,
+  Badge,
+  EmptyState,
+} from "@/components/ui";
 
 export const dynamic = "force-dynamic";
 
@@ -7,143 +19,155 @@ export default async function AdminBrandsPage() {
   const brands = await getBrandsAction();
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-        <div className="space-y-2">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#00D2FF]/10 border border-[#00D2FF]/30 text-[#00D2FF] text-xs font-bold uppercase tracking-wider shadow-[0_0_15px_rgba(0,210,255,0.15)]">
-            <Award className="w-3.5 h-3.5" />
-            <span>Brand Partnerships</span>
-          </div>
-          <h1 className="font-anton text-3xl sm:text-5xl text-white uppercase tracking-tight">
-            Brand Partners ({brands.length})
-          </h1>
-          <p className="text-xs sm:text-sm text-slate-400 font-medium max-w-xl">
-            Manage enterprise brand logos, partners, and display order shown on the homepage ticker strip.
-          </p>
-        </div>
-      </div>
+      <PageHeader
+        badge={
+          <Badge variant="default" dot size="sm">
+            Brand Partnerships
+          </Badge>
+        }
+        title={`Brand Partners (${brands.length})`}
+        description="Manage enterprise brand logos, partners, and display order shown on the homepage ticker strip."
+      />
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
         {/* Brand Creation Form */}
-        <div className="bg-[#0D121D]/90 p-6 sm:p-8 rounded-3xl border border-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.5)] backdrop-blur-md space-y-5">
-          <h2 className="font-anton text-xl text-white uppercase tracking-tight flex items-center gap-2">
-            <Plus className="w-4 h-4 text-[#00D2FF]" /> Add Brand Partner
-          </h2>
-          <form action={createBrandAction} className="space-y-4">
-            <div>
-              <label className="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1.5">
-                Brand Name *
-              </label>
-              <input
+        <Card>
+          <CardHeader className="border-b border-white/[0.08] pb-4">
+            <div className="flex items-center gap-2.5">
+              <Plus className="w-4 h-4 text-[#00B8F0]" />
+              <CardTitle className="text-base">Add Brand Partner</CardTitle>
+            </div>
+            <CardDescription>Register a new partner logo for the homepage ticker.</CardDescription>
+          </CardHeader>
+
+          <CardContent className="pt-5">
+            <form action={createBrandAction} className="space-y-4">
+              <Input
+                label="Brand Name"
                 name="name"
                 required
                 placeholder="e.g. Mahindra Tractors"
-                className="w-full bg-[#07090E]/80 border border-white/10 focus:border-[#00D2FF] focus:ring-1 focus:ring-[#00D2FF]/50 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none transition font-medium"
               />
-            </div>
-            <div>
-              <label className="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1.5">
-                Logo URL / Path *
-              </label>
-              <input
+
+              <Input
+                label="Logo URL / Path"
                 name="logo"
                 required
                 placeholder="/images/brands/... or https://..."
-                className="w-full bg-[#07090E]/80 border border-white/10 focus:border-[#00D2FF] focus:ring-1 focus:ring-[#00D2FF]/50 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none transition font-medium"
               />
-            </div>
-            <div>
-              <label className="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1.5">
-                Website URL
-              </label>
-              <input
+
+              <Input
+                label="Website URL"
                 name="website"
                 placeholder="https://brand.com"
-                className="w-full bg-[#07090E]/80 border border-white/10 focus:border-[#00D2FF] focus:ring-1 focus:ring-[#00D2FF]/50 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none transition font-medium"
               />
-            </div>
-            <div>
-              <label className="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1.5">
-                Display Order Priority
-              </label>
-              <input
+
+              <Input
+                label="Display Order Priority"
                 type="number"
                 name="displayOrder"
                 defaultValue={0}
-                className="w-full bg-[#07090E]/80 border border-white/10 focus:border-[#00D2FF] focus:ring-1 focus:ring-[#00D2FF]/50 rounded-xl px-3.5 py-2.5 text-xs text-white font-mono focus:outline-none transition font-medium"
               />
-            </div>
-            <div className="flex items-center gap-2 pt-1">
-              <input
-                type="checkbox"
-                name="featured"
-                id="featured"
-                defaultChecked
-                className="w-4 h-4 accent-[#00D2FF] rounded bg-[#07090E] border-white/10"
-              />
-              <label htmlFor="featured" className="text-xs text-slate-200 font-bold uppercase tracking-wider cursor-pointer">
-                Featured on Homepage Marquee
-              </label>
-            </div>
-            <button
-              type="submit"
-              className="w-full py-3 bg-gradient-to-r from-[#00D2FF] to-[#0A84FF] hover:from-[#38bdf8] hover:to-[#00D2FF] text-black text-xs font-bold uppercase tracking-wider rounded-full transition shadow-[0_0_20px_rgba(0,210,255,0.3)] hover:scale-[1.01] cursor-pointer"
-            >
-              Save Brand Partner
-            </button>
-          </form>
-        </div>
+
+              <div className="flex items-center gap-2 pt-1">
+                <input
+                  type="checkbox"
+                  name="featured"
+                  id="featured"
+                  defaultChecked
+                  className="w-4 h-4 accent-[#00B8F0] rounded bg-[#090D14] border-white/10 cursor-pointer"
+                />
+                <label
+                  htmlFor="featured"
+                  className="text-xs text-slate-300 font-medium cursor-pointer"
+                >
+                  Featured on Homepage Marquee
+                </label>
+              </div>
+
+              <Button type="submit" className="w-full mt-2">
+                Save Brand Partner
+              </Button>
+            </form>
+          </CardContent>
+        </Card>
 
         {/* Brands List */}
-        <div className="lg:col-span-2 bg-[#0D121D]/90 p-6 sm:p-8 rounded-3xl border border-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.5)] backdrop-blur-md space-y-5">
-          <h2 className="font-anton text-xl text-white uppercase tracking-tight flex items-center gap-2">
-            <Award className="w-4 h-4 text-[#00D2FF]" /> Configured Brands ({brands.length})
-          </h2>
-          {brands.length === 0 ? (
-            <p className="text-xs text-slate-500 py-10 text-center italic">No brands configured yet.</p>
-          ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {brands.map((brand: any) => (
-                <div
-                  key={brand._id}
-                  className="p-4 rounded-2xl bg-[#07090E]/80 border border-white/10 hover:border-[#00D2FF]/50 flex items-center justify-between gap-3 shadow-sm transition"
-                >
-                  <div className="flex items-center gap-3">
-                    <div className="w-12 h-12 bg-white/5 rounded-xl p-2 border border-white/10 flex items-center justify-center shrink-0">
-                      <img
-                        src={brand.logo}
-                        alt={brand.name}
-                        className="max-w-full max-h-full object-contain brightness-0 invert"
-                      />
-                    </div>
-                    <div>
-                      <div className="text-xs font-bold text-white">{brand.name}</div>
-                      {brand.website && (
-                        <a
-                          href={brand.website}
-                          target="_blank"
-                          rel="noreferrer"
-                          className="text-[10px] text-[#00D2FF] font-bold hover:underline flex items-center gap-1 uppercase"
-                        >
-                          <Globe className="w-2.5 h-2.5" /> website
-                        </a>
-                      )}
-                    </div>
-                  </div>
-                  <form action={deleteBrandAction.bind(null, brand._id)}>
-                    <button
-                      type="submit"
-                      className="p-2 text-rose-400 hover:bg-rose-500/10 rounded-xl transition cursor-pointer border border-transparent hover:border-rose-500/20"
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </button>
-                  </form>
-                </div>
-              ))}
+        <Card className="lg:col-span-2">
+          <CardHeader className="border-b border-white/[0.08] pb-4">
+            <div className="flex items-center gap-2.5">
+              <Award className="w-4 h-4 text-[#00B8F0]" />
+              <CardTitle className="text-base">Active Partners ({brands.length})</CardTitle>
             </div>
-          )}
-        </div>
+            <CardDescription>Brands displayed in the trusted partners marquee on the public website.</CardDescription>
+          </CardHeader>
+
+          <CardContent className="pt-5">
+            {brands.length === 0 ? (
+              <EmptyState
+                icon={<Award className="w-6 h-6" />}
+                title="No Brand Partners Registered"
+                description="Add your first partner brand using the form on the left."
+              />
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5">
+                {brands.map((brand: any) => (
+                  <div
+                    key={brand._id}
+                    className="p-3.5 rounded-lg bg-[#090D14] border border-white/10 flex items-center justify-between gap-3 hover:border-[#00B8F0]/30 transition-colors"
+                  >
+                    <div className="flex items-center gap-3 min-w-0">
+                      <div className="w-10 h-10 rounded-md bg-white p-1 flex items-center justify-center shrink-0 border border-white/10">
+                        {/* eslint-disable-next-line @next/next/no-img-element */}
+                        <img
+                          src={brand.logo}
+                          alt={brand.name}
+                          className="max-h-full max-w-full object-contain"
+                        />
+                      </div>
+                      <div className="min-w-0">
+                        <div className="font-semibold text-xs text-white truncate">{brand.name}</div>
+                        <div className="flex items-center gap-2 text-[11px] text-slate-400 mt-0.5">
+                          {brand.website && (
+                            <a
+                              href={brand.website}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="hover:text-[#00B8F0] transition-colors flex items-center gap-0.5 truncate"
+                            >
+                              <Globe className="w-3 h-3 shrink-0" />
+                              <span className="truncate">Website</span>
+                            </a>
+                          )}
+                          <span className="text-[10px] font-mono text-slate-500">
+                            #{brand.displayOrder}
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+
+                    <form
+                      action={async () => {
+                        "use server";
+                        await deleteBrandAction(brand._id);
+                      }}
+                    >
+                      <button
+                        type="submit"
+                        title="Remove Brand"
+                        className="p-1.5 rounded-md text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 transition-colors cursor-pointer"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                      </button>
+                    </form>
+                  </div>
+                ))}
+              </div>
+            )}
+          </CardContent>
+        </Card>
       </div>
     </div>
   );

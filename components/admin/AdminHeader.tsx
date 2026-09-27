@@ -8,17 +8,17 @@ export default async function AdminHeader() {
   const user = session?.user;
 
   return (
-    <header className="h-16 sm:h-20 bg-[#0D121D]/90 backdrop-blur-md border-b border-white/10 px-4 sm:px-8 flex items-center justify-between sticky top-0 z-30 shadow-md">
+    <header className="h-16 bg-[#0B0F18]/90 backdrop-blur-md border-b border-white/[0.08] px-4 sm:px-8 flex items-center justify-between sticky top-0 z-30">
       <div className="flex items-center gap-3">
         {/* Mobile Hamburger Drawer Trigger */}
         <AdminMobileMenuButton />
 
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#00D2FF]/10 border border-[#00D2FF]/30 text-[#00D2FF] text-[11px] font-bold uppercase tracking-wider">
-          <Sparkles className="w-3 h-3 text-[#00D2FF]" />
-          <span className="hidden sm:inline">VISTAR Admin Console</span>
+        <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-white/[0.05] border border-white/10 text-slate-300 text-xs font-medium">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#00B8F0]" />
+          <span className="hidden sm:inline">Admin Console</span>
           <span className="sm:hidden">Console</span>
         </div>
-        <span className="hidden xl:inline text-xs text-slate-500 font-medium">
+        <span className="hidden xl:inline text-xs text-slate-500 font-normal">
           &bull; Maharashtra Creator Ecosystem
         </span>
       </div>
@@ -27,22 +27,22 @@ export default async function AdminHeader() {
         <Link
           href="/"
           target="_blank"
-          className="hidden sm:inline-flex items-center gap-1.5 px-3.5 sm:px-4 py-1.5 rounded-full bg-white/10 hover:bg-white/20 text-[#00D2FF] border border-[#00D2FF]/30 text-[11px] font-bold uppercase tracking-wider transition shadow-sm hover:scale-[1.02]"
+          className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/[0.06] hover:bg-white/[0.1] text-slate-300 hover:text-white border border-white/10 text-xs font-medium transition-colors"
         >
           <span>View Site</span>
-          <ExternalLink className="w-3.5 h-3.5" />
+          <ExternalLink className="w-3.5 h-3.5 text-slate-400" />
         </Link>
 
-        <div className="flex items-center gap-2 sm:gap-3 pl-2 sm:pl-3 border-l border-white/10">
+        <div className="flex items-center gap-2.5 sm:gap-3 pl-2 sm:pl-3 border-l border-white/[0.08]">
           <div className="text-right hidden xs:block">
-            <div className="text-xs font-bold text-white leading-tight truncate max-w-[120px]">
+            <div className="text-xs font-semibold text-white leading-tight truncate max-w-[140px]">
               {user?.name || "Administrator"}
             </div>
-            <div className="text-[10px] text-[#00D2FF] font-mono font-bold uppercase">
+            <div className="text-[10px] text-slate-400 font-mono font-medium uppercase">
               {(user as any)?.role || "SUPER_ADMIN"}
             </div>
           </div>
-          <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#00D2FF]/10 border border-[#00D2FF]/40 flex items-center justify-center text-[#00D2FF] shadow-sm shrink-0">
+          <div className="w-8 h-8 rounded-full bg-white/[0.08] border border-white/10 flex items-center justify-center text-[#00B8F0] shrink-0">
             <UserCheck className="w-4 h-4" />
           </div>
         </div>

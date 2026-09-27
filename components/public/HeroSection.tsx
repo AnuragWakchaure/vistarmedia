@@ -339,12 +339,12 @@ export default function HeroSection({
           <div className="lg:col-span-7 xl:col-span-7 space-y-6 text-left">
             {/* Tag / Badge */}
             <motion.div variants={itemVariants} className="inline-flex items-center gap-2">
-              <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-[#07111A]/90 border border-cyan-500/30 backdrop-blur-md shadow-[0_0_20px_rgba(0,200,255,0.15)]">
-                <span className="w-2 h-2 rounded-full bg-[#00C8FF] animate-pulse" />
-                <span className="text-[11px] font-mono font-bold uppercase tracking-widest text-[#00C8FF]">
+              <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-white/10 border border-white/15 backdrop-blur-md shadow-xs">
+                <span className="w-1.5 h-1.5 rounded-full bg-[#00B8F0]" />
+                <span className="text-[11px] font-mono font-semibold uppercase tracking-widest text-[#00B8F0]">
                   {highlight || "Maharashtra Influencer Agency"}
                 </span>
-                <span className="text-[10px] px-1.5 py-0.5 rounded bg-cyan-500/10 text-slate-300 font-semibold border border-cyan-500/20">
+                <span className="text-[10px] px-1.5 py-0.5 rounded bg-white/10 text-slate-300 font-semibold border border-white/15">
                   Verified ROI
                 </span>
               </div>
@@ -359,7 +359,7 @@ export default function HeroSection({
                 heading.toUpperCase().includes("STAND OUT") ? (
                   <>
                     {heading.replace(/STAND OUT\.?/i, "").trim()}{" "}
-                    <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00C8FF] via-[#33D4FF] to-[#009DFF] drop-shadow-[0_0_30px_rgba(0,200,255,0.35)]">
+                    <span className="text-[#00B8F0]">
                       STAND OUT.
                     </span>
                   </>
@@ -369,7 +369,7 @@ export default function HeroSection({
               ) : (
                 <>
                   INFLUENCER MARKETING THAT MAKES BRANDS{" "}
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00C8FF] via-[#33D4FF] to-[#009DFF] drop-shadow-[0_0_30px_rgba(0,200,255,0.35)]">
+                  <span className="text-[#00B8F0]">
                     STAND OUT.
                   </span>
                 </>
@@ -392,15 +392,15 @@ export default function HeroSection({
             >
               <Link
                 href="/#campaign-enquiry"
-                className="group px-7 py-4 rounded-full bg-gradient-to-r from-[#00C8FF] to-[#009DFF] hover:from-[#33D4FF] hover:to-[#00C8FF] text-[#05080D] font-extrabold text-xs uppercase tracking-wider transition-all shadow-[0_4px_25px_rgba(0,200,255,0.4)] hover:shadow-[0_6px_30px_rgba(0,200,255,0.55)] hover:scale-[1.02] flex items-center justify-center gap-2"
+                className="group px-6 py-3.5 rounded-lg bg-[#00B8F0] hover:bg-[#00A3D9] text-[#05080D] font-bold text-xs uppercase tracking-wider transition-all duration-150 shadow-xs hover:shadow active:scale-[0.99] flex items-center justify-center gap-2"
               >
                 <span>{primaryCta || "Get In Touch"}</span>
-                <ArrowUpRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                <ArrowUpRight className="w-4 h-4 transition-transform duration-150 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </Link>
 
               <Link
                 href="/campaigns"
-                className="px-7 py-4 rounded-full bg-[#07111A]/90 hover:bg-[#0B1822] border border-white/15 hover:border-cyan-400 text-white font-bold text-xs uppercase tracking-wider transition-all shadow-sm hover:scale-[1.02] flex items-center justify-center gap-2"
+                className="px-6 py-3.5 rounded-lg bg-white/[0.08] hover:bg-white/[0.14] border border-white/10 hover:border-white/20 text-white font-semibold text-xs uppercase tracking-wider transition-all duration-150 active:scale-[0.99] flex items-center justify-center gap-2"
               >
                 <span>{secondaryCta || "View Campaigns / Our Work"}</span>
               </Link>
@@ -412,41 +412,41 @@ export default function HeroSection({
               className="pt-4 grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-3.5 w-full"
             >
               {/* Stat 1 */}
-              <div className="p-3.5 rounded-2xl bg-[#07111A]/80 backdrop-blur-md border border-white/10 hover:border-cyan-500/40 transition-colors">
-                <div className="font-anton text-2xl sm:text-3xl text-[#00C8FF] leading-none">
+              <div className="p-3.5 rounded-xl bg-[#0E131E] border border-white/10 hover:border-white/20 transition-colors">
+                <div className="font-anton text-2xl sm:text-3xl text-[#00B8F0] leading-none">
                   <Counter value="200+" />
                 </div>
-                <div className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider mt-1.5">
+                <div className="text-[11px] font-medium text-slate-400 uppercase tracking-wider mt-1.5">
                   Verified Creators
                 </div>
               </div>
 
               {/* Stat 2 */}
-              <div className="p-3.5 rounded-2xl bg-[#07111A]/80 backdrop-blur-md border border-white/10 hover:border-cyan-500/40 transition-colors">
+              <div className="p-3.5 rounded-xl bg-[#0E131E] border border-white/10 hover:border-white/20 transition-colors">
                 <div className="font-anton text-2xl sm:text-3xl text-white leading-none">
                   <Counter value="35" />
                 </div>
-                <div className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider mt-1.5">
+                <div className="text-[11px] font-medium text-slate-400 uppercase tracking-wider mt-1.5">
                   Districts Covered
                 </div>
               </div>
 
               {/* Stat 3 */}
-              <div className="p-3.5 rounded-2xl bg-[#07111A]/80 backdrop-blur-md border border-white/10 hover:border-cyan-500/40 transition-colors">
-                <div className="font-anton text-2xl sm:text-3xl text-[#00C8FF] leading-none">
+              <div className="p-3.5 rounded-xl bg-[#0E131E] border border-white/10 hover:border-white/20 transition-colors">
+                <div className="font-anton text-2xl sm:text-3xl text-[#00B8F0] leading-none">
                   <Counter value="100+" />
                 </div>
-                <div className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider mt-1.5">
+                <div className="text-[11px] font-medium text-slate-400 uppercase tracking-wider mt-1.5">
                   Live Campaigns
                 </div>
               </div>
 
               {/* Stat 4 */}
-              <div className="p-3.5 rounded-2xl bg-[#07111A]/80 backdrop-blur-md border border-white/10 hover:border-cyan-500/40 transition-colors">
+              <div className="p-3.5 rounded-xl bg-[#0E131E] border border-white/10 hover:border-white/20 transition-colors">
                 <div className="font-anton text-2xl sm:text-3xl text-emerald-400 leading-none">
                   3.8x
                 </div>
-                <div className="text-[11px] font-semibold text-slate-400 uppercase tracking-wider mt-1.5">
+                <div className="text-[11px] font-medium text-slate-400 uppercase tracking-wider mt-1.5">
                   Vernacular ROI
                 </div>
               </div>
@@ -458,7 +458,7 @@ export default function HeroSection({
           {/* ========================================================================= */}
           <div className="lg:col-span-5 xl:col-span-5 relative flex flex-col items-center lg:items-end justify-center py-2 sm:py-6 space-y-3 sm:space-y-3.5 w-full">
             {/* Ambient Cyan/Navy Backlight Glow */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[280px] sm:w-[380px] h-[420px] sm:h-[480px] bg-gradient-to-tr from-[#00C8FF]/20 via-[#009DFF]/15 to-transparent blur-3xl pointer-events-none rounded-full" />
+            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[280px] sm:w-[340px] h-[400px] bg-gradient-to-tr from-[#00B8F0]/10 to-transparent blur-2xl pointer-events-none rounded-full" />
 
             {/* Swipeable Carousel Wrapper */}
             <div className="relative w-full max-w-[300px] sm:max-w-[340px] flex flex-col items-center space-y-2.5 sm:space-y-3">
@@ -472,7 +472,7 @@ export default function HeroSection({
                 aria-roledescription="carousel"
                 aria-label="VISTAR Campaign Reel Carousel"
                 onKeyDown={handleKeyDown}
-                className="relative w-full aspect-[9/16] rounded-3xl overflow-hidden border border-white/15 hover:border-cyan-500/40 bg-[#07111A] shadow-[0_20px_50px_rgba(0,0,0,0.6)] group select-none focus:outline-none focus:ring-2 focus:ring-[#00C8FF] touch-pan-y shrink-0"
+                className="relative w-full aspect-[9/16] rounded-2xl overflow-hidden border border-white/15 hover:border-white/30 bg-[#07111A] shadow-2xl group select-none focus:outline-none focus:ring-2 focus:ring-[#00B8F0]/50 touch-pan-y shrink-0"
               >
                 {/* Physical Slide AnimatePresence Container */}
                 <AnimatePresence initial={false} custom={direction} mode="popLayout">
@@ -598,7 +598,7 @@ export default function HeroSection({
                       }`}
                     >
                       <div
-                        className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-[#05080D]/85 backdrop-blur-md border border-cyan-400/50 flex items-center justify-center text-[#00C8FF] shadow-[0_0_30px_rgba(0,200,255,0.35)] hover:scale-105 transition-transform"
+                        className="w-14 h-14 sm:w-16 sm:h-16 rounded-full bg-[#0E131E]/90 backdrop-blur-md border border-white/20 flex items-center justify-center text-[#00B8F0] shadow-lg hover:scale-105 transition-transform"
                         aria-hidden="true"
                       >
                         {isPlaying ? (
@@ -610,9 +610,9 @@ export default function HeroSection({
                     </div>
 
                     {/* Bottom Campaign Information Overlay */}
-                    <div className="absolute bottom-2.5 left-2.5 right-2.5 sm:bottom-3.5 sm:left-3.5 sm:right-3.5 z-20 p-2.5 sm:p-3.5 rounded-2xl bg-[#07111A]/90 backdrop-blur-md border border-white/10 text-left space-y-1 sm:space-y-1.5 pointer-events-auto">
+                    <div className="absolute bottom-2.5 left-2.5 right-2.5 sm:bottom-3.5 sm:left-3.5 sm:right-3.5 z-20 p-2.5 sm:p-3.5 rounded-xl bg-[#0E131E]/95 backdrop-blur-md border border-white/10 text-left space-y-1 sm:space-y-1.5 pointer-events-auto">
                       <div className="flex items-center justify-between gap-2">
-                        <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#00C8FF] truncate">
+                        <span className="text-[10px] font-mono font-bold uppercase tracking-wider text-[#00B8F0] truncate">
                           {activeCampaign.brand}
                         </span>
                         <span className="text-[9px] font-mono px-2 py-0.5 rounded bg-white/10 text-slate-300 shrink-0">
@@ -641,16 +641,16 @@ export default function HeroSection({
                   type="button"
                   onClick={() => paginate(-1)}
                   aria-label="Previous campaign reel"
-                  className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#07111A]/90 hover:bg-[#0B1822] border border-white/15 hover:border-[#00C8FF]/60 text-white flex items-center justify-center transition-all duration-200 hover:scale-105 active:scale-95 shadow-md group cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#00C8FF]"
+                  className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-[#0E131E] hover:bg-[#141A29] border border-white/15 hover:border-[#00B8F0]/60 text-white flex items-center justify-center transition-all duration-150 hover:scale-105 active:scale-95 shadow-xs group cursor-pointer focus:outline-none focus:ring-2 focus:ring-[#00B8F0]"
                 >
-                  <ChevronLeft className="w-4 h-4 text-slate-300 group-hover:text-[#00C8FF] transition-colors" />
+                  <ChevronLeft className="w-4 h-4 text-slate-300 group-hover:text-[#00B8F0] transition-colors" />
                 </button>
 
                 {/* Editorial Counter & Indicator Pills */}
                 <div className="flex items-center gap-2.5 sm:gap-3">
                   {/* Counter: 01 / 02 */}
                   <div className="font-mono text-xs tracking-wider flex items-center gap-1.5 select-none">
-                    <span className="text-[#00C8FF] font-bold text-sm">
+                    <span className="text-[#00B8F0] font-bold text-sm">
                       {String(activeIdx + 1).padStart(2, "0")}
                     </span>
                     <span className="text-[#8E9CA7] font-medium">/</span>
@@ -669,7 +669,7 @@ export default function HeroSection({
                         aria-label={`Go to campaign slide ${i + 1}`}
                         className={`h-1.5 rounded-full transition-all duration-300 cursor-pointer focus:outline-none ${
                           i === activeIdx
-                            ? "w-6 bg-[#00C8FF] shadow-[0_0_8px_rgba(0,200,255,0.6)]"
+                            ? "w-5 bg-[#00B8F0] shadow-xs"
                             : "w-2 bg-white/20 hover:bg-white/40"
                         }`}
                       />

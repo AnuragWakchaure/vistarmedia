@@ -116,7 +116,7 @@ export default function CampaignProcess() {
               viewport={{ once: true, amount: 0.3 }}
               className="order-2"
             >
-              <div className="p-6 sm:p-7 rounded-3xl bg-white border border-slate-200/90 shadow-[0_8px_30px_rgba(11,17,23,0.06)] space-y-4">
+              <div className="p-6 sm:p-7 rounded-xl bg-white border border-slate-200/90 shadow-xs space-y-4">
                 {/* Visual Header */}
                 <div className="flex items-center justify-between border-b border-slate-100 pb-3.5">
                   <div className="flex items-center gap-2.5">
@@ -171,7 +171,7 @@ export default function CampaignProcess() {
               viewport={{ once: true, amount: 0.3 }}
               className="order-2 lg:order-1"
             >
-              <div className="p-6 sm:p-7 rounded-3xl bg-white border border-slate-200/90 shadow-[0_8px_30px_rgba(11,17,23,0.06)] space-y-3.5">
+              <div className="p-6 sm:p-7 rounded-xl bg-white border border-slate-200/90 shadow-xs space-y-3.5">
                 {/* Telemetry Search Bar */}
                 <div className="flex items-center justify-between p-3 rounded-xl bg-[#EAF0F3] border border-slate-200/80">
                   <div className="flex items-center gap-2 text-xs font-mono text-[#0B1117]">
@@ -300,7 +300,7 @@ export default function CampaignProcess() {
               viewport={{ once: true, amount: 0.3 }}
               className="order-2"
             >
-              <div className="p-6 sm:p-7 rounded-3xl bg-white border border-slate-200/90 shadow-[0_8px_30px_rgba(11,17,23,0.06)] space-y-3.5">
+              <div className="p-6 sm:p-7 rounded-xl bg-white border border-slate-200/90 shadow-xs space-y-3.5">
                 {/* Status Bar */}
                 <div className="flex items-center justify-between border-b border-slate-100 pb-3">
                   <div className="flex items-center gap-2">
@@ -354,7 +354,7 @@ export default function CampaignProcess() {
               viewport={{ once: true, amount: 0.3 }}
               className="order-2 lg:order-1"
             >
-              <div className="p-6 sm:p-7 rounded-3xl bg-white border border-slate-200/90 shadow-[0_8px_30px_rgba(11,17,23,0.06)] space-y-3.5">
+              <div className="p-6 sm:p-7 rounded-xl bg-white border border-slate-200/90 shadow-xs space-y-3.5">
                 {/* Launch Waves Header */}
                 <div className="flex items-center justify-between border-b border-slate-100 pb-3">
                   <div className="flex items-center gap-2">
@@ -473,7 +473,7 @@ export default function CampaignProcess() {
               viewport={{ once: true, amount: 0.3 }}
               className="order-2"
             >
-              <div className="p-6 sm:p-7 rounded-3xl bg-white border border-slate-200/90 shadow-[0_8px_30px_rgba(11,17,23,0.06)] space-y-3.5">
+              <div className="p-6 sm:p-7 rounded-xl bg-white border border-slate-200/90 shadow-xs space-y-3.5">
                 {/* Top Telemetry Row */}
                 <div className="grid grid-cols-3 gap-2.5">
                   <div className="p-3 rounded-2xl bg-[#EAF0F3] border border-slate-200/80 text-center">
@@ -532,7 +532,7 @@ export default function CampaignProcess() {
               viewport={{ once: true, amount: 0.3 }}
               className="order-2 lg:order-1"
             >
-              <div className="p-6 sm:p-7 rounded-3xl bg-white border border-slate-200/90 shadow-[0_8px_30px_rgba(11,17,23,0.06)] space-y-3.5">
+              <div className="p-6 sm:p-7 rounded-xl bg-white border border-slate-200/90 shadow-xs space-y-3.5">
                 {/* Executive Report Header */}
                 <div className="flex items-center justify-between border-b border-slate-100 pb-3">
                   <div className="flex items-center gap-2">
@@ -603,19 +603,19 @@ export default function CampaignProcess() {
           </div>
         </div>
 
-        {/* Bottom Conversion Action Card in Midnight / Deep Navy */}
+        {/* Bottom Conversion Action Card */}
         <motion.div
           initial={{ opacity: shouldReduceMotion ? 1 : 0, y: shouldReduceMotion ? 0 : 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, amount: 0.2 }}
           transition={{ duration: DURATIONS.normal, ease: EASINGS.easeOutQuart }}
-          className="p-8 sm:p-10 rounded-3xl bg-gradient-to-r from-[#05080D] via-[#07111A] to-[#05080D] border border-cyan-500/30 text-white shadow-2xl flex flex-col md:flex-row items-center justify-between gap-6"
+          className="p-8 sm:p-10 rounded-xl bg-[#090D14] border border-white/10 text-white shadow-xl flex flex-col md:flex-row items-center justify-between gap-6"
         >
-          <div className="space-y-2.5 text-center md:text-left max-w-xl">
-            <span className="text-[11px] font-mono font-bold uppercase tracking-widest text-[#00C8FF] bg-cyan-500/10 px-3 py-1 rounded-full border border-cyan-500/30">
+          <div className="space-y-2 text-center md:text-left max-w-xl">
+            <span className="text-[11px] font-mono font-semibold uppercase tracking-widest text-[#00B8F0] bg-[#00B8F0]/10 px-2.5 py-0.5 rounded border border-[#00B8F0]/25">
               Get Started
             </span>
-            <h3 className="font-anton text-3xl sm:text-4xl uppercase tracking-tight text-white leading-tight">
+            <h3 className="font-anton text-2xl sm:text-3xl uppercase tracking-tight text-white leading-tight">
               Ready To Launch Your Campaign?
             </h3>
             <p className="text-xs sm:text-sm text-slate-300 font-normal leading-relaxed">
@@ -625,10 +625,10 @@ export default function CampaignProcess() {
 
           <Link
             href="/#campaign-enquiry"
-            className="px-8 py-3.5 rounded-full bg-gradient-to-r from-[#00C8FF] to-[#009DFF] hover:from-[#33D4FF] hover:to-[#00C8FF] text-[#05080D] font-extrabold text-xs uppercase tracking-wider transition-all shadow-[0_0_25px_rgba(0,200,255,0.4)] flex items-center justify-center gap-2 shrink-0 group hover:scale-[1.02]"
+            className="px-6 py-3 rounded-lg bg-[#00B8F0] hover:bg-[#00A3D9] text-[#05080D] font-bold text-xs uppercase tracking-wider transition-all duration-150 shadow-xs flex items-center justify-center gap-2 shrink-0 active:scale-[0.99]"
           >
             <span>Get In Touch</span>
-            <ArrowUpRight className="w-4 h-4 transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            <ArrowUpRight className="w-4 h-4 transition-transform duration-150 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
           </Link>
         </motion.div>
       </div>

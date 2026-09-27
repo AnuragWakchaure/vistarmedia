@@ -1,5 +1,17 @@
 import { getServicesAction, createServiceAction, deleteServiceAction } from "@/actions/service.actions";
 import { Layers, Trash2, Plus } from "lucide-react";
+import {
+  PageHeader,
+  Button,
+  Card,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+  CardContent,
+  Input,
+  Badge,
+  EmptyState,
+} from "@/components/ui";
 
 export const dynamic = "force-dynamic";
 
@@ -7,128 +19,137 @@ export default async function AdminServicesPage() {
   const services = await getServicesAction();
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
       {/* Header */}
-      <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-4">
-        <div className="space-y-2">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#00D2FF]/10 border border-[#00D2FF]/30 text-[#00D2FF] text-xs font-bold uppercase tracking-wider shadow-[0_0_15px_rgba(0,210,255,0.15)]">
-            <Layers className="w-3.5 h-3.5" />
-            <span>Agency Capabilities</span>
-          </div>
-          <h1 className="font-anton text-3xl sm:text-5xl text-white uppercase tracking-tight">
-            Agency Services ({services.length})
-          </h1>
-          <p className="text-xs sm:text-sm text-slate-400 font-medium max-w-xl">
-            Manage agency marketing offerings, descriptions, and catalog items displayed on the public services page.
-          </p>
-        </div>
-      </div>
+      <PageHeader
+        badge={
+          <Badge variant="default" dot size="sm">
+            Agency Capabilities
+          </Badge>
+        }
+        title={`Agency Services (${services.length})`}
+        description="Manage agency marketing offerings, descriptions, and catalog items displayed on the public services page."
+      />
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-        <div className="bg-[#0D121D]/90 p-6 sm:p-8 rounded-3xl border border-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.5)] backdrop-blur-md space-y-5">
-          <h2 className="font-anton text-xl text-white uppercase tracking-tight flex items-center gap-2">
-            <Plus className="w-4 h-4 text-[#00D2FF]" /> Add Service
-          </h2>
-          <form action={createServiceAction} className="space-y-4">
-            <div>
-              <label className="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1.5">
-                Service Title *
-              </label>
-              <input
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 items-start">
+        {/* Add Service Card */}
+        <Card>
+          <CardHeader className="border-b border-white/[0.08] pb-4">
+            <div className="flex items-center gap-2.5">
+              <Plus className="w-4 h-4 text-[#00B8F0]" />
+              <CardTitle className="text-base">Add Service</CardTitle>
+            </div>
+            <CardDescription>Create a new agency service offering for the website.</CardDescription>
+          </CardHeader>
+
+          <CardContent className="pt-5">
+            <form action={createServiceAction} className="space-y-4">
+              <Input
+                label="Service Title"
                 name="title"
                 required
                 placeholder="e.g. Regional Influencer Marketing"
-                className="w-full bg-[#07090E]/80 border border-white/10 focus:border-[#00D2FF] focus:ring-1 focus:ring-[#00D2FF]/50 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none transition font-medium"
               />
-            </div>
-            <div>
-              <label className="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1.5">
-                Short Description *
-              </label>
-              <textarea
-                name="shortDescription"
-                required
-                rows={3}
-                placeholder="Brief summary of deliverables..."
-                className="w-full bg-[#07090E]/80 border border-white/10 focus:border-[#00D2FF] focus:ring-1 focus:ring-[#00D2FF]/50 rounded-xl p-3 text-xs text-white placeholder-slate-500 focus:outline-none transition font-medium"
-              />
-            </div>
-            <div>
-              <label className="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1.5">
-                Cover Image URL (Optional)
-              </label>
-              <input
+
+              <div className="space-y-1.5 text-left">
+                <label className="block text-xs font-semibold text-slate-300">
+                  Short Description <span className="text-rose-400 ml-0.5">*</span>
+                </label>
+                <textarea
+                  name="shortDescription"
+                  required
+                  rows={3}
+                  placeholder="Brief summary of deliverables..."
+                  className="w-full bg-[#0E131E] border border-white/10 focus:border-[#00B8F0] focus:ring-1 focus:ring-[#00B8F0]/40 rounded-lg p-3 text-xs text-white placeholder-slate-500 focus:outline-none transition font-medium"
+                />
+              </div>
+
+              <Input
+                label="Cover Image URL (Optional)"
                 name="image"
                 type="url"
                 placeholder="https://images.unsplash.com/..."
-                className="w-full bg-[#07090E]/80 border border-white/10 focus:border-[#00D2FF] focus:ring-1 focus:ring-[#00D2FF]/50 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none transition font-medium"
               />
-            </div>
-            <div>
-              <label className="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1.5">
-                Display Order Priority
-              </label>
-              <input
+
+              <Input
+                label="Display Order Priority"
                 type="number"
                 name="displayOrder"
                 defaultValue={0}
-                className="w-full bg-[#07090E]/80 border border-white/10 focus:border-[#00D2FF] focus:ring-1 focus:ring-[#00D2FF]/50 rounded-xl px-3.5 py-2.5 text-xs text-white font-mono focus:outline-none transition font-medium"
               />
-            </div>
-            <button
-              type="submit"
-              className="w-full py-3 bg-gradient-to-r from-[#00D2FF] to-[#0A84FF] hover:from-[#38bdf8] hover:to-[#00D2FF] text-black text-xs font-bold uppercase tracking-wider rounded-full transition shadow-[0_0_20px_rgba(0,210,255,0.3)] hover:scale-[1.01] cursor-pointer"
-            >
-              Save Service Offering
-            </button>
-          </form>
-        </div>
 
-        <div className="lg:col-span-2 bg-[#0D121D]/90 p-6 sm:p-8 rounded-3xl border border-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.5)] backdrop-blur-md space-y-5">
-          <h2 className="font-anton text-xl text-white uppercase tracking-tight flex items-center gap-2">
-            <Layers className="w-4 h-4 text-[#00D2FF]" /> Active Services ({services.length})
-          </h2>
-          {services.length === 0 ? (
-            <p className="text-xs text-slate-500 py-10 text-center italic">No custom services configured yet.</p>
-          ) : (
-            <div className="space-y-3">
-              {services.map((srv: any) => (
-                <div
-                  key={srv._id}
-                  className="p-4 sm:p-5 rounded-2xl bg-[#07090E]/80 border border-white/10 hover:border-[#00D2FF]/50 flex items-center justify-between gap-4 transition"
-                >
-                  <div className="flex items-center gap-4 min-w-0">
-                    {srv.image ? (
-                      <div className="w-16 h-12 rounded-xl overflow-hidden bg-slate-800 shrink-0 border border-white/10">
+              <Button type="submit" className="w-full mt-2">
+                Save Service Offering
+              </Button>
+            </form>
+          </CardContent>
+        </Card>
+
+        {/* Services List */}
+        <Card className="lg:col-span-2">
+          <CardHeader className="border-b border-white/[0.08] pb-4">
+            <div className="flex items-center gap-2.5">
+              <Layers className="w-4 h-4 text-[#00B8F0]" />
+              <CardTitle className="text-base">Active Services ({services.length})</CardTitle>
+            </div>
+            <CardDescription>Service offerings published on the public capabilities page.</CardDescription>
+          </CardHeader>
+
+          <CardContent className="pt-5">
+            {services.length === 0 ? (
+              <EmptyState
+                icon={<Layers className="w-6 h-6" />}
+                title="No Services Configured"
+                description="Add your first service offering using the form on the left."
+              />
+            ) : (
+              <div className="space-y-3">
+                {services.map((srv: any) => (
+                  <div
+                    key={srv._id}
+                    className="p-4 rounded-lg bg-[#090D14] border border-white/10 hover:border-[#00B8F0]/30 flex items-center justify-between gap-4 transition-colors"
+                  >
+                    <div className="flex items-center gap-3.5 min-w-0">
+                      {srv.image && (
                         <img
                           src={srv.image}
                           alt={srv.title}
-                          className="w-full h-full object-cover"
+                          className="w-12 h-12 rounded-lg object-cover border border-white/10 shrink-0"
                         />
+                      )}
+                      <div className="min-w-0 space-y-1">
+                        <div className="flex items-center gap-2">
+                          <h4 className="font-semibold text-sm text-white truncate">{srv.title}</h4>
+                          <span className="text-[10px] font-mono text-slate-500">
+                            #{srv.displayOrder}
+                          </span>
+                        </div>
+                        <p className="text-xs text-slate-400 font-normal line-clamp-1">
+                          {srv.shortDescription}
+                        </p>
                       </div>
-                    ) : (
-                      <div className="w-16 h-12 rounded-xl bg-[#00D2FF]/10 border border-[#00D2FF]/30 flex items-center justify-center text-[#00D2FF] shrink-0 font-anton text-xs">
-                        VISTAR
-                      </div>
-                    )}
-                    <div className="space-y-1 min-w-0">
-                      <div className="text-sm font-bold text-white truncate">{srv.title}</div>
-                      <p className="text-xs text-slate-400 leading-relaxed font-medium line-clamp-1">{srv.shortDescription}</p>
                     </div>
-                  </div>
-                  <form action={deleteServiceAction.bind(null, srv._id)} className="shrink-0">
-                    <button
-                      type="submit"
-                      className="p-2 text-rose-400 hover:bg-rose-500/10 rounded-xl transition cursor-pointer border border-transparent hover:border-rose-500/20"
+
+                    <form
+                      action={async () => {
+                        "use server";
+                        await deleteServiceAction(srv._id);
+                      }}
                     >
-                      <Trash2 className="w-4 h-4" />
-                    </button>
-                  </form>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
+                      <button
+                        type="submit"
+                        title="Remove Service"
+                        className="p-1.5 rounded-md text-slate-400 hover:text-rose-400 hover:bg-rose-500/10 transition-colors cursor-pointer"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                      </button>
+                    </form>
+                  </div>
+                ))}
+              </div>
+            )}
+          </CardContent>
+        </Card>
       </div>
     </div>
   );

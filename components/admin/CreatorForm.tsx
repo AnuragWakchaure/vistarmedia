@@ -4,8 +4,9 @@ import { useState } from "react";
 import { useRouter } from "next/navigation";
 import { slugify } from "@/lib/utils";
 import { createCreatorAction, updateCreatorAction } from "@/actions/creator.actions";
-import { ArrowLeft, Save, Sparkles, CheckCircle2 } from "lucide-react";
+import { ArrowLeft, Save, Sparkles } from "lucide-react";
 import Link from "next/link";
+import { Button } from "@/components/ui/Button";
 
 const MAHARASHTRA_LOCATIONS = [
   "Pune", "Mumbai", "Nashik", "Ahilyanagar", "Nagpur",
@@ -89,34 +90,38 @@ export default function CreatorForm({ initialData }: { initialData?: any }) {
       <div className="flex items-center justify-between">
         <Link
           href="/admin/creators"
-          className="inline-flex items-center gap-2 text-xs font-bold uppercase tracking-wider text-[#00D2FF] hover:text-white transition"
+          className="inline-flex items-center gap-2 text-xs font-medium text-slate-400 hover:text-white transition"
         >
           <ArrowLeft className="w-4 h-4" /> Back to Creator Roster
         </Link>
-        <button
+        <Button
           type="submit"
-          disabled={loading}
-          className="inline-flex items-center gap-2 px-6 py-2.5 bg-gradient-to-r from-[#00D2FF] to-[#0A84FF] hover:from-[#38bdf8] hover:to-[#00D2FF] disabled:opacity-50 text-black text-xs font-bold uppercase tracking-wider rounded-full transition shadow-[0_0_20px_rgba(0,210,255,0.3)] hover:scale-[1.02] cursor-pointer"
+          variant="primary"
+          size="sm"
+          isLoading={loading}
         >
-          <Save className="w-4 h-4" />
-          {loading ? "Saving..." : initialData ? "Update Profile" : "Publish Creator"}
-        </button>
+          <Save className="w-3.5 h-3.5 mr-1.5" />
+          {initialData ? "Update Profile" : "Publish Creator"}
+        </Button>
       </div>
 
       {error && (
-        <div className="p-3.5 bg-rose-950/40 border border-rose-500/30 text-rose-300 rounded-2xl text-xs font-bold">
+        <div className="p-3.5 bg-rose-500/10 border border-rose-500/20 text-rose-300 rounded-lg text-xs font-medium">
           {error}
         </div>
       )}
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
         {/* Left Column - Core Info */}
-        <div className="md:col-span-2 space-y-5 bg-[#0D121D]/90 p-6 sm:p-8 rounded-3xl border border-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.5)] backdrop-blur-md">
-          <h2 className="font-anton text-xl text-white uppercase tracking-tight">Creator Profile Details</h2>
+        <div className="md:col-span-2 space-y-5 bg-[#0E131E] p-6 rounded-xl border border-white/10">
+          <div>
+            <h2 className="text-base font-semibold text-white">Creator Profile Details</h2>
+            <p className="text-xs text-slate-400 mt-0.5">Basic identity, bio, and content categorization.</p>
+          </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
             <div>
-              <label className="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-medium text-slate-300 mb-1.5">
                 Full Name *
               </label>
               <input
@@ -124,38 +129,38 @@ export default function CreatorForm({ initialData }: { initialData?: any }) {
                 value={name}
                 onChange={(e) => handleNameChange(e.target.value)}
                 placeholder="e.g. Ramesh Patil"
-                className="w-full bg-[#07090E]/80 border border-white/10 focus:border-[#00D2FF] focus:ring-1 focus:ring-[#00D2FF]/50 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none transition font-medium"
+                className="w-full bg-[#080B11] border border-white/10 focus:border-[#00B8F0] focus:ring-1 focus:ring-[#00B8F0]/30 rounded-lg px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none transition font-medium"
               />
             </div>
 
             <div>
-              <label className="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-medium text-slate-300 mb-1.5">
                 Slug (URL Identifier) *
               </label>
               <input
                 required
                 value={slug}
                 onChange={(e) => setSlug(slugify(e.target.value))}
-                className="w-full bg-[#07090E]/80 border border-white/10 focus:border-[#00D2FF] focus:ring-1 focus:ring-[#00D2FF]/50 rounded-xl px-3.5 py-2.5 text-xs text-white font-mono focus:outline-none transition font-medium"
+                className="w-full bg-[#080B11] border border-white/10 focus:border-[#00B8F0] focus:ring-1 focus:ring-[#00B8F0]/30 rounded-lg px-3 py-2 text-xs text-white font-mono focus:outline-none transition"
               />
             </div>
           </div>
 
           <div>
-            <label className="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1.5">
+            <label className="block text-xs font-medium text-slate-300 mb-1.5">
               Profile Image URL *
             </label>
             <input
               required
               name="profileImage"
               defaultValue={initialData?.profileImage || ""}
-              placeholder="https://images.unsplash.com/... or media URL"
-              className="w-full bg-[#07090E]/80 border border-white/10 focus:border-[#00D2FF] focus:ring-1 focus:ring-[#00D2FF]/50 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none transition font-medium"
+              placeholder="https://images.unsplash.com/... or media asset URL"
+              className="w-full bg-[#080B11] border border-white/10 focus:border-[#00B8F0] focus:ring-1 focus:ring-[#00B8F0]/30 rounded-lg px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none transition font-medium"
             />
           </div>
 
           <div>
-            <label className="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1.5">
+            <label className="block text-xs font-medium text-slate-300 mb-1.5">
               Bio / Creator Summary
             </label>
             <textarea
@@ -163,15 +168,15 @@ export default function CreatorForm({ initialData }: { initialData?: any }) {
               rows={3}
               defaultValue={initialData?.bio || ""}
               placeholder="Authentic Marathi lifestyle and agriculture creator based in..."
-              className="w-full bg-[#07090E]/80 border border-white/10 focus:border-[#00D2FF] focus:ring-1 focus:ring-[#00D2FF]/50 rounded-xl p-3 text-xs text-white placeholder-slate-500 focus:outline-none transition font-medium"
+              className="w-full bg-[#080B11] border border-white/10 focus:border-[#00B8F0] focus:ring-1 focus:ring-[#00B8F0]/30 rounded-lg p-3 text-xs text-white placeholder-slate-500 focus:outline-none transition font-medium"
             />
           </div>
 
           <div>
-            <label className="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-2">
-              Categories (Select all applicable)
+            <label className="block text-xs font-medium text-slate-300 mb-2">
+              Categories (Select applicable)
             </label>
-            <div className="flex flex-wrap gap-2">
+            <div className="flex flex-wrap gap-1.5">
               {CATEGORIES.map((cat) => {
                 const active = selectedCategories.includes(cat);
                 return (
@@ -179,10 +184,10 @@ export default function CreatorForm({ initialData }: { initialData?: any }) {
                     type="button"
                     key={cat}
                     onClick={() => toggleCategory(cat)}
-                    className={`px-3.5 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider transition ${
+                    className={`px-3 py-1 rounded-md text-xs font-medium transition ${
                       active
-                        ? "bg-[#00D2FF] text-black border border-[#00D2FF] shadow-[0_0_12px_rgba(0,210,255,0.4)] scale-[1.02]"
-                        : "bg-white/5 text-slate-300 hover:text-white hover:bg-white/10 border border-white/10"
+                        ? "bg-[#00B8F0]/15 text-[#00B8F0] border border-[#00B8F0]/40"
+                        : "bg-[#080B11] text-slate-400 hover:text-white border border-white/5 hover:border-white/15"
                     }`}
                   >
                     {cat}
@@ -195,17 +200,17 @@ export default function CreatorForm({ initialData }: { initialData?: any }) {
 
         {/* Right Column - Status, Location & Metrics */}
         <div className="space-y-6">
-          <div className="bg-[#0D121D]/90 p-6 rounded-3xl border border-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.5)] backdrop-blur-md space-y-4">
-            <h2 className="font-anton text-lg text-white uppercase tracking-tight">Publishing Controls</h2>
+          <div className="bg-[#0E131E] p-5 rounded-xl border border-white/10 space-y-4">
+            <h2 className="text-xs font-semibold uppercase tracking-wider text-slate-300">Publishing Controls</h2>
 
             <div>
-              <label className="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-medium text-slate-300 mb-1.5">
                 Status
               </label>
               <select
                 name="status"
                 defaultValue={initialData?.status || "PUBLISHED"}
-                className="w-full bg-[#07090E]/80 border border-white/10 focus:border-[#00D2FF] focus:ring-1 focus:ring-[#00D2FF]/50 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none transition font-bold uppercase [&>option]:bg-[#0D121D] [&>option]:text-white"
+                className="w-full bg-[#080B11] border border-white/10 focus:border-[#00B8F0] focus:ring-1 focus:ring-[#00B8F0]/30 rounded-lg px-3 py-2 text-xs text-white focus:outline-none transition font-medium [&>option]:bg-[#0E131E] [&>option]:text-white"
               >
                 <option value="DRAFT">Draft</option>
                 <option value="PUBLISHED">Published</option>
@@ -213,43 +218,43 @@ export default function CreatorForm({ initialData }: { initialData?: any }) {
               </select>
             </div>
 
-            <div className="flex items-center gap-2 pt-2">
+            <div className="flex items-center gap-2 pt-1">
               <input
                 type="checkbox"
                 name="featured"
                 id="featured"
                 defaultChecked={initialData?.featured || false}
-                className="w-4 h-4 accent-[#00D2FF] rounded bg-[#07090E] border-white/10"
+                className="w-4 h-4 accent-[#00B8F0] rounded bg-[#080B11] border-white/10"
               />
-              <label htmlFor="featured" className="text-xs text-slate-200 font-bold uppercase tracking-wider flex items-center gap-1.5 cursor-pointer">
-                <Sparkles className="w-3.5 h-3.5 text-[#00D2FF]" /> Featured on Homepage
+              <label htmlFor="featured" className="text-xs text-slate-300 font-medium flex items-center gap-1.5 cursor-pointer">
+                <Sparkles className="w-3.5 h-3.5 text-[#00B8F0]" /> Feature on Roster
               </label>
             </div>
 
             <div>
-              <label className="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-medium text-slate-300 mb-1.5">
                 Display Order Priority
               </label>
               <input
                 type="number"
                 name="displayOrder"
                 defaultValue={initialData?.displayOrder || 0}
-                className="w-full bg-[#07090E]/80 border border-white/10 focus:border-[#00D2FF] focus:ring-1 focus:ring-[#00D2FF]/50 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none transition font-mono font-bold"
+                className="w-full bg-[#080B11] border border-white/10 focus:border-[#00B8F0] focus:ring-1 focus:ring-[#00B8F0]/30 rounded-lg px-3 py-2 text-xs text-white focus:outline-none transition font-mono"
               />
             </div>
           </div>
 
-          <div className="bg-[#0D121D]/90 p-6 rounded-3xl border border-white/10 shadow-[0_4px_30px_rgba(0,0,0,0.5)] backdrop-blur-md space-y-4">
-            <h2 className="font-anton text-lg text-white uppercase tracking-tight">Location & Reach</h2>
+          <div className="bg-[#0E131E] p-5 rounded-xl border border-white/10 space-y-4">
+            <h2 className="text-xs font-semibold uppercase tracking-wider text-slate-300">Location & Channels</h2>
 
             <div>
-              <label className="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-medium text-slate-300 mb-1.5">
                 Primary District / Hub *
               </label>
               <select
                 name="location"
                 defaultValue={initialData?.location || "Pune"}
-                className="w-full bg-[#07090E]/80 border border-white/10 focus:border-[#00D2FF] focus:ring-1 focus:ring-[#00D2FF]/50 rounded-xl px-3.5 py-2.5 text-xs text-white focus:outline-none transition font-bold [&>option]:bg-[#0D121D] [&>option]:text-white"
+                className="w-full bg-[#080B11] border border-white/10 focus:border-[#00B8F0] focus:ring-1 focus:ring-[#00B8F0]/30 rounded-lg px-3 py-2 text-xs text-white focus:outline-none transition font-medium [&>option]:bg-[#0E131E] [&>option]:text-white"
               >
                 {MAHARASHTRA_LOCATIONS.map((loc) => (
                   <option key={loc} value={loc}>
@@ -260,39 +265,39 @@ export default function CreatorForm({ initialData }: { initialData?: any }) {
             </div>
 
             <div>
-              <label className="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1.5">
-                Total Follower Reach
+              <label className="block text-xs font-medium text-slate-300 mb-1.5">
+                Total Reach (Followers)
               </label>
               <input
                 type="number"
                 name="totalFollowers"
                 defaultValue={initialData?.totalFollowers || 50000}
                 placeholder="50000"
-                className="w-full bg-[#07090E]/80 border border-white/10 focus:border-[#00D2FF] focus:ring-1 focus:ring-[#00D2FF]/50 rounded-xl px-3.5 py-2.5 text-xs text-white font-mono font-bold focus:outline-none transition"
+                className="w-full bg-[#080B11] border border-white/10 focus:border-[#00B8F0] focus:ring-1 focus:ring-[#00B8F0]/30 rounded-lg px-3 py-2 text-xs text-white font-mono focus:outline-none transition"
               />
             </div>
 
             <div>
-              <label className="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-medium text-slate-300 mb-1.5">
                 Instagram Handle
               </label>
               <input
                 name="instaHandle"
                 defaultValue={initialData?.platforms?.[0]?.handle || ""}
                 placeholder="@username"
-                className="w-full bg-[#07090E]/80 border border-white/10 focus:border-[#00D2FF] focus:ring-1 focus:ring-[#00D2FF]/50 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none transition font-medium"
+                className="w-full bg-[#080B11] border border-white/10 focus:border-[#00B8F0] focus:ring-1 focus:ring-[#00B8F0]/30 rounded-lg px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none transition font-medium"
               />
             </div>
 
             <div>
-              <label className="block text-[11px] font-bold text-slate-300 uppercase tracking-wider mb-1.5">
+              <label className="block text-xs font-medium text-slate-300 mb-1.5">
                 Instagram Profile Link
               </label>
               <input
                 name="instaUrl"
                 defaultValue={initialData?.platforms?.[0]?.profileUrl || ""}
                 placeholder="https://instagram.com/..."
-                className="w-full bg-[#07090E]/80 border border-white/10 focus:border-[#00D2FF] focus:ring-1 focus:ring-[#00D2FF]/50 rounded-xl px-3.5 py-2.5 text-xs text-white placeholder-slate-500 focus:outline-none transition font-medium"
+                className="w-full bg-[#080B11] border border-white/10 focus:border-[#00B8F0] focus:ring-1 focus:ring-[#00B8F0]/30 rounded-lg px-3 py-2 text-xs text-white placeholder-slate-500 focus:outline-none transition font-medium"
               />
             </div>
           </div>

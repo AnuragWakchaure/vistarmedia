@@ -80,7 +80,7 @@ export default function RootLayout({
       lang="en"
       className={`${anton.variable} ${interTight.variable} ${inter.variable} h-full antialiased scroll-smooth dark`}
     >
-      <body className="min-h-full flex flex-col font-sans bg-[#07090E] text-[#F8FAFC] selection:bg-[#00D2FF]/30 selection:text-white">
+      <body className="min-h-full flex flex-col font-sans bg-[var(--background)] text-[var(--foreground)] selection:bg-[#00B8F0]/30 selection:text-black">
         <NavigationProgress />
         {children}
       </body>

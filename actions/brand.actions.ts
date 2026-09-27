@@ -9,6 +9,8 @@ const DEFAULT_BRANDS = [
   { _id: "b1", name: "Mahindra Tractors", logo: "/images/brands/mahindra-tractors.png", website: "https://mahindratractor.com", displayOrder: 1, featured: true, status: "ACTIVE" },
   { _id: "b2", name: "TVS Motors", logo: "/images/brands/tvs-motors.png", website: "https://tvsmotor.com", displayOrder: 2, featured: true, status: "ACTIVE" },
   { _id: "b3", name: "Siddhant Seeds", logo: "/images/brands/siddhant-seeds.png", website: "https://siddhantseeds.com", displayOrder: 3, featured: true, status: "ACTIVE" },
+  { _id: "b4", name: "Bhoomi22.com", logo: "/images/brands/bhoomi-22.jpeg", website: "https://bhoomi22.com", displayOrder: 4, featured: true, status: "ACTIVE" },
+  { _id: "b5", name: "Pashukhata App", logo: "/images/brands/pashukhata.jpeg", website: "https://pashukhata.com", displayOrder: 5, featured: true, status: "ACTIVE" },
 ];
 
 export async function getBrandsAction() {

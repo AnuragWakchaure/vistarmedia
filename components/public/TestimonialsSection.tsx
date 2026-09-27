@@ -125,17 +125,17 @@ export default function TestimonialsSection({
         {/* ========================================================================= */}
         {/* MAIN FEATURED TESTIMONIAL (Large Horizontal Composition) */}
         {/* ========================================================================= */}
-        <div className="rounded-3xl bg-white border border-[#DCE4E9] p-7 sm:p-10 lg:p-12 shadow-[0_4px_24px_rgba(11,17,23,0.03)] relative overflow-hidden">
+        <div className="rounded-xl bg-white border border-[#DCE4E9] p-6 sm:p-8 lg:p-10 shadow-xs relative overflow-hidden">
           {/* Top Metadata Bar */}
-          <div className="flex items-center justify-between border-b border-[#DCE4E9] pb-5 mb-8">
+          <div className="flex items-center justify-between border-b border-[#DCE4E9] pb-4 mb-6">
             <div className="flex items-center gap-2">
-              <span className="text-xs font-mono font-bold tracking-widest text-[#009DFF] uppercase">
+              <span className="text-xs font-mono font-bold tracking-widest text-[#0088B8] uppercase">
                 {String(activeIndex + 1).padStart(2, "0")} / FEATURED TESTIMONIAL
               </span>
             </div>
 
-            <div className="inline-flex items-center gap-1.5 text-[11px] font-mono font-bold text-[#64717C] bg-[#F3F6F8] px-3 py-1 rounded-full border border-[#DCE4E9]">
-              <CheckCircle2 className="w-3.5 h-3.5 text-[#00C8FF]" />
+            <div className="inline-flex items-center gap-1.5 text-[11px] font-mono font-bold text-slate-500 bg-slate-100 px-2.5 py-0.5 rounded-full border border-slate-200">
+              <CheckCircle2 className="w-3.5 h-3.5 text-[#00B8F0]" />
               <span className="uppercase tracking-wider">Verified Regional Partner</span>
             </div>
           </div>
@@ -275,7 +275,7 @@ export default function TestimonialsSection({
             {/* Supporting Card 1 */}
             <div
               onClick={() => goToIndex(supporting1Index)}
-              className="p-6 sm:p-7 rounded-2xl bg-white border border-[#DCE4E9] hover:border-[#00C8FF]/60 shadow-[0_2px_12px_rgba(11,17,23,0.02)] hover:shadow-[0_8px_24px_rgba(0,200,255,0.08)] transition-all duration-300 flex flex-col justify-between space-y-4 group cursor-pointer select-none"
+              className="p-6 rounded-xl bg-white border border-[#DCE4E9] hover:border-[#00B8F0]/40 shadow-xs hover:shadow-md transition-all duration-150 flex flex-col justify-between space-y-4 group cursor-pointer select-none"
               role="button"
               tabIndex={0}
               aria-label={`View testimonial from ${supporting1.personName}`}
@@ -287,10 +287,10 @@ export default function TestimonialsSection({
             >
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
-                  <span className="text-[11px] font-mono font-bold tracking-widest text-[#64717C] group-hover:text-[#009DFF] transition-colors uppercase">
+                  <span className="text-[11px] font-mono font-bold tracking-widest text-[#64717C] group-hover:text-[#0088B8] transition-colors uppercase">
                     {String(supporting1Index + 1).padStart(2, "0")} / CLIENT VOICE
                   </span>
-                  <Quote className="w-4 h-4 text-[#00C8FF]/40 fill-[#00C8FF]/10" />
+                  <Quote className="w-4 h-4 text-[#00B8F0]/40 fill-[#00B8F0]/10" />
                 </div>
 
                 <p className="text-xs sm:text-[13px] text-[#0B1117] font-normal leading-relaxed line-clamp-3">
@@ -312,12 +312,12 @@ export default function TestimonialsSection({
                       />
                     </div>
                   ) : (
-                    <div className="w-9 h-9 rounded-full bg-[#F3F6F8] text-[#009DFF] font-bold text-xs flex items-center justify-center border border-[#DCE4E9] shrink-0">
+                    <div className="w-9 h-9 rounded-full bg-[#F3F6F8] text-[#0088B8] font-bold text-xs flex items-center justify-center border border-[#DCE4E9] shrink-0">
                       {supporting1.personName.charAt(0)}
                     </div>
                   )}
                   <div className="min-w-0">
-                    <h4 className="font-bold text-xs sm:text-sm text-[#0B1117] group-hover:text-[#009DFF] transition-colors truncate">
+                    <h4 className="font-bold text-xs sm:text-sm text-[#0B1117] group-hover:text-[#0088B8] transition-colors truncate">
                       {supporting1.personName}
                     </h4>
                     <p className="text-[11px] text-[#64717C] truncate">
@@ -326,7 +326,7 @@ export default function TestimonialsSection({
                   </div>
                 </div>
 
-                <span className="text-[10px] font-mono font-bold text-[#64717C] group-hover:text-[#00C8FF] transition-colors uppercase shrink-0">
+                <span className="text-[10px] font-mono font-bold text-[#64717C] group-hover:text-[#00B8F0] transition-colors uppercase shrink-0">
                   Select &rarr;
                 </span>
               </div>
@@ -335,7 +335,7 @@ export default function TestimonialsSection({
             {/* Supporting Card 2 */}
             <div
               onClick={() => goToIndex(supporting2Index)}
-              className="p-6 sm:p-7 rounded-2xl bg-white border border-[#DCE4E9] hover:border-[#00C8FF]/60 shadow-[0_2px_12px_rgba(11,17,23,0.02)] hover:shadow-[0_8px_24px_rgba(0,200,255,0.08)] transition-all duration-300 flex flex-col justify-between space-y-4 group cursor-pointer select-none"
+              className="p-6 rounded-xl bg-white border border-[#DCE4E9] hover:border-[#00B8F0]/40 shadow-xs hover:shadow-md transition-all duration-150 flex flex-col justify-between space-y-4 group cursor-pointer select-none"
               role="button"
               tabIndex={0}
               aria-label={`View testimonial from ${supporting2.personName}`}
@@ -372,12 +372,12 @@ export default function TestimonialsSection({
                       />
                     </div>
                   ) : (
-                    <div className="w-9 h-9 rounded-full bg-[#F3F6F8] text-[#009DFF] font-bold text-xs flex items-center justify-center border border-[#DCE4E9] shrink-0">
+                    <div className="w-9 h-9 rounded-full bg-[#F3F6F8] text-[#0088B8] font-bold text-xs flex items-center justify-center border border-[#DCE4E9] shrink-0">
                       {supporting2.personName.charAt(0)}
                     </div>
                   )}
                   <div className="min-w-0">
-                    <h4 className="font-bold text-xs sm:text-sm text-[#0B1117] group-hover:text-[#009DFF] transition-colors truncate">
+                    <h4 className="font-bold text-xs sm:text-sm text-[#0B1117] group-hover:text-[#0088B8] transition-colors truncate">
                       {supporting2.personName}
                     </h4>
                     <p className="text-[11px] text-[#64717C] truncate">
@@ -386,7 +386,7 @@ export default function TestimonialsSection({
                   </div>
                 </div>
 
-                <span className="text-[10px] font-mono font-bold text-[#64717C] group-hover:text-[#00C8FF] transition-colors uppercase shrink-0">
+                <span className="text-[10px] font-mono font-bold text-[#64717C] group-hover:text-[#00B8F0] transition-colors uppercase shrink-0">
                   Select &rarr;
                 </span>
               </div>

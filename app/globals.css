@@ -1,16 +1,24 @@
 @import "tailwindcss";
 
 :root {
-  /* Exact VISTAR System Color Palette */
-  --vistar-midnight: #05080D;      /* Hero, dark sections, footer */
-  --vistar-deep-navy: #07111A;     /* Dark cards / secondary dark backgrounds */
-  --vistar-offwhite: #F3F6F8;      /* Main light-section background */
-  --vistar-light-gray: #EAF0F3;    /* Alternate light sections */
-  --vistar-pure-white: #FFFFFF;    /* Cards, inputs, elevated surfaces */
-  --vistar-electric-cyan: #00C8FF; /* Primary brand accent / CTAs */
-  --vistar-bright-blue: #009DFF;   /* Hover states / secondary accent */
-  --vistar-near-black: #0B1117;    /* Text on light backgrounds */
-  --vistar-muted-gray: #64717C;    /* Secondary text */
+  /* VISTAR Core Brand Color Palette */
+  --vistar-midnight: #05080D;       /* Brand deep dark */
+  --vistar-deep-navy: #07111A;      /* Dark sections / dark cards */
+  --vistar-offwhite: #F8FAFC;       /* Main light-section canvas */
+  --vistar-light-gray: #F1F5F9;     /* Alternate light sections */
+  --vistar-pure-white: #FFFFFF;     /* Elevated surfaces */
+  --vistar-electric-cyan: #00B8F0;  /* Primary brand accent / high-contrast CTA */
+  --vistar-bright-blue: #0088DD;    /* Hover states / secondary accent */
+  --vistar-near-black: #0B1117;     /* High-contrast text on light */
+  --vistar-muted-gray: #5F6D7A;     /* Secondary / muted text */
+
+  /* Admin Console System Surfaces */
+  --admin-canvas: #090D14;
+  --admin-surface: #0E131E;
+  --admin-surface-hover: #141B2A;
+  --admin-surface-elevated: #161E2E;
+  --admin-border-subtle: rgba(255, 255, 255, 0.08);
+  --admin-border-strong: rgba(255, 255, 255, 0.16);
 
   --background: var(--vistar-offwhite);
   --foreground: var(--vistar-near-black);
@@ -19,13 +27,20 @@
 @theme inline {
   --color-vistar-midnight: #05080D;
   --color-vistar-deep-navy: #07111A;
-  --color-vistar-offwhite: #F3F6F8;
-  --color-vistar-light-gray: #EAF0F3;
+  --color-vistar-offwhite: #F8FAFC;
+  --color-vistar-light-gray: #F1F5F9;
   --color-vistar-pure-white: #FFFFFF;
-  --color-vistar-electric-cyan: #00C8FF;
-  --color-vistar-bright-blue: #009DFF;
+  --color-vistar-electric-cyan: #00B8F0;
+  --color-vistar-bright-blue: #0088DD;
   --color-vistar-near-black: #0B1117;
-  --color-vistar-muted-gray: #64717C;
+  --color-vistar-muted-gray: #5F6D7A;
+
+  --color-admin-canvas: #090D14;
+  --color-admin-surface: #0E131E;
+  --color-admin-surface-hover: #141B2A;
+  --color-admin-surface-elevated: #161E2E;
+  --color-admin-border: rgba(255, 255, 255, 0.08);
+  --color-admin-border-strong: rgba(255, 255, 255, 0.16);
 
   --font-anton: var(--font-anton), Impact, sans-serif;
   --font-display: var(--font-anton), Impact, sans-serif;
@@ -34,7 +49,7 @@
 }
 
 body {
-  background: #F3F6F8;
+  background: #F8FAFC;
   color: #0B1117;
   font-family: var(--font-sans);
   -webkit-font-smoothing: antialiased;
@@ -42,7 +57,7 @@ body {
   overflow-x: hidden;
 }
 
-/* Typography Helpers (Preserving Existing Typography) */
+/* Typography Helpers */
 .font-anton {
   font-family: var(--font-anton), Impact, sans-serif;
   text-transform: uppercase;
@@ -59,17 +74,28 @@ body {
   font-family: var(--font-tight);
 }
 
-/* Elevated Pure White Cards on Light Sections */
-.vistar-card {
-  background: #FFFFFF;
-  border: 1px solid rgba(226, 232, 240, 0.9);
-  box-shadow: 0 4px 20px -2px rgba(11, 17, 23, 0.04), 0 2px 6px -1px rgba(11, 17, 23, 0.02);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+/* Focus Utility for Keyboard Accessibility */
+.focus-ring {
+  outline: none;
+}
+.focus-ring:focus-visible {
+  outline: 2px solid var(--vistar-electric-cyan);
+  outline-offset: 2px;
 }
 
-.vistar-card:hover {
-  border-color: rgba(0, 200, 255, 0.5);
-  box-shadow: 0 16px 36px -6px rgba(0, 200, 255, 0.14), 0 4px 12px -2px rgba(11, 17, 23, 0.04);
+/* Professional Card Surfaces (Human-Designed, Restrained Depth) */
+.vistar-card,
+.vistar-light-card {
+  background: #FFFFFF;
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  box-shadow: 0 1px 3px 0 rgba(11, 17, 23, 0.04), 0 1px 2px -1px rgba(11, 17, 23, 0.02);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.vistar-card:hover,
+.vistar-light-card:hover {
+  border-color: rgba(0, 184, 240, 0.5);
+  box-shadow: 0 8px 24px -4px rgba(11, 17, 23, 0.08), 0 2px 6px -2px rgba(0, 184, 240, 0.08);
   transform: translateY(-2px);
 }
 
@@ -78,59 +104,66 @@ body {
   border: 1px solid rgba(226, 232, 240, 0.9);
 }
 
-.vistar-light-card {
-  background: #FFFFFF;
-  border: 1px solid rgba(226, 232, 240, 0.9);
-  box-shadow: 0 4px 20px -2px rgba(11, 17, 23, 0.04);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.vistar-light-card:hover {
-  border-color: rgba(0, 200, 255, 0.5);
-  box-shadow: 0 16px 36px -6px rgba(0, 200, 255, 0.14);
-  transform: translateY(-2px);
-}
-
-/* Elevated Dark Cards on Midnight Sections */
+/* Restrained Dark Cards */
 .vistar-dark-card {
-  background: #07111A;
+  background: #0E131E;
   border: 1px solid rgba(255, 255, 255, 0.08);
-  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.5);
-  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 16px -2px rgba(0, 0, 0, 0.4);
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .vistar-dark-card:hover {
-  border-color: rgba(0, 200, 255, 0.4);
-  box-shadow: 0 16px 36px -6px rgba(0, 200, 255, 0.18);
+  border-color: rgba(0, 184, 240, 0.35);
+  box-shadow: 0 8px 24px -4px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0, 184, 240, 0.15);
   transform: translateY(-2px);
 }
 
-/* Signature Brand Buttons */
+/* Brand Buttons (Polished, Non-AI Look) */
 .btn-electric-cyan {
-  background: linear-gradient(135deg, #00C8FF 0%, #009DFF 100%);
+  background: #00B8F0;
   color: #05080D;
-  font-weight: 800;
-  box-shadow: 0 4px 20px rgba(0, 200, 255, 0.35);
-  transition: all 0.25s ease;
+  font-weight: 700;
+  box-shadow: 0 2px 8px rgba(0, 184, 240, 0.25);
+  transition: all 0.2s ease;
 }
 
 .btn-electric-cyan:hover {
-  background: linear-gradient(135deg, #33D4FF 0%, #00C8FF 100%);
-  box-shadow: 0 6px 28px rgba(0, 200, 255, 0.5);
-  transform: scale(1.02);
+  background: #00A3D9;
+  box-shadow: 0 4px 14px rgba(0, 184, 240, 0.35);
+  transform: translateY(-1px);
 }
 
-/* Brand Badges */
+.btn-electric-cyan:active {
+  transform: translateY(0);
+}
+
+/* Subtle, Semantic Brand Badges */
 .badge-cyan {
-  background: rgba(0, 200, 255, 0.08);
-  border: 1px solid rgba(0, 200, 255, 0.3);
-  color: #009DFF;
+  background: rgba(0, 184, 240, 0.08);
+  border: 1px solid rgba(0, 184, 240, 0.25);
+  color: #0088DD;
 }
 
 .badge-dark-cyan {
-  background: rgba(0, 200, 255, 0.1);
-  border: 1px solid rgba(0, 200, 255, 0.35);
-  color: #00C8FF;
+  background: rgba(0, 184, 240, 0.12);
+  border: 1px solid rgba(0, 184, 240, 0.3);
+  color: #00B8F0;
+}
+
+/* Micro-Scrollbar for Sidebars & Tables */
+.custom-scrollbar::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+}
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 9999px;
+}
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.24);
 }
 
 /* Continuous Marquee Animation */
@@ -163,12 +196,7 @@ body {
   animation-play-state: paused;
 }
 
-/* Loading & Transition Animations */
-@keyframes shimmer {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(200%); }
-}
-
+/* Refined Transitions */
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(-4px); }
   to { opacity: 1; transform: translateY(0); }

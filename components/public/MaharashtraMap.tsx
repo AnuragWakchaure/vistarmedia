@@ -127,14 +127,14 @@ export default function MaharashtraMap({
   };
 
   return (
-    <div className="relative w-full rounded-3xl bg-gradient-to-b from-[#07111A] via-[#05080D] to-[#04060A] border border-cyan-500/30 shadow-[0_0_50px_rgba(0,0,0,0.8)] overflow-hidden p-3 sm:p-6 md:p-8 select-none">
+    <div className="relative w-full rounded-2xl bg-[#090D14] border border-white/10 shadow-xl overflow-hidden p-3 sm:p-6 md:p-8 select-none">
       {/* Ambient Header Badges */}
       <div className="absolute top-4 left-4 sm:top-6 sm:left-8 z-20 flex flex-wrap items-center gap-2 pointer-events-none">
-        <div className="px-3 py-1 rounded-full bg-[#05080D]/90 backdrop-blur-md border border-cyan-500/30 shadow-sm flex items-center gap-1.5 text-[11px] font-bold text-slate-200 uppercase tracking-wider">
-          <span className="w-2 h-2 rounded-full bg-[#00C8FF] animate-ping" />
-          <span className="text-[#00C8FF]">Maharashtra Geo-Grid</span>
+        <div className="px-2.5 py-1 rounded bg-[#0E131E]/90 backdrop-blur-md border border-white/15 shadow-xs flex items-center gap-1.5 text-[11px] font-semibold text-slate-200 uppercase tracking-wider">
+          <span className="w-1.5 h-1.5 rounded-full bg-[#00B8F0]" />
+          <span className="text-[#00B8F0]">Maharashtra Geo-Grid</span>
         </div>
-        <div className="hidden md:flex px-2.5 py-1 rounded-full bg-cyan-500/10 border border-cyan-500/25 text-[#00C8FF] text-[10px] font-mono font-semibold uppercase tracking-wider">
+        <div className="hidden md:flex px-2.5 py-1 rounded bg-[#00B8F0]/10 border border-[#00B8F0]/25 text-[#00B8F0] text-[10px] font-mono font-semibold uppercase tracking-wider">
           35 Districts Verified
         </div>
       </div>
@@ -147,7 +147,7 @@ export default function MaharashtraMap({
               setHoveredLocation(null);
               if (onSelectLocation) onSelectLocation(null);
             }}
-            className="px-3 py-1.5 rounded-full bg-[#07111A]/90 hover:bg-[#05080D] text-slate-300 hover:text-[#00C8FF] text-xs font-bold uppercase tracking-wider border border-cyan-500/30 shadow-sm transition flex items-center gap-1.5 cursor-pointer"
+            className="px-3 py-1.5 rounded-lg bg-[#0E131E]/90 hover:bg-[#141A29] text-slate-300 hover:text-white text-xs font-semibold uppercase tracking-wider border border-white/15 shadow-xs transition flex items-center gap-1.5 cursor-pointer"
             aria-label="Clear location filter"
           >
             <X className="w-3.5 h-3.5" />
@@ -356,29 +356,29 @@ export default function MaharashtraMap({
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 10, scale: 0.96 }}
             transition={{ duration: DURATIONS.micro, ease: EASINGS.easeOutCubic }}
-            className="absolute bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:bottom-6 sm:max-w-sm z-30 p-4 sm:p-5 rounded-2xl bg-[#07111A]/95 backdrop-blur-xl border border-cyan-500/40 shadow-[0_0_35px_rgba(0,200,255,0.2)] text-left space-y-2"
+            className="absolute bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:bottom-6 sm:max-w-sm z-30 p-4 sm:p-5 rounded-xl bg-[#0E131E]/95 backdrop-blur-xl border border-white/15 shadow-xl text-left space-y-2.5"
           >
-            <div className="flex items-center justify-between gap-2 border-b border-slate-800 pb-2">
+            <div className="flex items-center justify-between gap-2 border-b border-white/10 pb-2">
               <div className="flex items-center gap-2">
-                <span className="p-1.5 rounded-lg bg-cyan-500/10 text-[#00C8FF] border border-cyan-500/25">
+                <span className="p-1.5 rounded-md bg-[#00B8F0]/10 text-[#00B8F0] border border-[#00B8F0]/25">
                   <MapPin className="w-4 h-4" />
                 </span>
                 <div>
                   <h4 className="font-anton text-lg sm:text-xl text-white uppercase tracking-tight leading-none">
                     {activeLocation.name}
                   </h4>
-                  <p className="text-[11px] font-bold text-slate-400 uppercase tracking-wider">
+                  <p className="text-[10px] font-mono text-slate-400 uppercase tracking-wider">
                     {activeLocation.lat.toFixed(4)}° N, {activeLocation.lon.toFixed(4)}° E
                   </p>
                 </div>
               </div>
-              <span className="px-2.5 py-1 rounded-full bg-gradient-to-r from-[#00C8FF] to-[#009DFF] text-[#05080D] font-mono text-xs font-black">
+              <span className="px-2.5 py-1 rounded-md bg-[#00B8F0] text-[#05080D] font-mono text-xs font-black">
                 {activeLocation.countDisplay} Creators
               </span>
             </div>
 
             <div className="space-y-1">
-              <div className="text-xs font-bold text-[#00C8FF] uppercase tracking-wider">
+              <div className="text-[11px] font-bold text-[#00B8F0] uppercase tracking-wider">
                 {activeLocation.category}
               </div>
               <p className="text-xs text-slate-300 leading-relaxed font-normal">
@@ -391,18 +391,18 @@ export default function MaharashtraMap({
       </AnimatePresence>
 
       {/* Map Legend Footer */}
-      <div className="mt-4 pt-4 border-t border-slate-800 flex flex-wrap items-center justify-between gap-4 text-xs text-slate-400 font-medium">
+      <div className="mt-4 pt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-4 text-xs text-slate-400 font-medium">
         <div className="flex items-center gap-4 flex-wrap">
           <div className="flex items-center gap-1.5">
-            <span className="w-3 h-3 rounded-full bg-[#00C8FF] inline-block shadow-[0_0_8px_#00C8FF]" />
+            <span className="w-2.5 h-2.5 rounded-full bg-[#00B8F0] inline-block" />
             <span className="text-slate-200 font-bold">Active Creator Hub</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <span className="w-5 h-0.5 bg-[#00C8FF] inline-block opacity-70" />
+            <span className="w-5 h-0.5 bg-[#00B8F0] inline-block opacity-70" />
             <span>Distribution Corridor</span>
           </div>
           <div className="flex items-center gap-1.5">
-            <span className="w-3 h-3 rounded bg-[#00C8FF]/20 border border-cyan-500 inline-block" />
+            <span className="w-3 h-3 rounded bg-[#00B8F0]/20 border border-[#00B8F0] inline-block" />
             <span>District Coverage</span>
           </div>
         </div>

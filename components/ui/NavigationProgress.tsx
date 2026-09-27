@@ -115,20 +115,20 @@ function NavigationProgressInner() {
       aria-hidden="true"
       className="fixed top-0 left-0 right-0 z-[9999] pointer-events-none"
     >
-      {/* Top glowing progress bar */}
+      {/* Top clean progress bar */}
       <div
-        className="h-[3px] bg-gradient-to-r from-[#00C8FF] via-[#009DFF] to-[#38BDF8] shadow-[0_0_12px_rgba(0,200,255,0.8),0_0_24px_rgba(0,157,255,0.5)] transition-all duration-200 ease-out"
+        className="h-[2px] bg-[#00B8F0] shadow-xs transition-all duration-200 ease-out"
         style={{
           width: `${progress}%`,
           opacity: visible ? 1 : 0,
         }}
       />
 
-      {/* Floating subtle glowing spinner indicator on longer loads */}
+      {/* Floating subtle spinner indicator on longer loads */}
       {loading && progress > 30 && (
-        <div className="fixed top-3.5 right-4 z-[9999] flex items-center gap-2 px-3 py-1 rounded-full bg-[#07111A]/90 border border-cyan-500/30 backdrop-blur-md shadow-[0_4px_20px_rgba(0,200,255,0.25)] animate-fade-in pointer-events-none">
-          <div className="w-3.5 h-3.5 rounded-full border-2 border-cyan-400 border-t-transparent animate-spin" />
-          <span className="text-[10px] font-mono font-bold tracking-wider text-[#00C8FF] uppercase">
+        <div className="fixed top-3.5 right-4 z-[9999] flex items-center gap-2 px-2.5 py-1 rounded-lg bg-[#0E131E]/95 border border-white/10 backdrop-blur-md shadow-md animate-fade-in pointer-events-none">
+          <div className="w-3 h-3 rounded-full border-2 border-[#00B8F0] border-t-transparent animate-spin" />
+          <span className="text-[10px] font-mono font-semibold tracking-wider text-slate-300 uppercase">
             Loading...
           </span>
         </div>
